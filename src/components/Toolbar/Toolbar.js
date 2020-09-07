@@ -3,9 +3,16 @@ import "./Toolbar.css";
 import { ToolItems } from "./ToolItems";
 
 class Toolbar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeItemIndex: 0
+    }
+  }
+
   handleClick = (index) => {
-    console.log(111);
-    ToolItems[index].isClicked = true;
+    this.setState({ activeItemIndex: index});
   };
 
   render() {
@@ -16,7 +23,7 @@ class Toolbar extends Component {
             return (
               <li
                 key={index}
-                className={item.isClicked ? "tool-links-clicked" : "tool-links"}
+                className={index === this.state.activeItemIndex ? "tool-links-clicked" : "tool-links"}
                 onClick={() => this.handleClick(index)}
               >
                 {item.title}
