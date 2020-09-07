@@ -1,0 +1,37 @@
+.tool-menu {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  border-bottom: solid;
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+.tool-links {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.tool-links:hover {
+  color: #116979;
+  transition: all 0.2s ease-out;
+}
+
+.tool-links-clicked {
+  color: orange;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
