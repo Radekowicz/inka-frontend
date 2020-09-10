@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import "./Navbar.css";
+import Toolbar from "../Toolbar/Toolbar";
 
 class Navbar extends Component {
   render() {
     return (
       <nav className="NavbarItems">
-        <h1 className="navbar-logo">
-          Denti
-          {/* <i className="fas fa-tooth"></i> */}
-        </h1>
+        <h1 className="navbar-logo">Denti</h1>
+        <Toolbar />
         <ul className="nav-menu">
           <li className="nav-links">
             <h className="nav-user">Krzysztof Hołowczyc</h>
