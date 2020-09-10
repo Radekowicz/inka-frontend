@@ -1,0 +1,16 @@
+
+$event-border-radius: 20px;
+$event-color: red;
+$cell-border: yellow;
+$today-highlight-bg: green;
+
+@import 'react-big-calendar/lib/sass/styles';
+@import 'react-big-calendar/lib/addons/dragAndDrop/styles';
+
+
+.date {
+  justify-self: start;
+  margin-left: 20px;
+  cursor: default;
+  font-size: 1.6rem;
+}
