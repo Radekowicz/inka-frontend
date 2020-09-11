@@ -7,7 +7,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Calbar />
+      <div className="Calendar">
+        <Calbar />
+      </div>
     </div>
   );
 }

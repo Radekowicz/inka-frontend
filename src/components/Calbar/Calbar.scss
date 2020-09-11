@@ -1,0 +1,61 @@
+@import "react-big-calendar/lib/sass/styles";
+@import "react-big-calendar/lib/addons/dragAndDrop/styles"; // if using DnD
+@import "react-big-calendar/lib/sass/toolbar";
+
+.rbc-today {
+  background-color: white;
+}
+
+.date {
+  justify-self: start;
+  margin-left: 20px;
+  cursor: default;
+  font-size: 1.6rem;
+}
+
+.rbc-btn-group > button {
+  color: black;
+  background-color: white;
+  padding: 20px;
+  border-style: none;
+  font-size: large;
+  outline: none;
+  border-radius: 0;
+}
+
+.rbc-btn-group > button:hover {
+  color: #18b0b0;
+  background-color: white;
+  border: none;
+}
+
+.rbc-active {
+  color: #18b0b0 !important;
+  background-color: white !important;
+  padding: 20px !important;
+  border-style: none !important;
+  font-size: large;
+  outline: none;
+}
+
+.rbc-active:focus {
+  color: #18b0b0 !important;
+  background-color: white !important;
+  padding: 20px !important;
+  border-style: none !important;
+  font-size: large;
+  outline: none;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  float: left;
+  font-size: x-large;
+  margin-left: 20px;
+}
+
+.rbc-btn-group:first-child > button {
+  display: none;
+}

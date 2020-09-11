@@ -2,5 +2,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Source Sans Pro", sans-serif;
+  /*   font-family: "Source Sans Pro", sans-serif;
+ */
+}
+
+.Calendar {
+  margin-right: 50%;
 }
