@@ -21,7 +21,7 @@ const messages = {
 };
 
 let formats = {
-  datFormat: "DD",
+  dateFormat: "DDD",
 };
 
 class Calbar extends Component {
