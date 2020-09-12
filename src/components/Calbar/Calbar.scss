@@ -1,6 +1,10 @@
+$current-time-color: orange;
+
 @import "react-big-calendar/lib/sass/styles";
 @import "react-big-calendar/lib/addons/dragAndDrop/styles"; // if using DnD
 @import "react-big-calendar/lib/sass/toolbar";
+@import "react-big-calendar/lib/sass/variables";
+@import "react-big-calendar/lib/sass/event";
 
 .rbc-today {
   background-color: white;
@@ -58,4 +62,8 @@
 
 .rbc-btn-group:first-child > button {
   display: none;
+}
+
+.rbc-event {
+  opacity: 0.6;
 }

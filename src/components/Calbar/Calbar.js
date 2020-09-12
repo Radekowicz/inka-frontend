@@ -21,7 +21,8 @@ const messages = {
 };
 
 let formats = {
-  dateFormat: "DDD",
+  dayHeaderFormat: "dddd, DD MMMM YYYY",
+  dayRangeHeaderFormat: "MMMM YYYY",
 };
 
 class Calbar extends Component {
@@ -43,6 +44,21 @@ class Calbar extends Component {
     };
   }
 
+  handleSelect = ({ start, end }) => {
+    const title = window.prompt("Nowa wizyta");
+    if (title)
+      this.setState({
+        events: [
+          ...this.state.events,
+          {
+            start,
+            end,
+            title,
+          },
+        ],
+      });
+  };
+
   render() {
     return (
       <div className="App">
@@ -56,6 +72,8 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
+          /*           onSelectEvent={(event) => alert(event.title)}
+           */ onSelectSlot={this.handleSelect}
         />
       </div>
     );
