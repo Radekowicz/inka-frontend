@@ -3,6 +3,7 @@ import "./Calbar.scss";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
+import EventInfo from "../EventInfo/EventInfo";
 
 const localizer = momentLocalizer(moment);
 
@@ -72,8 +73,8 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
-          /*           onSelectEvent={(event) => alert(event.title)}
-           */ onSelectSlot={this.handleSelect}
+          onSelectEvent={this.handleEventClick}
+          onSelectSlot={this.handleSelect}
         />
       </div>
     );
