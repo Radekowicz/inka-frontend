@@ -1,28 +1,21 @@
 import React, { Component } from "react";
 import "./EventInfo.css";
+import moment from "moment";
+import "moment/locale/pl";
 
 class EventInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      event: {
-        start: "asdas",
-        end: "asdasd",
-        title: "asdasd",
-      },
-    };
   }
-
-  handleEventClick = (event) => {
-    EventInfo.setState({
-      title: event.title,
-    });
-  };
 
   render() {
     return (
       <div className="EventInfo">
-        <h1>{this.state.event.title}</h1>
+        <h1>{this.props.event.title}</h1>
+        <h1>
+          Godzina wizyty:
+          {moment(this.props.event.start).format(" hh:mm").toLocaleString()}
+        </h1>
       </div>
     );
   }

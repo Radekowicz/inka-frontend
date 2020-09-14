@@ -45,6 +45,10 @@ class Calbar extends Component {
     };
   }
 
+  handleEventClick(event) {
+    this.props.handleEventClick(event);
+  }
+
   handleSelect = ({ start, end }) => {
     const title = window.prompt("Nowa wizyta");
     if (title)
@@ -73,8 +77,9 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
-          onSelectEvent={this.handleEventClick}
           onSelectSlot={this.handleSelect}
+          onSelectEvent={this.props.handleEventClick}
+          step={15}
         />
       </div>
     );
