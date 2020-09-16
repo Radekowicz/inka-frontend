@@ -3,7 +3,7 @@ import "./Calbar.scss";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
-import EventInfo from "../EventInfo/EventInfo";
+import MyEvent from "./MyEvent";
 
 const localizer = momentLocalizer(moment);
 
@@ -26,11 +26,6 @@ let formats = {
   dayRangeHeaderFormat: "MMMM YYYY",
 };
 
-let visit = {
-  name: "Konsultacja",
-  color: "pink",
-};
-
 class Calbar extends Component {
   constructor(props) {
     super(props);
@@ -40,12 +35,13 @@ class Calbar extends Component {
           start: moment().toDate(),
           end: moment().toDate(),
           title: "Some title",
-          patient: "Jan Kowalski",
+          name: "Some name",
         },
         {
           start: moment().toDate(),
           end: moment().toDate(),
           title: "Some title 2",
+          name: "Some name 2",
         },
       ],
     };
@@ -56,16 +52,8 @@ class Calbar extends Component {
   }
 
   handleSelect = ({ start, end }) => {
-    const titlee = window.prompt("Nowa wizyta");
-    const patient = window.prompt("asdasd");
-    const title = (props) => {
-      return (
-        <div>
-          {patient}
-          {titlee}
-        </div>
-      );
-    };
+    const title = window.prompt("Nowa wizyta title");
+    const name = window.prompt("Nowa wizyta name");
     if (title)
       this.setState({
         events: [
@@ -74,6 +62,7 @@ class Calbar extends Component {
             start,
             end,
             title,
+            name,
           },
         ],
       });
@@ -95,6 +84,9 @@ class Calbar extends Component {
           onSelectSlot={this.handleSelect}
           onSelectEvent={this.props.handleEventClick}
           step={15}
+          components={{
+            event: MyEvent,
+          }}
         />
       </div>
     );
