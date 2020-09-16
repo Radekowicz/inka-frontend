@@ -3,7 +3,7 @@ import "./Calbar.scss";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
-import MyEvent from "./MyEvent";
+import MyEvent from "./MyEvent/MyEvent";
 
 const localizer = momentLocalizer(moment);
 
@@ -32,16 +32,16 @@ class Calbar extends Component {
     this.state = {
       events: [
         {
-          start: moment().toDate(),
-          end: moment().toDate(),
-          title: "Some title",
-          name: "Some name",
+          start: new Date(new Date().setHours(new Date().getHours() - 1)),
+          end: new Date(new Date().setHours(new Date().getHours())),
+          title: "Analiza i planowanie leczenia",
+          name: "Jan Kowalski",
         },
         {
-          start: moment().toDate(),
-          end: moment().toDate(),
-          title: "Some title 2",
-          name: "Some name 2",
+          start: new Date(new Date().setHours(new Date().getHours() - 5)),
+          end: new Date(new Date().setHours(new Date().getHours() - 3)),
+          title: "Wizyta kontrolna z aparatem stałym",
+          name: "Andrzej Chcipupa",
         },
       ],
     };
@@ -68,6 +68,33 @@ class Calbar extends Component {
       });
   };
 
+  eventStyleGetter(event, start, end, isSelected) {
+    console.log(event);
+    var backgroundColor;
+    switch (event.title) {
+      case "Analiza i planowanie leczenia":
+        backgroundColor = "#f94144";
+        break;
+      case "Wizyta kontrolna z aparatem stałym":
+        backgroundColor = "#f9c74f";
+        break;
+      default:
+      // code block
+    }
+
+    var style = {
+      backgroundColor: backgroundColor,
+      borderRadius: "0px",
+      opacity: 0.5,
+      color: "black",
+      border: "0px",
+      display: "block",
+    };
+    return {
+      style: style,
+    };
+  }
+
   render() {
     return (
       <div className="App">
@@ -84,6 +111,7 @@ class Calbar extends Component {
           onSelectSlot={this.handleSelect}
           onSelectEvent={this.props.handleEventClick}
           step={15}
+          eventPropGetter={this.eventStyleGetter}
           components={{
             event: MyEvent,
           }}
