@@ -26,6 +26,11 @@ let formats = {
   dayRangeHeaderFormat: "MMMM YYYY",
 };
 
+let visit = {
+  name: "Konsultacja",
+  color: "pink",
+};
+
 class Calbar extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +40,7 @@ class Calbar extends Component {
           start: moment().toDate(),
           end: moment().toDate(),
           title: "Some title",
+          patient: "Jan Kowalski",
         },
         {
           start: moment().toDate(),
@@ -50,7 +56,16 @@ class Calbar extends Component {
   }
 
   handleSelect = ({ start, end }) => {
-    const title = window.prompt("Nowa wizyta");
+    const titlee = window.prompt("Nowa wizyta");
+    const patient = window.prompt("asdasd");
+    const title = (props) => {
+      return (
+        <div>
+          {patient}
+          {titlee}
+        </div>
+      );
+    };
     if (title)
       this.setState({
         events: [
@@ -72,7 +87,7 @@ class Calbar extends Component {
           defaultDate={new Date()}
           defaultView="day"
           events={this.state.events}
-          style={{ height: "100vh" }}
+          style={{ height: "calc(100vh - 70px)" }}
           messages={messages}
           selectable={true}
           views={["month", "week", "day"]}

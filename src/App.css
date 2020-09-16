@@ -2,18 +2,25 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /*   font-family: "Source Sans Pro", sans-serif;
- */
+}
+
+.Menu {
+  display: flex;
 }
 
 .Calendar {
-  margin-right: 50%;
-  margin-left: 20px;
+  flex: 0 0 50%;
+}
+
+.Info {
+  flex: 1;
 }
 
 .EventInfo {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 75%;
+  border: groove;
+  margin: 10px;
+}
+
+.PatientInfo {
+  margin: 10px;
 }

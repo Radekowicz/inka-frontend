@@ -3,15 +3,19 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Calbar from "./components/Calbar/Calbar";
 import EventInfo from "./components/EventInfo/EventInfo";
+import PatientInfo from "./components/PatientInfo/PatientInfo";
+
+import moment from "moment";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       event: {
-        start: "asdas",
-        end: "asdasd",
-        title: "asdasd",
+        start: moment().toDate(),
+        end: moment().toDate(),
+        title: "Wizyta kontrolna",
+        name: "Ethan Jones",
       },
     };
     this.handleEventClick = this.handleEventClick.bind(this);
@@ -27,12 +31,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <div className="Calendar">
-          <Calbar handleEventClick={this.handleEventClick} />
+        <div className="Navbar">
+          <Navbar />
         </div>
-        <div>
-          <EventInfo className="EventInfo" event={this.state.event} />
+        <div className="Menu">
+          <div className="Calendar">
+            <Calbar handleEventClick={this.handleEventClick} />
+          </div>
+          <div className="Info">
+            <div className="EventInfo">
+              <EventInfo event={this.state.event} />
+            </div>
+            <div className="PatientInfo">
+              <PatientInfo />
+            </div>
+          </div>
         </div>
       </div>
     );

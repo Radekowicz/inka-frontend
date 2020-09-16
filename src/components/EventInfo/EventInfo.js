@@ -11,11 +11,11 @@ class EventInfo extends Component {
   render() {
     return (
       <div className="EventInfo">
-        <h1>{this.props.event.title}</h1>
-        <h1>
+        <div>{this.props.event.title}</div>
+        <span>
           Godzina wizyty:
           {moment(this.props.event.start).format(" hh:mm").toLocaleString()}
-        </h1>
+        </span>
       </div>
     );
   }
