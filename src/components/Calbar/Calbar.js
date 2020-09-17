@@ -7,7 +7,7 @@ import MyEvent from "./MyEvent/MyEvent";
 import Select from "react-select";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import {Button} from "../Button";
+import { Button } from "../Button";
 
 const localizer = momentLocalizer(moment);
 
@@ -31,12 +31,14 @@ let formats = {
 };
 
 const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "konsultacja", label: "Konsultacja" },
+  { value: "wyciski", label: "Wyciski" },
+  { value: "analiza", label: "Analiza i planowanie leczenia" },
+  { value: "zalozenie-gora", label: "Założenie aparatu stałego góra" },
+  { value: "zalozenie-dol", label: "Założenie aparatu stałego dół" },
+  { value: "kontrolna-staly", label: "Wizyta kontrolna z aparatem stałym" },
+  { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
 ];
-
-const MyComponent = () => <Select options={options} />;
 
 class Calbar extends Component {
   constructor(props) {
@@ -56,17 +58,21 @@ class Calbar extends Component {
           name: "Andrzej Chcipupa",
         },
       ],
-      popupOpen: false
+      popupOpen: false,
+      selectedOption: null,
     };
   }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(selectedOption.label);
+  };
 
   handleEventClick(event) {
     this.props.handleEventClick(event);
   }
 
-  handleSelect = ({ start, end }) => {
-    const title = window.prompt("Nowa wizyta title");
-    const name = window.prompt(MyComponent());
+  handleSelect = ({ start, end }, title) => {
     if (title)
       this.setState({
         events: [
@@ -75,14 +81,12 @@ class Calbar extends Component {
             start,
             end,
             title,
-            name,
           },
         ],
       });
   };
 
   eventStyleGetter(event, start, end, isSelected) {
-    console.log(event);
     var backgroundColor;
     switch (event.title) {
       case "Analiza i planowanie leczenia":
@@ -127,7 +131,7 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
-          onSelectSlot={() => this.setState({popupOpen: true})}
+          onSelectSlot={() => this.setState({ popupOpen: true })}
           onSelectEvent={this.props.handleEventClick}
           step={15}
           eventPropGetter={this.eventStyleGetter}
@@ -139,8 +143,20 @@ class Calbar extends Component {
         <div className="ap">
           <Popup modal open={this.state.popupOpen}>
             Tralala
-            <Select options={options} />
-            <Button onClick={() => this.setState({popupOpen: false})}>Ok</Button>
+            <Select
+              value={this.selectedOption}
+              onChange={this.handleChange}
+              options={options}
+            />
+            <Button
+              onClick={() => {
+                this.setState({ popupOpen: false });
+                /*                 this.handleSelect(this.selectedOption.label);
+                 */
+              }}
+            >
+              Ok
+            </Button>
           </Popup>
         </div>
       </div>
