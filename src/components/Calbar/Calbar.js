@@ -4,6 +4,9 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
 import MyEvent from "./MyEvent/MyEvent";
+import Select from "react-select";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 const localizer = momentLocalizer(moment);
 
@@ -25,6 +28,14 @@ let formats = {
   dayHeaderFormat: "dddd, DD MMMM YYYY",
   dayRangeHeaderFormat: "MMMM YYYY",
 };
+
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
+
+const MyComponent = () => <Select options={options} />;
 
 class Calbar extends Component {
   constructor(props) {
@@ -53,7 +64,7 @@ class Calbar extends Component {
 
   handleSelect = ({ start, end }) => {
     const title = window.prompt("Nowa wizyta title");
-    const name = window.prompt("Nowa wizyta name");
+    const name = window.prompt(MyComponent());
     if (title)
       this.setState({
         events: [
@@ -78,6 +89,12 @@ class Calbar extends Component {
       case "Wizyta kontrolna z aparatem stałym":
         backgroundColor = "#f9c74f";
         break;
+      case "Wizyta kontrolna z aparatem stałym":
+        backgroundColor = "#f9c74f";
+        break;
+      case "Wizyta kontrolna z aparatem stałym":
+        backgroundColor = "#f9c74f";
+        break;
       default:
       // code block
     }
@@ -95,6 +112,17 @@ class Calbar extends Component {
     };
   }
 
+  pop = ({ start, end }) => {
+    return (
+      <div className="ap">
+        <h1>Create React Modal with 22 line of code </h1>
+        <Popup modal trigger={<button>Click Me</button>}>
+          {(close) => <Content close={close} />}
+        </Popup>
+      </div>
+    );
+  };
+
   render() {
     return (
       <div className="App">
@@ -108,7 +136,7 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
-          onSelectSlot={this.handleSelect}
+          onSelectSlot={this.pop}
           onSelectEvent={this.props.handleEventClick}
           step={15}
           eventPropGetter={this.eventStyleGetter}
