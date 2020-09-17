@@ -116,8 +116,10 @@ class Calbar extends Component {
     return (
       <div className="ap">
         <h1>Create React Modal with 22 line of code </h1>
-        <Popup modal trigger={<button>Click Me</button>}>
-          {(close) => <Content close={close} />}
+        <Popup modal trigger={this}>
+          {" "}
+          {/* XD */}
+          <Select options={options} />
         </Popup>
       </div>
     );
