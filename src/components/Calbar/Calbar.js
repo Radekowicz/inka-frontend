@@ -7,6 +7,7 @@ import MyEvent from "./MyEvent/MyEvent";
 import Select from "react-select";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import {Button} from "../Button";
 
 const localizer = momentLocalizer(moment);
 
@@ -55,6 +56,7 @@ class Calbar extends Component {
           name: "Andrzej Chcipupa",
         },
       ],
+      popupOpen: false
     };
   }
 
@@ -112,19 +114,6 @@ class Calbar extends Component {
     };
   }
 
-  pop = ({ start, end }) => {
-    return (
-      <div className="ap">
-        <h1>Create React Modal with 22 line of code </h1>
-        <Popup modal trigger={this}>
-          {" "}
-          {/* XD */}
-          <Select options={options} />
-        </Popup>
-      </div>
-    );
-  };
-
   render() {
     return (
       <div className="App">
@@ -138,7 +127,7 @@ class Calbar extends Component {
           selectable={true}
           views={["month", "week", "day"]}
           formats={formats}
-          onSelectSlot={this.pop}
+          onSelectSlot={() => this.setState({popupOpen: true})}
           onSelectEvent={this.props.handleEventClick}
           step={15}
           eventPropGetter={this.eventStyleGetter}
@@ -146,6 +135,14 @@ class Calbar extends Component {
             event: MyEvent,
           }}
         />
+
+        <div className="ap">
+          <Popup modal open={this.state.popupOpen}>
+            Tralala
+            <Select options={options} />
+            <Button onClick={() => this.setState({popupOpen: false})}>Ok</Button>
+          </Popup>
+        </div>
       </div>
     );
   }
