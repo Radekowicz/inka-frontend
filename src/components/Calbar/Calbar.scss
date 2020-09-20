@@ -67,3 +67,27 @@ $current-time-color: orange;
 .rbc-event {
   opacity: 0.6;
 }
+
+.name-input {
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 20px;
+  outline: none;
+  height: 25px;
+  width: 400px;
+  font-size: medium;
+  color: #444444;
+}
+
+.name-input-title {
+  font-size: medium;
+}
+
+.popup {
+  padding: 40px;
+}
+
+.input {
+  margin-bottom: 20px;
+}
