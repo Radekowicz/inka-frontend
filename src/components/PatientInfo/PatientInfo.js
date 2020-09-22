@@ -17,14 +17,13 @@ class PatientInfo extends Component {
 
   render() {
     return (
-      <div className="PatientInfo">
+      <div className="patient-info">
         <div className="patient">
           <div className="avatar">
             <i className="fas fa-user-circle" />
           </div>
           <div className="basic-info">
-            <div>Karen Marks</div>
-            <div>Wiek: 30 lat</div>
+            <div>Karen Marks (30)</div>
             <div>Rozpoczęcie lecznia: 22.03.2019</div>
           </div>
         </div>
@@ -32,7 +31,6 @@ class PatientInfo extends Component {
         <div className="more-info">
           <Detail title="Email" info="k.marks@gmail.com" />
           <Detail title="Telefon" info="603241826" />
-
           <Detail title="Adres" info="Piastowska 13B" />
         </div>
       </div>

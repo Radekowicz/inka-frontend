@@ -5,6 +5,7 @@ import moment from "moment";
 import "moment/locale/pl";
 import MyEvent from "./MyEvent/MyEvent";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { Button } from "../Button";
@@ -40,14 +41,21 @@ const options = [
   { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
 ];
 
+const patientOptions = [
+  { value: "jan_kowalski", label: "Jan Kowalski" },
+  { value: "marek-rogalski", label: "Marek Rogaliński" },
+  { value: "joanna-krem", label: "Joanna Krem" },
+  { value: "malogorzata-woda", label: "Małgorzata Woda" },
+  { value: "krystian-dolny", label: "Krystian Dolny" },
+  { value: "stanislaw-powolny", label: "Stanisław Powolny" },
+  { value: "juliusz-cezar", label: "Juliusz Cezar" },
+];
+
 const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    padding: 10,
-  }),
-  container: () => ({
-    // none of react-select's styles are passed to <Control />
-    width: 400,
+  control: (base, state) => ({
+    ...base,
+    height: "43px",
+    "min-height": "43px",
   }),
 };
 
@@ -73,28 +81,28 @@ class Calbar extends Component {
       selectedOption: null,
       start: null,
       end: null,
-      value: "",
+      nameValue: null,
     };
   }
 
   handleChangeSelect = (selectedOption) => {
     this.setState({ selectedOption });
-    console.log(selectedOption.label);
   };
 
-  handleChangeInput = (event) => {
-    this.setState({ value: event.target.value });
-    console.log(event.target.value);
+  handleValueChange = (newValue) => {
+    this.setState({ nameValue: newValue });
   };
 
   handleEventClick(event) {
     this.props.handleEventClick(event);
   }
 
-  handleSelect = (title, name) => {
-    const start = this.state.start;
-    const end = this.state.end;
-    if (title)
+  handleSelect = (titlee, namee) => {
+    if (titlee && namee) {
+      const start = this.state.start;
+      const end = this.state.end;
+      const title = titlee.label;
+      const name = namee.label;
       this.setState({
         events: [
           ...this.state.events,
@@ -106,6 +114,10 @@ class Calbar extends Component {
           },
         ],
       });
+    } else {
+      window.alert("Nie podano wszystkich danych");
+    }
+    this.setState({ selectedOption: null, value: null });
   };
 
   eventStyleGetter(event, start, end, isSelected) {
@@ -155,6 +167,9 @@ class Calbar extends Component {
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
+          scrollToTime={
+            new Date(new Date().setHours(new Date().getHours() - 3))
+          }
           defaultView="day"
           events={this.state.events}
           style={{ height: "calc(100vh - 70px)" }}
@@ -163,9 +178,7 @@ class Calbar extends Component {
           views={["month", "week", "day"]}
           formats={formats}
           onSelectSlot={({ start, end }) => {
-            this.setState({ popupOpen: true });
-            this.setState({ start: start });
-            this.setState({ end: end });
+            this.setState({ popupOpen: true, start: start, end: end });
           }}
           onSelectEvent={this.props.handleEventClick}
           step={15}
@@ -184,11 +197,12 @@ class Calbar extends Component {
             <div className="popup">
               <div className="input">
                 <label className="name-input-title">Imię pacjenta</label>
-                <input
-                  className="name-input"
-                  type="text"
-                  value={this.state.value}
-                  onChange={this.handleChangeInput}
+
+                <CreatableSelect
+                  isClearable
+                  onChange={this.handleValueChange}
+                  options={patientOptions}
+                  styles={customStyles}
                 />
               </div>
               <div>
@@ -200,20 +214,20 @@ class Calbar extends Component {
                   styles={customStyles}
                 />
               </div>
-
-              <Button
-                className="button"
-                onClick={() => {
-                  this.setState({ popupOpen: false });
-                  this.handleSelect(
-                    this.state.selectedOption.label,
-                    this.state.value
-                  );
-                  this.setState({ value: "" });
-                }}
-              >
-                Ok
-              </Button>
+              <div className="buttonn">
+                <Button
+                  className="button"
+                  onClick={() => {
+                    this.setState({ popupOpen: false });
+                    this.handleSelect(
+                      this.state.selectedOption,
+                      this.state.nameValue
+                    );
+                  }}
+                >
+                  Ok
+                </Button>
+              </div>
             </div>
           </Popup>
         </div>

@@ -10,7 +10,7 @@ class EventInfo extends Component {
 
   render() {
     return (
-      <div className="EventInfo">
+      <div className="event-info">
         <div>{this.props.event.title}</div>
         <span>
           Godzina wizyty:
