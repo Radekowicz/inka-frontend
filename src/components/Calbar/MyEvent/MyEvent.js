@@ -11,6 +11,7 @@ class MyEvent extends Component {
       <div className="event">
         <div>{this.props.event.title}</div>
         <div>{this.props.event.name}</div>
+        <div>Czerwiec 2019</div>
       </div>
     );
   }

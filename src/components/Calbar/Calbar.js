@@ -6,6 +6,7 @@ import "moment/locale/pl";
 import MyEvent from "./MyEvent/MyEvent";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
+import AsyncSelect from "react-select/async";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { Button } from "../Button";
@@ -41,7 +42,26 @@ const options = [
   { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
 ];
 
-const patientOptions = [
+// load options using API call
+const loadOptions = async () => {
+  const url = "http://localhost:4000/patients";
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("This is parsed data");
+  console.log(data);
+
+  const patients = [];
+  data.map((patient, index) => {
+    patients.push({
+      value: `${patient.first_name.toLowerCase()}-${patient.last_name.toLowerCase()}`,
+      label: `${patient.first_name} ${patient.last_name}`,
+    });
+  });
+
+  this.setState({ patientOptions: patients });
+};
+
+/* const patientOptions = [
   { value: "jan_kowalski", label: "Jan Kowalski" },
   { value: "marek-rogalski", label: "Marek Rogaliński" },
   { value: "joanna-krem", label: "Joanna Krem" },
@@ -49,7 +69,7 @@ const patientOptions = [
   { value: "krystian-dolny", label: "Krystian Dolny" },
   { value: "stanislaw-powolny", label: "Stanisław Powolny" },
   { value: "juliusz-cezar", label: "Juliusz Cezar" },
-];
+]; */
 
 const customStyles = {
   control: (base, state) => ({
@@ -79,10 +99,16 @@ class Calbar extends Component {
       ],
       popupOpen: false,
       selectedOption: null,
+      patientOptions: [],
       start: null,
       end: null,
       nameValue: null,
     };
+    loadOptions();
+  }
+
+  componentDidMount() {
+    loadOptions();
   }
 
   handleChangeSelect = (selectedOption) => {
@@ -198,10 +224,10 @@ class Calbar extends Component {
               <div className="input">
                 <label className="name-input-title">Imię pacjenta</label>
 
-                <CreatableSelect
+                <Select
                   isClearable
                   onChange={this.handleValueChange}
-                  options={patientOptions}
+                  options={this.state.patientOptions}
                   styles={customStyles}
                 />
               </div>
