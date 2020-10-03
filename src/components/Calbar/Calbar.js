@@ -42,35 +42,6 @@ const options = [
   { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
 ];
 
-// load options using API call
-const loadOptions = async () => {
-  const url = "http://localhost:4000/patients";
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("This is parsed data");
-  console.log(data);
-
-  const patients = [];
-  data.map((patient, index) => {
-    patients.push({
-      value: `${patient.first_name.toLowerCase()}-${patient.last_name.toLowerCase()}`,
-      label: `${patient.first_name} ${patient.last_name}`,
-    });
-  });
-
-  this.setState({ patientOptions: patients });
-};
-
-/* const patientOptions = [
-  { value: "jan_kowalski", label: "Jan Kowalski" },
-  { value: "marek-rogalski", label: "Marek Rogaliński" },
-  { value: "joanna-krem", label: "Joanna Krem" },
-  { value: "malogorzata-woda", label: "Małgorzata Woda" },
-  { value: "krystian-dolny", label: "Krystian Dolny" },
-  { value: "stanislaw-powolny", label: "Stanisław Powolny" },
-  { value: "juliusz-cezar", label: "Juliusz Cezar" },
-]; */
-
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -104,12 +75,25 @@ class Calbar extends Component {
       end: null,
       nameValue: null,
     };
-    loadOptions();
+    this.loadOptions();
   }
 
-  componentDidMount() {
-    loadOptions();
-  }
+  // load options using API call
+  loadOptions = async () => {
+    const url = "http://localhost:4000/patients";
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const patients = [];
+    data.map((patient, index) => {
+      patients.push({
+        value: `${patient.first_name.toLowerCase()}-${patient.last_name.toLowerCase()}`,
+        label: `${patient.first_name} ${patient.last_name}`,
+      });
+    });
+
+    this.setState({ patientOptions: patients });
+  };
 
   handleChangeSelect = (selectedOption) => {
     this.setState({ selectedOption });
