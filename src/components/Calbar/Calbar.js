@@ -74,8 +74,8 @@ class Calbar extends Component {
     const response = await fetch("/patients");
     const data = await response.json();
     const patients = data.map((patient, index) => ({
-        value: `${patient._id}`,
-        label: `${patient.firstName} ${patient.lastName}`,
+      value: `${patient._id}`,
+      label: `${patient.firstName} ${patient.lastName}`,
     }));
     this.setState({ patientOptions: patients });
   };
@@ -84,12 +84,31 @@ class Calbar extends Component {
     const response = await fetch("/appointments");
     const data = await response.json();
     const appointments = data.map((appointment, index) => ({
+      id: appointment._id,
       start: new Date(appointment.startDate),
       end: new Date(appointment.endDate),
-      title: options.find(x => x.value === appointment.title).label,
+      title: options.find((x) => x.value === appointment.title).label,
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
     }));
     this.setState({ events: appointments });
+  };
+
+  deleteAppointment = async () => {
+    const selectedEvent = this.props.event;
+    console.log(selectedEvent);
+
+    await fetch(`/appointment/${selectedEvent.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+  };
+
+  handleDeleteClick = async () => {
+    this.props.deleteAppointment();
   };
 
   handleChangeSelect = (selectedOption) => {
@@ -109,15 +128,15 @@ class Calbar extends Component {
       await fetch("/appointments", {
         method: "POST",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           startDate: this.state.start,
           endDate: this.state.end,
           title: title.value,
           patient: patient.value,
-        })
+        }),
       });
       this.loadAppointments();
     } else {

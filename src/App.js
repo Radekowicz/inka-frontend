@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Calbar from "./components/Calbar/Calbar";
 import EventInfo from "./components/EventInfo/EventInfo";
 import PatientInfo from "./components/PatientInfo/PatientInfo";
+import { Button } from "./components/Button";
 
 import moment from "moment";
 
@@ -12,13 +13,15 @@ class App extends Component {
     super(props);
     this.state = {
       event: {
-        start: moment().toDate(),
-        end: moment().toDate(),
+        id: "123",
+        startDate: moment().toDate(),
+        endDate: moment().toDate(),
         title: "Wizyta kontrolna",
-        name: "Ethan Jones",
+        patient: "Ethan Jones",
       },
     };
     this.handleEventClick = this.handleEventClick.bind(this);
+    this.deleteAppointment = this.deleteAppointment.bind(this);
   }
 
   handleEventClick = (event) => {
@@ -28,6 +31,8 @@ class App extends Component {
     });
   };
 
+  deleteAppointment = () => {};
+
   render() {
     return (
       <div className="App">
@@ -36,7 +41,10 @@ class App extends Component {
         </div>
         <div className="Menu">
           <div className="Calendar">
-            <Calbar handleEventClick={this.handleEventClick} />
+            <Calbar
+              handleEventClick={this.handleEventClick}
+              handleDeleteClick={this.deleteAppointment}
+            />
           </div>
           <div className="Info">
             <div className="EventInfo">
@@ -44,6 +52,9 @@ class App extends Component {
             </div>
             <div className="PatientInfo">
               <PatientInfo />
+            </div>
+            <div className="DeleteEventButton">
+              <Button onClick={this.deleteAppointment}>Usuń wizytę</Button>
             </div>
           </div>
         </div>
