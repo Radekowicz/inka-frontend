@@ -93,20 +93,6 @@ class Calbar extends Component {
     this.setState({ events: appointments });
   };
 
-  deleteAppointment = async () => {
-    const selectedEvent = this.props.event;
-    console.log(selectedEvent);
-
-    await fetch(`/appointment/${selectedEvent.id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
-  };
-
   handleDeleteClick = async () => {
     this.props.deleteAppointment();
   };

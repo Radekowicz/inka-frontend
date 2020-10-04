@@ -31,8 +31,19 @@ class App extends Component {
     });
   };
 
-  deleteAppointment = () => {};
+  deleteAppointment = async () => {
+    const selectedEvent = this.state.event;
+    console.log(selectedEvent.id);
 
+    await fetch(`/appointment/${selectedEvent.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+  };
   render() {
     return (
       <div className="App">
