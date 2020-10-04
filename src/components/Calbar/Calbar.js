@@ -32,16 +32,6 @@ let formats = {
   dayRangeHeaderFormat: "MMMM YYYY",
 };
 
-const options = [
-  { value: "konsultacja", label: "Konsultacja" },
-  { value: "wyciski", label: "Wyciski" },
-  { value: "analiza", label: "Analiza i planowanie leczenia" },
-  { value: "zalozenie-gora", label: "Założenie aparatu stałego góra" },
-  { value: "zalozenie-dol", label: "Założenie aparatu stałego dół" },
-  { value: "kontrolna-staly", label: "Wizyta kontrolna z aparatem stałym" },
-  { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
-];
-
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -54,7 +44,6 @@ class Calbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [],
       popupOpen: false,
       selectedOption: null,
       patientOptions: [],
@@ -65,8 +54,6 @@ class Calbar extends Component {
 
     this.loadOptions();
     this.loadAppointments();
-
-    this.loadAppointments = this.loadAppointments.bind(this);
   }
 
   // load options using API call
@@ -81,16 +68,7 @@ class Calbar extends Component {
   };
 
   loadAppointments = async () => {
-    const response = await fetch("/appointments");
-    const data = await response.json();
-    const appointments = data.map((appointment, index) => ({
-      id: appointment._id,
-      start: new Date(appointment.startDate),
-      end: new Date(appointment.endDate),
-      title: options.find((x) => x.value === appointment.title).label,
-      name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
-    }));
-    this.setState({ events: appointments });
+    this.props.loadAppointments();
   };
 
   handleDeleteClick = async () => {
@@ -182,7 +160,7 @@ class Calbar extends Component {
             new Date(new Date().setHours(new Date().getHours() - 3))
           }
           defaultView="day"
-          events={this.state.events}
+          events={this.props.events}
           style={{ height: "calc(100vh - 70px)" }}
           messages={messages}
           selectable={true}
@@ -221,7 +199,7 @@ class Calbar extends Component {
                 <Select
                   value={this.selectedOption}
                   onChange={this.handleChangeSelect}
-                  options={options}
+                  options={this.props.options}
                   styles={customStyles}
                 />
               </div>
