@@ -24,22 +24,55 @@ class App extends Component {
     this.state = {
       selectedEvent: {
         id: "123",
-        startDate: moment().toDate(),
-        endDate: moment().toDate(),
+        start: moment().toDate(),
+        end: moment().toDate(),
         title: "Wizyta kontrolna",
-        patient: "Ethan Jones",
+        name: "Ethan Jones",
+        patient: null,
+      },
+      selectedPatient: {
+        id: "123",
+        firstName: "Jon",
+        lastName: "Snow",
+        birthdate: Date.now(),
+        firstAppointment: Date.now(),
+        email: "bla@.com",
+        phoneNumber: "123456789",
+        address: "Asa",
       },
       events: [],
     };
     this.handleEventClick = this.handleEventClick.bind(this);
-    this.deleteAppointment = this.deleteAppointment.bind(this);
   }
 
   handleEventClick = (event) => {
-    console.log(event);
-    this.setState({
-      selectedEvent: event,
-    });
+    this.setState(
+      {
+        selectedEvent: event,
+      },
+      () => {
+        this.loadPatient();
+      }
+    );
+  };
+
+  loadPatient = async () => {
+    const selectedEvent = this.state.selectedEvent;
+    if (selectedEvent) {
+      const patient = selectedEvent.patient;
+      this.setState({
+        selectedPatient: {
+          id: patient._id,
+          firstName: patient.firstName,
+          lastName: patient.lastName,
+          birthdate: patient.birthdate,
+          firstAppointment: patient.firstAppointment,
+          email: patient.email,
+          phoneNumber: patient.phoneNumber,
+          address: patient.address,
+        },
+      });
+    }
   };
 
   loadAppointments = async () => {
@@ -51,6 +84,7 @@ class App extends Component {
       end: new Date(appointment.endDate),
       title: options.find((x) => x.value === appointment.title).label,
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
+      patient: appointment.patient,
     }));
     this.setState({ events: appointments });
   };
@@ -91,7 +125,7 @@ class App extends Component {
               <EventInfo event={this.state.selectedEvent} />
             </div>
             <div className="PatientInfo">
-              <PatientInfo />
+              <PatientInfo patient={this.state.selectedPatient} />
             </div>
             <div className="DeleteEventButton">
               <Button onClick={this.deleteAppointment}>Usuń wizytę</Button>

@@ -71,10 +71,6 @@ class Calbar extends Component {
     this.props.loadAppointments();
   };
 
-  handleDeleteClick = async () => {
-    this.props.deleteAppointment();
-  };
-
   handleChangeSelect = (selectedOption) => {
     this.setState({ selectedOption });
   };
