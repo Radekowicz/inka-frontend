@@ -54,45 +54,42 @@ class Calbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [
-        {
-          start: new Date(new Date().setHours(new Date().getHours() - 1)),
-          end: new Date(new Date().setHours(new Date().getHours())),
-          title: "Analiza i planowanie leczenia",
-          name: "Jan Kowalski",
-        },
-        {
-          start: new Date(new Date().setHours(new Date().getHours() - 5)),
-          end: new Date(new Date().setHours(new Date().getHours() - 3)),
-          title: "Wizyta kontrolna z aparatem stałym",
-          name: "Andrzej Chcipupa",
-        },
-      ],
+      events: [],
       popupOpen: false,
       selectedOption: null,
       patientOptions: [],
       start: null,
       end: null,
-      nameValue: null,
+      patientValue: null,
     };
+
     this.loadOptions();
+    this.loadAppointments();
+
+    this.loadAppointments = this.loadAppointments.bind(this);
   }
 
   // load options using API call
   loadOptions = async () => {
-    const url = "http://localhost:4000/patients";
-    const response = await fetch(url);
+    const response = await fetch("/patients");
     const data = await response.json();
-
-    const patients = [];
-    data.map((patient, index) => {
-      patients.push({
-        value: `${patient.first_name.toLowerCase()}-${patient.last_name.toLowerCase()}`,
-        label: `${patient.first_name} ${patient.last_name}`,
-      });
-    });
-
+    const patients = data.map((patient, index) => ({
+        value: `${patient._id}`,
+        label: `${patient.firstName} ${patient.lastName}`,
+    }));
     this.setState({ patientOptions: patients });
+  };
+
+  loadAppointments = async () => {
+    const response = await fetch("/appointments");
+    const data = await response.json();
+    const appointments = data.map((appointment, index) => ({
+      start: new Date(appointment.startDate),
+      end: new Date(appointment.endDate),
+      title: options.find(x => x.value === appointment.title).label,
+      name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
+    }));
+    this.setState({ events: appointments });
   };
 
   handleChangeSelect = (selectedOption) => {
@@ -100,30 +97,29 @@ class Calbar extends Component {
   };
 
   handleValueChange = (newValue) => {
-    this.setState({ nameValue: newValue });
+    this.setState({ patientValue: newValue });
   };
 
   handleEventClick(event) {
     this.props.handleEventClick(event);
   }
 
-  handleSelect = (titlee, namee) => {
-    if (titlee && namee) {
-      const start = this.state.start;
-      const end = this.state.end;
-      const title = titlee.label;
-      const name = namee.label;
-      this.setState({
-        events: [
-          ...this.state.events,
-          {
-            start,
-            end,
-            title,
-            name,
-          },
-        ],
+  handleSelect = async (title, patient) => {
+    if (title && patient) {
+      await fetch("/appointments", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          startDate: this.state.start,
+          endDate: this.state.end,
+          title: title.value,
+          patient: patient.value,
+        })
       });
+      this.loadAppointments();
     } else {
       window.alert("Nie podano wszystkich danych");
     }
@@ -231,7 +227,7 @@ class Calbar extends Component {
                     this.setState({ popupOpen: false });
                     this.handleSelect(
                       this.state.selectedOption,
-                      this.state.nameValue
+                      this.state.patientValue
                     );
                   }}
                 >
