@@ -5,8 +5,6 @@ import moment from "moment";
 import "moment/locale/pl";
 import MyEvent from "./MyEvent/MyEvent";
 import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
-import AsyncSelect from "react-select/async";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { Button } from "../../Button/Button";

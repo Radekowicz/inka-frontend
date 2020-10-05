@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./MyEvent.css";
+import moment from "moment";
+import "moment/locale/pl";
 
 class MyEvent extends Component {
   constructor(props) {
@@ -11,7 +13,9 @@ class MyEvent extends Component {
       <div className="event">
         <div>{this.props.event.title}</div>
         <div>{this.props.event.name}</div>
-        <div>Czerwiec 2019</div>
+        <div>
+          {moment(this.props.event.patient.firstAppointment).format("MM/YYYY")}
+        </div>
       </div>
     );
   }

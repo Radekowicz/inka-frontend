@@ -17,6 +17,11 @@ class PatientInfo extends Component {
     super(props);
   }
 
+  calcAge(dateString) {
+    var birthday = +new Date(dateString);
+    return ~~((Date.now() - birthday) / 31557600000);
+  }
+
   render() {
     return (
       <div className="patient-info">
@@ -26,7 +31,8 @@ class PatientInfo extends Component {
           </div>
           <div className="basic-info">
             <div>
-              {this.props.patient.firstName} {this.props.patient.lastName}
+              {this.props.patient.firstName} {this.props.patient.lastName} (
+              {this.calcAge(this.props.patient.birthdate)})
             </div>
             <div>
               Rozpoczęcie lecznia:{" "}
