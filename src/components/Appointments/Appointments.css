@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Menu {
+  display: flex;
+}
+
+.Calendar {
+  flex: 0 0 50%;
+}
+
+.Info {
+  flex: 1;
+}
+
+.EventInfo {
+  border: groove;
+  margin: 10px;
+}
+
+.PatientInfo {
+  margin: 10px;
+}
+
+.DeleteEventButton {
+  margin: 10px;
+}

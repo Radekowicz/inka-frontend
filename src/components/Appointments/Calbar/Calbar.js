@@ -9,7 +9,7 @@ import CreatableSelect from "react-select/creatable";
 import AsyncSelect from "react-select/async";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { Button } from "../Button";
+import { Button } from "../../Button/Button";
 
 const localizer = momentLocalizer(moment);
 
