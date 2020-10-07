@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Component } from "react";
 import "./Appointments.css";
-import Navbar from "../Navbar/Navbar";
 import Calbar from "./Calbar/Calbar";
 import EventInfo from "./EventInfo/EventInfo";
 import PatientInfo from ".//PatientInfo/PatientInfo";
@@ -107,9 +106,6 @@ class Appointments extends Component {
   render() {
     return (
       <div className="App">
-        <div className="Navbar">
-          <Navbar />
-        </div>
         <div className="Menu">
           <div className="Calendar">
             <Calbar

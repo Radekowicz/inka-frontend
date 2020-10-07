@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import "./Toolbar.css";
 import { ToolItems } from "./ToolItems";
+import { Link } from "react-router-dom";
 
 class Toolbar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      activeItemIndex: 0
-    }
+      activeItemIndex: 0,
+    };
   }
 
   handleClick = (index) => {
-    this.setState({ activeItemIndex: index});
+    this.setState({ activeItemIndex: index });
   };
 
   render() {
@@ -21,13 +21,18 @@ class Toolbar extends Component {
         <ul className="tool-menu">
           {ToolItems.map((item, index) => {
             return (
-              <li
-                key={index}
-                className={index === this.state.activeItemIndex ? "tool-links-clicked" : "tool-links"}
-                onClick={() => this.handleClick(index)}
+              <Link
+                to={item.url}
+                className={
+                  index === this.state.activeItemIndex
+                    ? "tool-links-clicked"
+                    : "tool-links"
+                }
               >
-                {item.title}
-              </li>
+                <li key={index} onClick={() => this.handleClick(index)}>
+                  {item.title}
+                </li>
+              </Link>
             );
           })}
         </ul>

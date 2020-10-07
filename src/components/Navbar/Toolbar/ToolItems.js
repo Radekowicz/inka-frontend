@@ -1,17 +1,17 @@
 export const ToolItems = [
   {
     title: "Wizyty",
-    url: "#",
+    url: "/appointmentss",
     cName: "tool-links",
   },
   {
     title: "Pacjenci",
-    url: "#",
+    url: "/patientss",
     cName: "tool-links",
   },
   {
     title: "Przypomnienia",
-    url: "#",
+    url: "/reminders",
     cName: "tool-links",
   },
 ];
