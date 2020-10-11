@@ -114,6 +114,7 @@ class Patients extends Component {
   };
 
   render() {
+    console.log("open", this.state.popupOpen);
     return (
       <div className="Patients">
         <BootstrapTable
@@ -132,6 +133,7 @@ class Patients extends Component {
           <Popup
             modal
             open={this.state.popupOpen}
+            onClose={() => this.setState({ popupOpen: false })}
             contentStyle={{ width: "488px" }}
           >
             <InputPage getPatient={this.getPatient.bind(this)} />

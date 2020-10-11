@@ -164,7 +164,6 @@ class Calbar extends Component {
             this.setState({ popupOpen: true, start: start, end: end });
           }}
           onSelectEvent={this.props.handleEventClick}
-          step={15}
           eventPropGetter={this.eventStyleGetter}
           components={{
             event: MyEvent,
@@ -175,6 +174,7 @@ class Calbar extends Component {
           <Popup
             modal
             open={this.state.popupOpen}
+            onClose={() => this.setState({ popupOpen: false })}
             contentStyle={{ width: "488px" }}
           >
             <div className="popup">

@@ -77,6 +77,7 @@ class Appointments extends Component {
   loadAppointments = async () => {
     const response = await fetch("/appointments");
     const data = await response.json();
+    console.log(data);
     const appointments = data.map((appointment, index) => ({
       id: appointment._id,
       start: new Date(appointment.startDate),
