@@ -42,7 +42,6 @@ class Patients extends Component {
       address: patient.address,
     }));
     this.setState({ patients: patients });
-    console.log(this.state.patients);
   };
 
   columns = [
@@ -114,14 +113,29 @@ class Patients extends Component {
   };
 
   render() {
-    console.log("open", this.state.popupOpen);
     return (
       <div className="Patients">
-        <BootstrapTable
+        {/* <BootstrapTable
           keyField="id"
           data={this.state.patients}
           columns={this.columns}
-        />
+        /> */}
+
+        <table className="PatientsTable">
+          <thead>
+            <tr>
+              {this.columns.map(column => <td className="PatientsTableHeaderCell">{column.text}</td>)}
+            </tr>
+          </thead>
+          <tbody>
+              {this.state.patients.map(patient => (
+                <tr>
+                  {this.columns.map(column => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
+                </tr>
+              ))}
+          </tbody>
+        </table>
+
         <Button
           onClick={() => {
             this.setState({ popupOpen: true });

@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import "./Toolbar.css";
 import { ToolItems } from "./ToolItems";
 import { Link } from "react-router-dom";
+import {withRouter} from 'react-router-dom';
+
 
 class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItemIndex: 0,
+      activeItemIndex: ToolItems.findIndex(item => item.url === this.props.location.pathname),
     };
   }
 
@@ -41,4 +43,4 @@ class Toolbar extends Component {
   }
 }
 
-export default Toolbar;
+export default withRouter(Toolbar);

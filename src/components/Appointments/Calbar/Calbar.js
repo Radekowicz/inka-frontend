@@ -11,10 +11,66 @@ import { Button } from "../../Button/Button";
 
 const localizer = momentLocalizer(moment);
 
+const CustomToolbar = (toolbar) => {
+  const goToBack = () => {
+    toolbar.date.setMonth(toolbar.date.getMonth() - 1);
+    toolbar.onNavigate('prev');
+  };
+
+  const goToNext = () => {
+    toolbar.date.setMonth(toolbar.date.getMonth() + 1);
+    toolbar.onNavigate('next');
+  };
+
+  const goToCurrent = () => {
+    const now = new Date();
+    toolbar.date.setMonth(now.getMonth());
+    toolbar.date.setYear(now.getFullYear());
+    toolbar.onNavigate('current');
+  };
+
+  const label = () => {
+    const date = moment(toolbar.date);
+    return (
+      <span>{date.format('dddd, DD MMMM YYYY')}</span>
+    );
+  };
+
+  const goToMonthView = () => {
+    toolbar.onView('month');
+  };
+
+  const goToWeekView = () => {
+    toolbar.onView('week');
+  };
+
+  const goToDayView = () => {
+    toolbar.onView('day');
+  };
+
+  return (
+    <div className="toolbar-container">
+      <div className="label-date-container">
+        <label className="label-date">{label()}</label>
+      </div>
+      <div className="navigate-btn-container">
+        <button className="navigate-btn" onClick={goToBack}>&#8249;</button>
+        <button className="navigate-btn" onClick={goToCurrent}>Dziś</button>
+        <button className="navigate-btn" onClick={goToNext}>&#8250;</button>
+      </div>
+      <div className="day-week-month-container"> 
+      <button className="navigate-btn day-week-month" onClick={goToMonthView}>Miesiąc</button>
+      <button className="navigate-btn day-week-month" onClick={goToWeekView}>Tydzień</button>
+      <button className="navigate-btn day-week-month" onClick={goToDayView}>Dzień</button>
+      </div>
+    </div >
+  );
+};
+
 const messages = {
   allDay: "Cały dzień",
-  previous: "Wczoraj",
-  next: "Jutro",
+  previous: "<",
+  next: ">",
   today: "Dzisiaj",
   month: "Miesiąc",
   week: "Tydzień",
@@ -155,7 +211,7 @@ class Calbar extends Component {
           }
           defaultView="day"
           events={this.props.events}
-          style={{ height: "calc(100vh - 70px)" }}
+          style={{ height: "calc(100vh - 50px)" }}
           messages={messages}
           selectable={true}
           views={["month", "week", "day"]}
@@ -167,7 +223,9 @@ class Calbar extends Component {
           eventPropGetter={this.eventStyleGetter}
           components={{
             event: MyEvent,
+            toolbar: CustomToolbar
           }}
+          
         />
 
         <div>

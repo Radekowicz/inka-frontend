@@ -27,7 +27,7 @@ class PatientInfo extends Component {
       <div className="patient-info">
         <div className="patient">
           <div className="avatar">
-            <i className="fas fa-user-circle" />
+            <i className="fas fa-user-circle patient-image" />
           </div>
           <div className="basic-info">
             <div>

@@ -19,13 +19,13 @@
   display: flex;
 }
 
-.fa-user-circle {
-  font-size: 2.5rem;
+.patient-image {
+  font-size: 1.8rem;
   margin-right: 10px;
 }
 
 .detail {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: normal;
   margin: 5px 30px 5px 0px;
 }
@@ -35,7 +35,7 @@
 }
 
 .detail-info {
-  color: #26b0b0;
+  color: lightgray;
 }
 
 .avatar {

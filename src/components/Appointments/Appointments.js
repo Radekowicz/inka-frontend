@@ -77,7 +77,6 @@ class Appointments extends Component {
   loadAppointments = async () => {
     const response = await fetch("/appointments");
     const data = await response.json();
-    console.log(data);
     const appointments = data.map((appointment, index) => ({
       id: appointment._id,
       start: new Date(appointment.startDate),
@@ -91,7 +90,6 @@ class Appointments extends Component {
 
   deleteAppointment = async () => {
     const selectedEvent = this.state.selectedEvent;
-    console.log(selectedEvent.id);
 
     await fetch(`appointments/${selectedEvent.id}`, {
       method: "DELETE",
@@ -118,11 +116,11 @@ class Appointments extends Component {
             />
           </div>
           <div className="Info">
-            <div className="EventInfo">
-              <EventInfo event={this.state.selectedEvent} />
-            </div>
             <div className="PatientInfo">
               <PatientInfo patient={this.state.selectedPatient} />
+            </div>
+            <div className="EventInfo">
+              <EventInfo event={this.state.selectedEvent} />
             </div>
             <div className="DeleteEventButton">
               <Button onClick={this.deleteAppointment}>Usuń wizytę</Button>

@@ -14,7 +14,8 @@ class Navbar extends Component {
             <i className="fas fa-user-circle"></i>
           </li>
           <li className="nav-links">
-            <i className="fas fa-bell"></i>
+  
+            <i className="fas fa-bell user-logo"></i>
           </li>
         </ul>
         {/* <Button>Sign Up</Button> */}
