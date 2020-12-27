@@ -24,9 +24,21 @@ class Patients extends Component {
         address: "Asa",
       },
       popupOpen: false,
+      input: '',
+      filteredPatients: [],
     };
     this.loadPatients();
+    
   }
+
+  updateInput = async (input) => {
+    const filtered = this.state.patients.filter(patient => {
+     return patient.firstName.toLowerCase().includes(input.toString().toLowerCase()) || 
+     patient.lastName.toLowerCase().includes(input.toString().toLowerCase())
+    })
+    this.setState({ input: input });
+    this.setState({ filteredPatients: filtered });
+ }
 
   loadPatients = async () => {
     const response = await fetch("/patients");
@@ -42,6 +54,7 @@ class Patients extends Component {
       address: patient.address,
     }));
     this.setState({ patients: patients });
+    this.setState({ filteredPatients: patients})
   };
 
   columns = [
@@ -115,11 +128,26 @@ class Patients extends Component {
   render() {
     return (
       <div className="Patients">
-        {/* <BootstrapTable
-          keyField="id"
-          data={this.state.patients}
-          columns={this.columns}
-        /> */}
+        <div className="patients-toolbar">
+          <div className="search-bar-container">
+            <input className="search-bar"
+            key="random1"
+            value={this.state.input}
+            placeholder={"szukaj..."}
+            onChange={({target:{value}}) => this.updateInput(value)}
+            />
+          </div>
+          <div className="popup-btn">
+            <Button
+              onClick={() => {
+                this.setState({ popupOpen: true });
+              }}
+            >
+              Dodaj pacjenta
+            </Button>
+          </div>
+        </div>
+
 
         <table className="PatientsTable">
           <thead>
@@ -128,21 +156,13 @@ class Patients extends Component {
             </tr>
           </thead>
           <tbody>
-              {this.state.patients.map(patient => (
+              {this.state.filteredPatients.map(patient => (
                 <tr>
                   {this.columns.map(column => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
                 </tr>
               ))}
           </tbody>
         </table>
-
-        <Button
-          onClick={() => {
-            this.setState({ popupOpen: true });
-          }}
-        >
-          Dodaj pacjenta
-        </Button>
         <div>
           <Popup
             modal
