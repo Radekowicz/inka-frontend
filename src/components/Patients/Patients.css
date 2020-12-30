@@ -43,3 +43,11 @@
   padding: 0.6rem;
   align-content: center;
 }
+
+.visit-row {
+  border: 1px solid lightgray;
+}
+
+.visit-component {
+  padding: 20px;
+}

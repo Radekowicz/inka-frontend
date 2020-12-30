@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./Patients.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import moment from "moment";
@@ -8,6 +8,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "../Button/Button";
 import Popup from "reactjs-popup";
 import InputPage from "./InputPage";
+import { FaAngleDown, FaAngleRight } from "react-icons/fa";
+
 
 class Patients extends Component {
   constructor(props) {
@@ -26,9 +28,21 @@ class Patients extends Component {
       popupOpen: false,
       input: '',
       filteredPatients: [],
+      isExpanded: [false, true, false],
     };
-    this.loadPatients();
-    
+  }
+
+  componentDidMount() {
+    this.loadPatients()
+  }
+
+  setExpanded = () => {
+    let arr = []
+    this.state.patients.forEach(element => {
+      arr.push(false)
+    });
+    console.log(arr)
+    this.setState({ isExpanded: arr})
   }
 
   updateInput = async (input) => {
@@ -125,6 +139,21 @@ class Patients extends Component {
     }));
   };
 
+  onRowClick = (index) => {
+    var arr = this.state.isExpanded
+    arr[index] === true ? arr[index] = false : arr[index] = true
+    this.setState({isExpanded: arr})
+  }
+
+  Visit = () => {
+    return (
+    <div className="visit-component">
+      <h1>Delate wizyty</h1>
+      
+    </div>
+    )
+  }
+
   render() {
     return (
       <div className="Patients">
@@ -148,21 +177,31 @@ class Patients extends Component {
           </div>
         </div>
 
-
         <table className="PatientsTable">
           <thead>
             <tr>
+              <td></td>
               {this.columns.map(column => <td className="PatientsTableHeaderCell">{column.text}</td>)}
             </tr>
           </thead>
           <tbody>
-              {this.state.filteredPatients.map(patient => (
-                <tr>
-                  {this.columns.map(column => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
-                </tr>
+            
+              {this.state.filteredPatients.map((patient, index) => (
+                <Fragment>
+                  <tr onClick={() => this.onRowClick(index)}>
+                    <td className="PatientsTableCell">
+                      {this.state.isExpanded[index] ? <FaAngleDown/> : <FaAngleRight/>}
+                    </td>
+                    {this.columns.map((column) => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
+                  </tr>
+                  {this.state.isExpanded[index] ? <tr><td colspan="8" className="visit-row">{<this.Visit />}</td></tr> : null}
+                </Fragment>
               ))}
           </tbody>
         </table>
+
+        
+
         <div>
           <Popup
             modal
