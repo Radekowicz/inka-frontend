@@ -9,6 +9,7 @@ import { Button } from "../Button/Button";
 import Popup from "reactjs-popup";
 import InputPage from "./InputPage";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
+import Options from "../../constants/Options"
 
 
 class Patients extends Component {
@@ -29,6 +30,7 @@ class Patients extends Component {
       input: '',
       filteredPatients: [],
       isExpanded: [false, true, false],
+      appointments: [],
     };
   }
 
@@ -70,6 +72,21 @@ class Patients extends Component {
     this.setState({ patients: patients });
     this.setState({ filteredPatients: patients})
   };
+
+  loadAppointments = async (patientId) => {
+    console.log(patientId)
+    const response = await fetch(`/appointments/${patientId}`);
+    const data = await response.json();
+    const appointments = data.map((appointment, index) => ({
+      id: appointment._id,
+      start: new Date(appointment.startDate),
+      end: new Date(appointment.endDate),
+      title: Options.find((x) => x.value === appointment.title).label,
+      name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
+    }))
+    this.setState({ appointments: appointments });
+    console.log(appointments)
+  }
 
   columns = [
     {
@@ -143,13 +160,14 @@ class Patients extends Component {
     var arr = this.state.isExpanded
     arr[index] === true ? arr[index] = false : arr[index] = true
     this.setState({isExpanded: arr})
+    this.loadAppointments(this.state.patients[index].id)
   }
 
   Visit = () => {
     return (
     <div className="visit-component">
       <h1>Delate wizyty</h1>
-      
+
     </div>
     )
   }

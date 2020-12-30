@@ -4,18 +4,11 @@ import Calbar from "./Calbar/Calbar";
 import EventInfo from "./EventInfo/EventInfo";
 import PatientInfo from ".//PatientInfo/PatientInfo";
 import { Button } from "../Button/Button";
+import Options from "../../constants/Options"
 
 import moment from "moment";
 
-const options = [
-  { value: "konsultacja", label: "Konsultacja" },
-  { value: "wyciski", label: "Wyciski" },
-  { value: "analiza", label: "Analiza i planowanie leczenia" },
-  { value: "zalozenie-gora", label: "Założenie aparatu stałego góra" },
-  { value: "zalozenie-dol", label: "Założenie aparatu stałego dół" },
-  { value: "kontrolna-staly", label: "Wizyta kontrolna z aparatem stałym" },
-  { value: "kontrolna-po", label: "Wizyta kontrolna po zdjęciu aparatu" },
-];
+
 
 class Appointments extends Component {
   constructor(props) {
@@ -81,7 +74,7 @@ class Appointments extends Component {
       id: appointment._id,
       start: new Date(appointment.startDate),
       end: new Date(appointment.endDate),
-      title: options.find((x) => x.value === appointment.title).label,
+      title: Options.find((x) => x.value === appointment.title).label,
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
       patient: appointment.patient,
     }));
@@ -110,7 +103,7 @@ class Appointments extends Component {
             <Calbar
               handleEventClick={this.handleEventClick}
               handleDeleteClick={this.deleteAppointment}
-              options={options}
+              options={Options}
               loadAppointments={this.loadAppointments}
               events={this.state.events}
             />
