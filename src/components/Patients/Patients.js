@@ -11,6 +11,14 @@ import InputPage from "./InputPage";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import Options from "../../constants/Options"
 
+const Visit = (props) => {
+  return (
+      <div className="visit-component">
+        <div>{props.appointment.title}</div>
+      </div>
+  )
+}
+
 
 class Patients extends Component {
   constructor(props) {
@@ -39,6 +47,7 @@ class Patients extends Component {
     this.state.patients.forEach((patient, index) => {
       this.loadAppointments(patient.id, index);
     })
+    //this.setExpanded();
   }
 
   setExpanded = () => {
@@ -169,16 +178,10 @@ class Patients extends Component {
     console.log(this.state.appointments[index]);
   }
 
-  Visit = () => {
-    return (
-    <div className="visit-component">
-      <div>Detale wizyty</div>
-      
-    </div>
-    )
-  }
-
   render() {
+
+    //console.log(this.state);
+
     return (
       <div className="Patients">
         <div className="patients-toolbar">
@@ -220,7 +223,7 @@ class Patients extends Component {
                   </tr>
                   {this.state.isExpanded[index] ? <tr><td colspan="8" className="visit-row">
                     {
-                      this.state.appointments[index].map((appointment, index) => <h1>ddd</h1>)
+                      this.state.appointments[index]?.map((appointment, index) => <Visit appointment={appointment}/>)
                     }
                     </td></tr> : null}
                 </Fragment>
