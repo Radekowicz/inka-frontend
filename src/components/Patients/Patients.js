@@ -36,6 +36,9 @@ class Patients extends Component {
 
   componentDidMount() {
     this.loadPatients()
+    this.state.patients.forEach((patient, index) => {
+      this.loadAppointments(patient.id, index);
+    })
   }
 
   setExpanded = () => {
@@ -73,7 +76,7 @@ class Patients extends Component {
     this.setState({ filteredPatients: patients})
   };
 
-  loadAppointments = async (patientId) => {
+  loadAppointments = async (patientId, index) => {
     console.log(patientId)
     const response = await fetch(`/appointments/${patientId}`);
     const data = await response.json();
@@ -84,8 +87,10 @@ class Patients extends Component {
       title: Options.find((x) => x.value === appointment.title).label,
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
     }))
-    this.setState({ appointments: appointments });
-    console.log(appointments)
+
+    var temp = this.state.appointments
+    temp[index] = appointments;
+    this.setState({ appointments: temp })
   }
 
   columns = [
@@ -160,14 +165,15 @@ class Patients extends Component {
     var arr = this.state.isExpanded
     arr[index] === true ? arr[index] = false : arr[index] = true
     this.setState({isExpanded: arr})
-    this.loadAppointments(this.state.patients[index].id)
+    this.loadAppointments(this.state.patients[index].id, index)
+    console.log(this.state.appointments[index]);
   }
 
   Visit = () => {
     return (
     <div className="visit-component">
-      <h1>Delate wizyty</h1>
-
+      <div>Detale wizyty</div>
+      
     </div>
     )
   }
@@ -212,7 +218,11 @@ class Patients extends Component {
                     </td>
                     {this.columns.map((column) => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
                   </tr>
-                  {this.state.isExpanded[index] ? <tr><td colspan="8" className="visit-row">{<this.Visit />}</td></tr> : null}
+                  {this.state.isExpanded[index] ? <tr><td colspan="8" className="visit-row">
+                    {
+                      this.state.appointments[index].map((appointment, index) => <h1>ddd</h1>)
+                    }
+                    </td></tr> : null}
                 </Fragment>
               ))}
           </tbody>
