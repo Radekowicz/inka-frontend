@@ -15,6 +15,10 @@ const Visit = (props) => {
   return (
       <div className="visit-component">
         <div>{props.appointment.title}</div>
+        <span>
+          Godzina wizyty:
+          {moment(props.appointment.start).format(" hh:mm").toLocaleString()}
+        </span>
       </div>
   )
 }
@@ -37,7 +41,7 @@ class Patients extends Component {
       popupOpen: false,
       input: '',
       filteredPatients: [],
-      isExpanded: [false, true, false],
+      isExpanded: [],
       appointments: [],
     };
   }
@@ -47,12 +51,11 @@ class Patients extends Component {
     this.state.patients.forEach((patient, index) => {
       this.loadAppointments(patient.id, index);
     })
-    //this.setExpanded();
   }
 
-  setExpanded = () => {
+  setExpanded = (patients) => {
     let arr = []
-    this.state.patients.forEach(element => {
+    patients.forEach(element => {
       arr.push(false)
     });
     console.log(arr)
@@ -83,6 +86,7 @@ class Patients extends Component {
     }));
     this.setState({ patients: patients });
     this.setState({ filteredPatients: patients})
+    this.setExpanded(patients)
   };
 
   loadAppointments = async (patientId, index) => {
