@@ -15,10 +15,14 @@ const Visit = (props) => {
   return (
       <div className="visit-component">
         <div>{props.appointment.title}</div>
-        <span>
+        <div>
+          Data wizyty:
+          {moment(props.appointment.start).format(" DD-MM-YYYY").toLocaleString()}
+        </div>
+        <div>
           Godzina wizyty:
           {moment(props.appointment.start).format(" hh:mm").toLocaleString()}
-        </span>
+        </div>
       </div>
   )
 }
