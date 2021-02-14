@@ -1,0 +1,11 @@
+.visit-row {
+  border: 1px solid lightgray;
+}
+
+.visit-component {
+  box-shadow: 2px 2px 2px 1px lightgray;
+  font-size: 1rem;
+  padding: 10px;
+  display: block;
+  margin: 10px;
+}
