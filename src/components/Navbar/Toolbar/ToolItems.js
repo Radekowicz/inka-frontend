@@ -10,8 +10,8 @@ export const ToolItems = [
     cName: "tool-links",
   },
   {
-    title: "Przypomnienia",
-    url: "/reminders",
+    title: "Ustawienia",
+    url: "/settings",
     cName: "tool-links",
   },
 ];

@@ -10,22 +10,9 @@ import Popup from "reactjs-popup";
 import InputPage from "./InputPage";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import Options from "../../constants/Options"
+import { Link } from 'react-router-dom';
 
-const Visit = (props) => {
-  return (
-      <div className="visit-component">
-        <div>{props.appointment.title}</div>
-        <div>
-          Data wizyty:
-          {moment(props.appointment.start).format(" DD-MM-YYYY").toLocaleString()}
-        </div>
-        <div>
-          Godzina wizyty:
-          {moment(props.appointment.start).format(" hh:mm").toLocaleString()}
-        </div>
-      </div>
-  )
-}
+
 
 
 class Patients extends Component {
@@ -45,7 +32,6 @@ class Patients extends Component {
       popupOpen: false,
       input: '',
       filteredPatients: [],
-      isExpanded: [],
       appointments: [],
     };
   }
@@ -57,14 +43,6 @@ class Patients extends Component {
     })
   }
 
-  setExpanded = (patients) => {
-    let arr = []
-    patients.forEach(element => {
-      arr.push(false)
-    });
-    console.log(arr)
-    this.setState({ isExpanded: arr})
-  }
 
   updateInput = async (input) => {
     const filtered = this.state.patients.filter(patient => {
@@ -76,7 +54,7 @@ class Patients extends Component {
  }
 
   loadPatients = async () => {
-    const response = await fetch("/patients");
+    const response = await fetch("/api/patients");
     const data = await response.json();
     const patients = data.map((patient, index) => ({
       id: patient._id,
@@ -90,25 +68,7 @@ class Patients extends Component {
     }));
     this.setState({ patients: patients });
     this.setState({ filteredPatients: patients})
-    this.setExpanded(patients)
   };
-
-  loadAppointments = async (patientId, index) => {
-    console.log(patientId)
-    const response = await fetch(`/appointments/${patientId}`);
-    const data = await response.json();
-    const appointments = data.map((appointment, index) => ({
-      id: appointment._id,
-      start: new Date(appointment.startDate),
-      end: new Date(appointment.endDate),
-      title: Options.find((x) => x.value === appointment.title).label,
-      name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
-    }))
-
-    var temp = this.state.appointments
-    temp[index] = appointments;
-    this.setState({ appointments: temp })
-  }
 
   columns = [
     {
@@ -142,7 +102,7 @@ class Patients extends Component {
   ];
 
   addPatient = async () => {
-    await fetch(`/patients`, {
+    await fetch(`/api/patients`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -179,16 +139,9 @@ class Patients extends Component {
   };
 
   onRowClick = (index) => {
-    var arr = this.state.isExpanded
-    arr[index] === true ? arr[index] = false : arr[index] = true
-    this.setState({isExpanded: arr})
-    this.loadAppointments(this.state.patients[index].id, index)
-    console.log(this.state.appointments[index]);
   }
 
   render() {
-
-    //console.log(this.state);
 
     return (
       <div className="Patients">
@@ -225,22 +178,18 @@ class Patients extends Component {
                 <Fragment>
                   <tr onClick={() => this.onRowClick(index)}>
                     <td className="PatientsTableCell">
-                      {this.state.isExpanded[index] ? <FaAngleDown/> : <FaAngleRight/>}
+                    <Link to={`/patientss/${this.state.patients[index].id}`}>
+                      <FaAngleRight/>
+                    </Link>
                     </td>
                     {this.columns.map((column) => <td className="PatientsTableCell">{patient[column.dataField]}</td>)}
                   </tr>
-                  {this.state.isExpanded[index] ? <tr><td colspan="8" className="visit-row">
-                    {
-                      this.state.appointments[index]?.map((appointment, index) => <Visit appointment={appointment}/>)
-                    }
-                    </td></tr> : null}
                 </Fragment>
               ))}
           </tbody>
         </table>
 
         
-
         <div>
           <Popup
             modal
@@ -252,6 +201,7 @@ class Patients extends Component {
             <Button onClick={this.addPatient}>Dodaj</Button>
           </Popup>
         </div>
+
       </div>
     );
   }

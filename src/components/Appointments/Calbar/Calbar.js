@@ -112,7 +112,7 @@ class Calbar extends Component {
 
   // load options using API call
   loadOptions = async () => {
-    const response = await fetch("/patients");
+    const response = await fetch("/api/patients");
     const data = await response.json();
     const patients = data.map((patient, index) => ({
       value: `${patient._id}`,
@@ -139,7 +139,7 @@ class Calbar extends Component {
 
   handleSelect = async (title, patient) => {
     if (title && patient) {
-      await fetch("/appointments", {
+      await fetch("/api/appointments", {
         method: "POST",
         headers: {
           Accept: "application/json",

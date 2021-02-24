@@ -68,7 +68,7 @@ class Appointments extends Component {
   };
 
   loadAppointments = async () => {
-    const response = await fetch("/appointments");
+    const response = await fetch("/api/appointments");
     const data = await response.json();
     const appointments = data.map((appointment, index) => ({
       id: appointment._id,
@@ -84,7 +84,7 @@ class Appointments extends Component {
   deleteAppointment = async () => {
     const selectedEvent = this.state.selectedEvent;
 
-    await fetch(`appointments/${selectedEvent.id}`, {
+    await fetch(`/api/appointments/${selectedEvent.id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
