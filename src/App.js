@@ -6,23 +6,29 @@ import PatientPage from "./components/Patients/PatientPage";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Settings from "./components/SettingsPage/Settings"
+import Login from "./components/Login/Login"
+import ContextProvider from './contexts/LoginContext'
+
 
 class App extends Component {
   render() {
     return (
+      <ContextProvider>
       <Router>
         <div className="App">
           <div className="Navbar">
             <Navbar />
           </div>
           <Switch>
-            <Route path="/appointmentss" component={Appointments} />
-            <Route path="/patientss/:patientId" component={PatientPage} />
-            <Route path="/patientss" component={Patients} />
-            <Route path="/settings" component={Settings} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/appointments" component={Appointments} />
+            <Route exact path="/patients/:patientId" component={PatientPage} />
+            <Route exact path="/patients" component={Patients} />
+            <Route exact path="/settings" component={Settings} />
           </Switch>
         </div> 
       </Router>
+      </ContextProvider>
     );
   }
 }

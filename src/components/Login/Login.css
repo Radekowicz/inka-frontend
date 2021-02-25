@@ -1,0 +1,17 @@
+.form {
+  text-align: left;
+  margin: auto;
+  margin-top: 40px;
+  width: 400px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.divFailedLogin {
+  padding: 15px;
+  margin-top: 40px;
+  color: white;
+  text-align: center;
+  background-color: #dc3545;
+}

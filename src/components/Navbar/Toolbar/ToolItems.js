@@ -1,12 +1,12 @@
 export const ToolItems = [
   {
     title: "Wizyty",
-    url: "/appointmentss",
+    url: "/appointments",
     cName: "tool-links",
   },
   {
     title: "Pacjenci",
-    url: "/patientss",
+    url: "/patients",
     cName: "tool-links",
   },
   {
