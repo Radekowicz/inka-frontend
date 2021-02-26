@@ -92,7 +92,7 @@ function PatientPage({match}) {
           </div>
           <div className="basic-info">
             <div>
-              {patient?.firstName} {patient?.firstName} (
+              {patient?.firstName} {patient?.lastName} (
               {calcAge(patient?.birthdate)})
             </div>
             <div>

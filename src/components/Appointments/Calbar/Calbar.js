@@ -8,6 +8,7 @@ import Select from "react-select";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { Button } from "../../Button/Button";
+import { UserContext } from "../../../contexts/UserContext"
 
 const localizer = momentLocalizer(moment);
 
@@ -95,6 +96,8 @@ const customStyles = {
 };
 
 class Calbar extends Component {
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -106,12 +109,23 @@ class Calbar extends Component {
       patientValue: null,
     };
 
-    this.loadOptions();
+    this.loadPatientOptions();
     this.loadAppointments();
+    this.loadAppointmentsTypes();
+  }
+
+  static contextType = UserContext
+
+  loadAppointmentsTypes = async () => {
+    const { user } = this.context
+    console.log(user)
+    const response = await fetch(`/api/appointmentsTypes/${user}`);
+    const data = await response.json();
+    console.log(data[0])
   }
 
   // load options using API call
-  loadOptions = async () => {
+  loadPatientOptions = async () => {
     const response = await fetch("/api/patients");
     const data = await response.json();
     const patients = data.map((patient, index) => ({

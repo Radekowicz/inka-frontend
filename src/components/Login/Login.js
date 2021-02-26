@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import { Navbar, Nav, NavItem, Form, Button } from 'react-bootstrap';
-import { LoginContext } from "../../contexts/LoginContext"
+import { UserContext } from "../../contexts/UserContext"
 import './Login.css'
 
 
@@ -11,11 +11,11 @@ function Login() {
     const [typedPassword, setTypedPassword] = useState()
     const [failedLogin, setFailedLogin] = useState(false)
     const history = useHistory()
-    const { user, setUser, setLogged } = useContext(LoginContext)
+    const { user, setUser, setLogged } = useContext(UserContext)
 
     const checkLogin = async () => {
         // console.log("check login")
-        // const response = await fetch(`/doctor`, {
+        // const response = await fetch(`/api/users`, {
         //     method: "POST",
         //     headers: {
         //       "Accept": "application/json",
@@ -35,11 +35,6 @@ function Login() {
         // return isCorrect
         return true
     }
-
-
-
-
-
 
     const onFormSubmit = (e) => {
         e.preventDefault()
@@ -63,31 +58,31 @@ function Login() {
             }
             <div className="form">
                 <h1>Zaloguj się</h1>
-                <Form onSubmit={onFormSubmit}>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Nazwa użytkownika</Form.Label>
-                    <Form.Control 
+                <form onSubmit={onFormSubmit}>
+                <div controlId="formBasicEmail">
+                    <label>Nazwa użytkownika</label>
+                    <input 
                     type="text" 
                     name="username"
                     placeholder="Login"
                     onChange={({target:{value}}) => {
                         setTypedNickname(value)
                     }}/>
-                </Form.Group>
+                </div>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Hasło</Form.Label>
-                    <Form.Control 
+                <div controlId="formBasicPassword">
+                    <label>Hasło</label>
+                    <input 
                     type="password" 
                     placeholder="Hasło"
                     onChange={({target:{value}}) => {
                         setTypedPassword(value)
                     }}/>
-                </Form.Group>
-                <Button variant="primary" type="submit">
+                </div>
+                <Button onClick={onFormSubmit}>
                     Zaloguj
                 </Button>
-                </Form>
+                </form>
             </div>
         </div>
     )

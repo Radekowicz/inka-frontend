@@ -178,7 +178,7 @@ class Patients extends Component {
                 <Fragment>
                   <tr onClick={() => this.onRowClick(index)}>
                     <td className="PatientsTableCell">
-                    <Link to={`/patientss/${this.state.patients[index].id}`}>
+                    <Link to={`/patients/${this.state.patients[index].id}`}>
                       <FaAngleRight/>
                     </Link>
                     </td>

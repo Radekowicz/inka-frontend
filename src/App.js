@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Settings from "./components/SettingsPage/Settings"
 import Login from "./components/Login/Login"
-import ContextProvider from './contexts/LoginContext'
+import ContextProvider from './contexts/UserContext'
 
 
 class App extends Component {

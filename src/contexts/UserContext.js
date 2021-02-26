@@ -1,10 +1,10 @@
 import React, {createContext, Component} from 'react';
 
-export const LoginContext = createContext()
+export const UserContext = createContext()
 
 export default class ContextProvider extends Component {
     state = { 
-        user: "jwatson",
+        user: "6037c39a6e651bf9ddcc1e16",
         logged: false,
      }
 
@@ -19,9 +19,9 @@ export default class ContextProvider extends Component {
 
     render() { 
         return (  
-            <LoginContext.Provider value={{...this.state, setUser: this.setUser, setLogged: this.setLogged}}>
+            <UserContext.Provider value={{...this.state, setUser: this.setUser, setLogged: this.setLogged}}>
                 {this.props.children}
-            </LoginContext.Provider>
+            </UserContext.Provider>
         );
     }
 }

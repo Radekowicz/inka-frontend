@@ -74,7 +74,8 @@ class Appointments extends Component {
       id: appointment._id,
       start: new Date(appointment.startDate),
       end: new Date(appointment.endDate),
-      title: Options.find((x) => x.value === appointment.title).label,
+      //title: Options.find((x) => x.value === appointment.title).label,
+      title: "dua",
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
       patient: appointment.patient,
     }));
