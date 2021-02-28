@@ -4,6 +4,8 @@ import Editable from "./Editable"
 import { UserContext } from "../../contexts/UserContext"
 import Popup from "reactjs-popup";
 import { FaSquare, FaCircle } from 'react-icons/fa';
+import { BiEditAlt, BiTrash } from 'react-icons/bi';
+
 import "./Settings.css";
 import { CirclePicker, TwitterPicker, GithubPicker } from 'react-color';
 
@@ -17,6 +19,7 @@ function Settings() {
     const [pickedColor, setPickedColor] = useState("")
     const [typedTypeName, setTypedTypeName] = useState("")
     const [typedTypePrice, setTypedTypePrice] = useState("")
+    const [editButtonsVisable, setEditButtonsVisable] = useState(false)
 
     useEffect(() => {
         loadAppointmentsTypes()
@@ -60,7 +63,20 @@ function Settings() {
     }
 
     const handleEditTypeButton = () => {
-        
+        setEditButtonsVisable(true)
+    }
+
+    const handleDeleteTypeButton = async (type) => {
+        await fetch(`/api/appointmentsTypes/${type.id}`, {
+            method: "DELETE",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              }),
+        });        
+        loadAppointmentsTypes()
     }
 
     const handlePopupClose = () => {
@@ -76,16 +92,22 @@ function Settings() {
             <div className="edit-container">
                 <div className="edit-header">Typy wizyt</div>
                 {
-                    appointmentsTypes?.map(type =>
+                    appointmentsTypes?.map((type, index) =>
                         <tr>
-                        <td className="TypesTableCell">
+                        <td className="type-table-cell">
                             {type.label}
                         </td>
-                        <td className="TypesTableCell">
+                        <td className="type-table-cell">
                             <FaSquare style={{color: type.color}}/>
                         </td>
-                        <td className="TypesTableCell">
+                        <td className="type-table-cell">
                             {type.price} zł
+                        </td>
+                        <td className="type-table-cell delete-edit-type">
+                            <BiEditAlt />
+                        </td>
+                        <td className="type-table-cell delete-edit-type">
+                            <BiTrash onClick={() => handleDeleteTypeButton(type)}/>
                         </td>
                         </tr>
                     )
