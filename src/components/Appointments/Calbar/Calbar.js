@@ -98,8 +98,8 @@ const customStyles = {
 class Calbar extends Component {
 
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       popupOpen: false,
       selectedOption: null,
@@ -107,6 +107,7 @@ class Calbar extends Component {
       start: null,
       end: null,
       patientValue: null,
+      appointmentsTypes: [],
     };
 
     this.loadPatientOptions();
@@ -118,10 +119,16 @@ class Calbar extends Component {
 
   loadAppointmentsTypes = async () => {
     const { user } = this.context
-    console.log(user)
     const response = await fetch(`/api/appointmentsTypes/${user}`);
     const data = await response.json();
-    console.log(data[0])
+    const types = data.map(type => ({
+      id: type._id,
+      label: type.label,
+      doctor: type.doctor,
+      color: type.color,
+    }))
+    console.log(data)
+    this.setState({appointmentsTypes: types})
   }
 
   // load options using API call
@@ -152,6 +159,7 @@ class Calbar extends Component {
   }
 
   handleSelect = async (title, patient) => {
+    const { user } = this.context
     if (title && patient) {
       await fetch("/api/appointments", {
         method: "POST",
@@ -160,10 +168,11 @@ class Calbar extends Component {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          type: title.id,
+          patient: patient.value,
+          doctor: user,
           startDate: this.state.start,
           endDate: this.state.end,
-          title: title.value,
-          patient: patient.value,
         }),
       });
       this.loadAppointments();

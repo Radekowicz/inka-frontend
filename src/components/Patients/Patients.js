@@ -9,7 +9,6 @@ import { Button } from "../Button/Button";
 import Popup from "reactjs-popup";
 import InputPage from "./InputPage";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
-import Options from "../../constants/Options"
 import { Link } from 'react-router-dom';
 
 

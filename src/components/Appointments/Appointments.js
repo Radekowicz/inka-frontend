@@ -4,15 +4,14 @@ import Calbar from "./Calbar/Calbar";
 import EventInfo from "./EventInfo/EventInfo";
 import PatientInfo from ".//PatientInfo/PatientInfo";
 import { Button } from "../Button/Button";
-import Options from "../../constants/Options"
-
+import { UserContext } from "../../contexts/UserContext"
 import moment from "moment";
 
 
 
 class Appointments extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       selectedEvent: {
         id: "123",
@@ -33,8 +32,26 @@ class Appointments extends Component {
         address: "Asa",
       },
       events: [],
+      appointmentsTypes: [],
     };
     this.handleEventClick = this.handleEventClick.bind(this);
+    this.loadAppointmentsTypes();
+  }
+
+  static contextType = UserContext
+
+  loadAppointmentsTypes = async () => {
+    const { user } = this.context
+    const response = await fetch(`/api/appointmentsTypes/${user}`);
+    const data = await response.json();
+    const types = data.map(type => ({
+      id: type._id,
+      label: type.label,
+      doctor: type.doctor,
+      color: type.color,
+    }))
+    console.log(types)
+    this.setState({appointmentsTypes: types})
   }
 
   handleEventClick = (event) => {
@@ -72,12 +89,12 @@ class Appointments extends Component {
     const data = await response.json();
     const appointments = data.map((appointment, index) => ({
       id: appointment._id,
+      type: appointment.type.label,
+      patient: appointment.patient,
+      doctor: appointment.doctor,
       start: new Date(appointment.startDate),
       end: new Date(appointment.endDate),
-      //title: Options.find((x) => x.value === appointment.title).label,
-      title: "dua",
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
-      patient: appointment.patient,
     }));
     this.setState({ events: appointments });
   };
@@ -104,7 +121,7 @@ class Appointments extends Component {
             <Calbar
               handleEventClick={this.handleEventClick}
               handleDeleteClick={this.deleteAppointment}
-              options={Options}
+              options={this.state.appointmentsTypes}
               loadAppointments={this.loadAppointments}
               events={this.state.events}
             />

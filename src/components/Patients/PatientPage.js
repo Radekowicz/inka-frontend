@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import moment from "moment";
-import Options from "../../constants/Options"
 import "./PatientPage.css";
 
 
@@ -16,7 +15,7 @@ const Detail = (props) => {
   const Visit = (props) => {
     return (
         <div className="visit-component">
-          <div>{props.appointment.title}</div>
+          <div>{props.appointment.type}</div>
           <div>
             Data wizyty:
             {moment(props.appointment.start).format(" DD-MM-YYYY").toLocaleString()}
@@ -42,7 +41,7 @@ function PatientPage({match}) {
     useEffect(() => {
         loadPatient()
         loadAppointments(patientId)
-      });
+      }, []);
 
 
 
@@ -68,9 +67,11 @@ function PatientPage({match}) {
         const data = await response.json();
         const appointments = data.map((appointment) => ({
           id: appointment._id,
+          type: appointment.type.label,
+          patient: appointment.patient,
+          doctor: appointment.doctor,
           start: new Date(appointment.startDate),
           end: new Date(appointment.endDate),
-          title: Options.find((x) => x.value === appointment.title).label,
           name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
         }))
 
