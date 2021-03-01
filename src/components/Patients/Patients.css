@@ -4,6 +4,8 @@
   margin: auto;
   margin-top: 40px;
   border: 1px solid lightgray;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  border-radius: 5px; /* border radius nie działa */
 }
 
 .PatientsTableHeaderCell {

@@ -5,7 +5,6 @@ import { UserContext } from "../../contexts/UserContext"
 import Popup from "reactjs-popup";
 import { FaSquare, FaCircle } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
-
 import "./Settings.css";
 import { CirclePicker, TwitterPicker, GithubPicker } from 'react-color';
 
@@ -130,7 +129,8 @@ function Settings() {
                     <div className="create-type-popup-element">
                         <label className="create-type-label">Nazwa</label>
                         <input 
-                            className="create-type-input" 
+                            className="create-type-input"
+                            placeholder={"Wizyta kontrolna"}
                             type="text"
                             value={typedTypeName}
                             onChange={({target:{value}}) => setTypedTypeName(value)}
@@ -139,7 +139,8 @@ function Settings() {
                     <div className="create-type-popup-element">
                         <label className="create-type-label">Cena</label>
                         <input 
-                            className="create-type-input" 
+                            className="create-type-input"
+                            placeholder={"200"} 
                             type="text"
                             value={typedTypePrice}
                             onChange={({target:{value}}) => setTypedTypePrice(value)}

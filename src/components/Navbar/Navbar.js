@@ -25,7 +25,9 @@ function Navbar() {
 
   return (
       <nav className="NavbarItems">
-        <div className="navbar-logo">Denti</div>
+        <div className="navbar-logo">
+          <Link className="navbar-logo-link" to="/">Denti</Link>
+        </div>
         <Toolbar />
         <div className="login-name-container">
           {logged === false 

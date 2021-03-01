@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Settings from "./components/SettingsPage/Settings"
 import Login from "./components/Login/Login"
 import ContextProvider from './contexts/UserContext'
-
+import Opening from './components/OpeningPage/Opening'
 
 class App extends Component {
   render() {
@@ -20,6 +20,7 @@ class App extends Component {
             <Navbar />
           </div>
           <Switch>
+            <Route exact path="/" component={Opening}></Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/appointments" component={Appointments} />
             <Route exact path="/patients/:patientId" component={PatientPage} />
