@@ -19,6 +19,7 @@ function Settings() {
     const [typedTypeName, setTypedTypeName] = useState("")
     const [typedTypePrice, setTypedTypePrice] = useState("")
     const [editButtonsVisable, setEditButtonsVisable] = useState(false)
+    const [editOpen, setEditOpen] = useState(true)
 
     useEffect(() => {
         loadAppointmentsTypes()
@@ -62,7 +63,15 @@ function Settings() {
     }
 
     const handleEditTypeButton = () => {
-        setEditButtonsVisable(true)
+        if(!editOpen) {
+            setEditButtonsVisable(true)
+            setEditOpen(true)
+        } 
+        else {
+            setEditButtonsVisable(false)
+            setEditOpen(false)
+        }
+        
     }
 
     const handleDeleteTypeButton = async (type) => {
@@ -102,12 +111,20 @@ function Settings() {
                         <td className="type-table-cell">
                             {type.price} zł
                         </td>
-                        <td className="type-table-cell delete-edit-type">
-                            <BiEditAlt />
-                        </td>
-                        <td className="type-table-cell delete-edit-type">
-                            <BiTrash onClick={() => handleDeleteTypeButton(type)}/>
-                        </td>
+                        {
+                            editButtonsVisable ? 
+                            <td className="type-table-cell delete-edit-type">
+                                <BiEditAlt />
+                            </td> 
+                            : null
+                        }
+                        {
+                            editButtonsVisable ? 
+                            <td className="type-table-cell delete-edit-type">
+                                <BiTrash onClick={() => handleDeleteTypeButton(type)}/>
+                            </td> 
+                            : null
+                        }
                         </tr>
                     )
                 }

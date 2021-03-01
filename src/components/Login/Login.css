@@ -8,10 +8,21 @@
   padding: 20px;
 }
 
-.divFailedLogin {
-  padding: 15px;
-  margin-top: 40px;
-  color: white;
-  text-align: center;
-  background-color: #dc3545;
+.login-title {
+  margin-bottom: 20px;
+}
+
+.login-element {
+  display: grid;
+  margin-bottom: 20px;
+}
+
+.login-label {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.login-input {
+  height: 40px;
+  font-size: 1.1rem;
 }

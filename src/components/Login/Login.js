@@ -9,7 +9,6 @@ function Login() {
 
     const [typedNickname, setTypedNickname] = useState()
     const [typedPassword, setTypedPassword] = useState()
-    const [failedLogin, setFailedLogin] = useState(false)
     const history = useHistory()
     const { user, setUser, setLogged } = useContext(UserContext)
 
@@ -44,35 +43,29 @@ function Login() {
                 setUser(user)
                 history.push("/appointments");
             }
-            else
-                setFailedLogin(true);
         })
     }
 
     return (
         <div>
-            {failedLogin &&
-                <div className="divFailedLogin">
-                    Nie udało się zalogować. Spróbuj ponownie!
-                </div>
-            }
             <div className="form">
-                <h1>Zaloguj się</h1>
+                <h1 className="login-title">Zaloguj się</h1>
                 <form onSubmit={onFormSubmit}>
-                <div controlId="formBasicEmail">
-                    <label>Nazwa użytkownika</label>
+                <div className="login-element">
+                    <label className="login-label">Nazwa użytkownika</label>
                     <input 
+                    className="login-input"
                     type="text" 
-                    name="username"
                     placeholder="Login"
                     onChange={({target:{value}}) => {
                         setTypedNickname(value)
                     }}/>
                 </div>
 
-                <div controlId="formBasicPassword">
-                    <label>Hasło</label>
-                    <input 
+                <div className="login-element">
+                    <label className="login-label">Hasło</label>
+                    <input
+                    className="login-input" 
                     type="password" 
                     placeholder="Hasło"
                     onChange={({target:{value}}) => {
