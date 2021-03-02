@@ -9,6 +9,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { Button } from "../../Button/Button";
 import { UserContext } from "../../../contexts/UserContext"
+import { FaRegHandScissors } from "react-icons/fa";
 
 const localizer = momentLocalizer(moment);
 
@@ -113,6 +114,8 @@ class Calbar extends Component {
     this.loadPatientOptions();
     this.loadAppointments();
     this.loadAppointmentsTypes();
+    this.eventStyleGetter = this.eventStyleGetter.bind(this);
+
   }
 
   static contextType = UserContext
@@ -184,31 +187,11 @@ class Calbar extends Component {
 
   eventStyleGetter(event, start, end, isSelected) {
     var backgroundColor;
-    switch (event.title) {
-      case "Konsultacja":
-        backgroundColor = "#f94144";
-        break;
-      case "Wyciski":
-        backgroundColor = "#f3722c";
-        break;
-      case "Analiza i planowanie leczenia":
-        backgroundColor = "#f8961e";
-        break;
-      case "Założenie aparatu stałego góra":
-        backgroundColor = "#f9c74f";
-        break;
-      case "Założenie aparatu stałego dół":
-        backgroundColor = "#90be6d";
-        break;
-      case "Wizyta kontrolna z aparatem stałym":
-        backgroundColor = "#43aa8b";
-        break;
-      case "Wizyta kontrolna po zdjęciu aparatu":
-        backgroundColor = "#577590";
-        break;
-      default:
-      // code block
-    }
+    this.state.appointmentsTypes.map(type => {
+      if (event.type === type.label) {
+        backgroundColor = type.color
+      }
+    })
 
     var style = {
       backgroundColor: backgroundColor,

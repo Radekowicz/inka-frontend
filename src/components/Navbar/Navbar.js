@@ -39,7 +39,7 @@ function Navbar() {
 
     return (
         <div className="navbar">
-            <div className="navbar-logo">
+            <div className="navbar-logo" onClick={() => setActiveItemIndex(10)}>
                 <Link className="navbar-logo-link" to="/">Denti</Link>
             </div>
             <div className="navbar-items">
@@ -61,7 +61,7 @@ function Navbar() {
                     })
                 }
             </div>
-            <div className="navbar-login-username-container">
+            <div className="navbar-login-username-container" onClick={() => setActiveItemIndex(10)}>
                 {logged === false 
                 ? <Link to="/login" className="navbar-login-container" >Zaloguj się</Link>
                 : <Link to="/user" className="navbar-username-container">

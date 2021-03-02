@@ -11,7 +11,7 @@ class MyEvent extends Component {
   render() {
     return (
       <div className="event">
-        <div>{this.props.event.title}</div>
+        <div>{this.props.event.type}</div>
         <div>{this.props.event.name}</div>
         <div>
           {moment(this.props.event.patient.firstAppointment).format("MM/YYYY")}

@@ -1,6 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { Button } from "../Button/Button";
-import Editable from "./Editable"
 import { UserContext } from "../../contexts/UserContext"
 import Popup from "reactjs-popup";
 import { FaSquare, FaCircle } from 'react-icons/fa';
