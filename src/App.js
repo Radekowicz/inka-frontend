@@ -3,12 +3,12 @@ import "./App.css";
 import Appointments from "./components/Appointments/Appointments";
 import Patients from "./components/Patients/Patients";
 import PatientPage from "./components/Patients/PatientPage";
-import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Settings from "./components/SettingsPage/Settings"
 import Login from "./components/Login/Login"
 import ContextProvider from './contexts/UserContext'
 import Opening from './components/OpeningPage/Opening'
+import Navbar from "./components/Navbar/Navbar";
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="Navbar">
-            <Navbar />
+            <Navbar/>
           </div>
           <Switch>
             <Route exact path="/" component={Opening}></Route>

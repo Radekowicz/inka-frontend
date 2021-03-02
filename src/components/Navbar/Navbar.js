@@ -1,48 +1,78 @@
-import React, { useState, useContext, useEffect } from "react";
-import "./Navbar.css";
-import Toolbar from "./Toolbar/Toolbar";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "../Button/Button"
 import { UserContext } from '../../contexts/UserContext';
-import { Link } from 'react-router-dom';
-
+import "./Navbar.css";
 
 function Navbar() {
 
-  const [userName, setUserName] = useState("dupa")
-  const { logged, setLogged, user, setUser } = useContext(UserContext)
+    const NavbarItems = [
+        {
+          title: "Wizyty",
+          url: "/appointments",
+        },
+        {
+          title: "Pacjenci",
+          url: "/patients",
+        },
+        {
+          title: "Ustawienia",
+          url: "/settings",
+        },
+    ];
 
-  const getUserName = async (userId) => {
-    const response = await fetch(`/api/users/${userId}`)
-    const data = await response.json();
-    setUserName(data[0].firstName + " " + data[0].lastName)
-    console.log(data[0].firstName + " " + data[0].lastName)
-    return(data[0].firstName + " " + data[0].lastName)
-  }
+    const { logged, setLogged, user, setUser } = useContext(UserContext)
+    const [userName, setUserName] = useState("dupa")
+    const [activeItemIndex, setActiveItemIndex] = useState(NavbarItems.findIndex(item => item.url === window.location.pathname))
 
-  useEffect(() => {
-    getUserName(user)
-  }, []);
 
-  return (
-      <nav className="NavbarItems">
-        <div className="navbar-logo">
-          <Link className="navbar-logo-link" to="/">Denti</Link>
+    const getUserName = async (userId) => {
+        const response = await fetch(`/api/users/${userId}`)
+        const data = await response.json();
+        setUserName(data[0].firstName + " " + data[0].lastName)
+      }
+    
+      useEffect(() => {
+        getUserName(user)
+      }, []);
+
+
+    return (
+        <div className="navbar">
+            <div className="navbar-logo">
+                <Link className="navbar-logo-link" to="/">Denti</Link>
+            </div>
+            <div className="navbar-items">
+                {
+                    NavbarItems.map((item, index) => {
+                        return(
+                            <Link
+                                to={item.url}
+                                className={
+                                index === activeItemIndex
+                                    ? "navbar-item-clicked"
+                                    : "navbar-item"
+                                }
+                                onClick={() => setActiveItemIndex(index)}
+                            >
+                                {item.title}
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            <div className="navbar-login-username-container">
+                {logged === false 
+                ? <Link to="/login" className="navbar-login-container" >Zaloguj się</Link>
+                : <Link to="/user" className="navbar-username-container">
+                        <div className="nav-user">{userName}</div>
+                        <i className="fas fa-user-circle"></i>
+                    </Link>
+                    
+                }
+            </div>
         </div>
-        <Toolbar />
-        <div className="login-name-container">
-          {logged === false 
-          ? <Link to="/login"><Button>Zaloguj się</Button></Link>
-          : <Link to="/user">
-              <div className="name-container">
-                <div className="nav-user">{userName}</div>
-                <i className="fas fa-user-circle"></i>
-              </div>
-            </Link>
-          }
-        </div>
-
-      </nav>
-    );
+    )
 }
 
-export default Navbar;
+export default Navbar
