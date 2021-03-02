@@ -6,19 +6,19 @@ import { FaSquare, FaCircle } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
 import "./Settings.css";
 import { CirclePicker, TwitterPicker, GithubPicker } from 'react-color';
-
+import EditPopup from "./EditPopup"
 
 function Settings() {
 
-    const [task, setTask] = useState("")
+    const { user, setUser } = useContext(UserContext)
     const [appointmentsTypes, setAppointmentsTypes] = useState()
     const [popupOpen, setPopupOpen] = useState(false)
-    const { user, setUser } = useContext(UserContext)
     const [pickedColor, setPickedColor] = useState("")
     const [typedTypeName, setTypedTypeName] = useState("")
     const [typedTypePrice, setTypedTypePrice] = useState("")
-    const [editButtonsVisable, setEditButtonsVisable] = useState(false)
     const [editOpen, setEditOpen] = useState(true)
+    const [selectedType, setSelectedType] = useState()
+    const [editPopupOpen, setEditPopupOpen] = useState(false)
 
     useEffect(() => {
         loadAppointmentsTypes()
@@ -61,30 +61,31 @@ function Settings() {
         }
     }
 
-    const handleEditTypeButton = () => {
-        if(!editOpen) {
-            setEditButtonsVisable(true)
-            setEditOpen(true)
-        } 
-        else {
-            setEditButtonsVisable(false)
-            setEditOpen(false)
-        }
         
+    //DANGEROUS
+    //usunięcie typu psuje wizyty które mają ten typ
+    const handleDeleteTypeButton = async (type) => {
+        // await fetch(`/api/appointmentsTypes/${type.id}`, {
+        //     method: "DELETE",
+        //     headers: {
+        //       Accept: "application/json",
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       }),
+        // });        
+        // loadAppointmentsTypes()
     }
 
-    const handleDeleteTypeButton = async (type) => {
-        await fetch(`/api/appointmentsTypes/${type.id}`, {
-            method: "DELETE",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              }),
-        });        
-        loadAppointmentsTypes()
+
+
+
+    const handleEditTypeButton = (type) => {
+        setSelectedType(type)
+        setEditPopupOpen(true)
     }
+
+
 
     const handlePopupClose = () => {
         setPopupOpen(false)
@@ -93,6 +94,9 @@ function Settings() {
         setPickedColor("")
     }
 
+    const handleEditPopupClose = () => {
+        setEditPopupOpen(false)
+    }
 
     return (
         <div>
@@ -111,14 +115,14 @@ function Settings() {
                             {type.price} zł
                         </td>
                         {
-                            editButtonsVisable ? 
+                            editOpen ? 
                             <td className="type-table-cell delete-edit-type">
-                                <BiEditAlt />
+                                <BiEditAlt onClick={() => handleEditTypeButton(type)}/>
                             </td> 
                             : null
                         }
                         {
-                            editButtonsVisable ? 
+                            editOpen ? 
                             <td className="type-table-cell delete-edit-type">
                                 <BiTrash onClick={() => handleDeleteTypeButton(type)}/>
                             </td> 
@@ -128,12 +132,11 @@ function Settings() {
                     )
                 }
                 <span className="type-edit-buttons">
-                    <Button onClick={() => handleEditTypeButton()}>Edytuj</Button>
+                    <Button onClick={() => editOpen ? setEditOpen(false) : setEditOpen(true)}>Edytuj</Button>
                     <Button onClick={() => setPopupOpen(true)}>+</Button>
                 </span>
                 
             </div>
-            <div>
             <Popup
                 modal
                 open={popupOpen}
@@ -177,8 +180,8 @@ function Settings() {
                     <Button onClick={() => handleAddTypeButton()}>Dodaj</Button>
                 </div>
             </Popup>
-            </div>
             
+            <EditPopup popupOpen={editPopupOpen} onClose={handleEditPopupClose} type={selectedType} loadAppointmentsTypes={loadAppointmentsTypes}/>
         </div>
     )
 }
