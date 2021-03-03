@@ -3,41 +3,41 @@ import Popup from "reactjs-popup";
 import { CirclePicker } from 'react-color';
 import { Button } from "../Button/Button";
 
-function EditPopup (props) {
+function AddPopup (props) {
 
     const [pickedColor, setPickedColor] = useState("")
     const [typedTypeName, setTypedTypeName] = useState("")
     const [typedTypePrice, setTypedTypePrice] = useState("")
 
-    useEffect(() => {
-        setTypedTypeName(props.type?.label);
-        setTypedTypePrice(props.type?.price);
-        setPickedColor(props.type?.color)
-    }, [props.type?.label, props.type?.price, props.type?.color])
 
     const handlePopupClose = () => {
-        setTypedTypeName(props.type?.label);
-        setTypedTypePrice(props.type?.price);
-        setPickedColor(props.type?.color)
+        setTypedTypeName("");
+        setTypedTypePrice("");
+        setPickedColor("")
         props.onClose()
     }
 
-    const updateAppointmentType = async () => {
-        await fetch(`/api/appointmentsTypes/${props.type.id}`, {
-            method: "PATCH",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+    const handleAddTypeButton = async () => {
+        if(pickedColor && typedTypeName && typedTypePrice) {
+            await fetch("/api/appointmentsTypes", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
                 label: typedTypeName,
-                doctor: props.type.doctor,
+                doctor: props.user,
                 color: pickedColor,
                 price: typedTypePrice,
               }),
-        });
+            });
+            //handlePopupClose()
+            props.loadAppointmentsTypes()
+        } else {
+            window.alert("Nie podano wszystkich danych");
+        }
         handlePopupClose()
-        props.loadAppointmentsTypes()
     }
 
 
@@ -49,11 +49,12 @@ function EditPopup (props) {
         contentStyle={{ width: "488px" }}
         >
             <div className="create-type-popup-container">
-                    <h1>Edytuj typ wizyty</h1>
+                    <h1>Dodaj typ wizyty</h1>
                     <div className="create-type-popup-element">
                         <label className="create-type-label">Nazwa</label>
                         <input 
                             className="create-type-input"
+                            placeholder={"Wizyta kontrolna"}
                             type="text"
                             value={typedTypeName}
                             onChange={({target:{value}}) => setTypedTypeName(value)}
@@ -63,6 +64,7 @@ function EditPopup (props) {
                         <label className="create-type-label">Cena</label>
                         <input 
                             className="create-type-input"
+                            placeholder={"200"} 
                             type="text"
                             value={typedTypePrice}
                             onChange={({target:{value}}) => setTypedTypePrice(value)}
@@ -80,10 +82,10 @@ function EditPopup (props) {
                                 onChange={e => {setPickedColor(e.hex)}}
                             />
                     </div>
-                    <Button onClick={() => updateAppointmentType()}>Zatwierdź</Button>
+                    <Button onClick={() => handleAddTypeButton()}>Dodaj</Button>
                 </div>
         </Popup>
     )
 }
 
-export default EditPopup
+export default AddPopup

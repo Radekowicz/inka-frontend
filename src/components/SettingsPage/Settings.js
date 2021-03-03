@@ -1,21 +1,17 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { Button } from "../Button/Button";
 import { UserContext } from "../../contexts/UserContext"
-import Popup from "reactjs-popup";
 import { FaSquare, FaCircle } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
 import "./Settings.css";
-import { CirclePicker, TwitterPicker, GithubPicker } from 'react-color';
 import EditPopup from "./EditPopup"
+import AddPopup from "./AddPopup"
 
 function Settings() {
 
     const { user, setUser } = useContext(UserContext)
     const [appointmentsTypes, setAppointmentsTypes] = useState()
-    const [popupOpen, setPopupOpen] = useState(false)
-    const [pickedColor, setPickedColor] = useState("")
-    const [typedTypeName, setTypedTypeName] = useState("")
-    const [typedTypePrice, setTypedTypePrice] = useState("")
+    const [addPopupOpen, setAddPopupOpen] = useState(false)
     const [editOpen, setEditOpen] = useState(true)
     const [selectedType, setSelectedType] = useState()
     const [editPopupOpen, setEditPopupOpen] = useState(false)
@@ -38,29 +34,6 @@ function Settings() {
     console.log(types)
     setAppointmentsTypes(types)
     }
-
-    const handleAddTypeButton = async () => {
-        if(pickedColor && typedTypeName && typedTypePrice) {
-            await fetch("/api/appointmentsTypes", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                label: typedTypeName,
-                doctor: user,
-                color: pickedColor,
-                price: typedTypePrice,
-              }),
-            });
-            handlePopupClose()
-            loadAppointmentsTypes()
-        } else {
-            window.alert("Nie podano wszystkich danych");
-        }
-    }
-
         
     //DANGEROUS
     //usunięcie typu psuje wizyty które mają ten typ
@@ -78,20 +51,13 @@ function Settings() {
     }
 
 
-
-
     const handleEditTypeButton = (type) => {
         setSelectedType(type)
         setEditPopupOpen(true)
     }
 
-
-
-    const handlePopupClose = () => {
-        setPopupOpen(false)
-        setTypedTypeName("")
-        setTypedTypePrice("")
-        setPickedColor("")
+    const handleAddPopupClose = () => {
+        setAddPopupOpen(false)
     }
 
     const handleEditPopupClose = () => {
@@ -133,54 +99,11 @@ function Settings() {
                 }
                 <span className="type-edit-buttons">
                     <Button onClick={() => editOpen ? setEditOpen(false) : setEditOpen(true)}>Edytuj</Button>
-                    <Button onClick={() => setPopupOpen(true)}>+</Button>
+                    <Button onClick={() => setAddPopupOpen(true)}>+</Button>
                 </span>
                 
             </div>
-            <Popup
-                modal
-                open={popupOpen}
-                onClose={() => handlePopupClose()}
-                contentStyle={{ width: "488px" }}
-            >
-                <div className="create-type-popup-container">
-                    <h1>Dodaj typ wizyty</h1>
-                    <div className="create-type-popup-element">
-                        <label className="create-type-label">Nazwa</label>
-                        <input 
-                            className="create-type-input"
-                            placeholder={"Wizyta kontrolna"}
-                            type="text"
-                            value={typedTypeName}
-                            onChange={({target:{value}}) => setTypedTypeName(value)}
-                        />
-                    </div>
-                    <div className="create-type-popup-element">
-                        <label className="create-type-label">Cena</label>
-                        <input 
-                            className="create-type-input"
-                            placeholder={"200"} 
-                            type="text"
-                            value={typedTypePrice}
-                            onChange={({target:{value}}) => setTypedTypePrice(value)}
-                        />
-                    </div>
-                    
-                    <div className="create-type-popup-element">
-                        <label className="create-type-label">Kolor</label>
-                            <CirclePicker 
-                                className="type-color" 
-                                circleSpacing={10} 
-                                circleSize={28} 
-                                width={350} 
-                                value={pickedColor} 
-                                onChange={e => {setPickedColor(e.hex)}}
-                            />
-                    </div>
-                    <Button onClick={() => handleAddTypeButton()}>Dodaj</Button>
-                </div>
-            </Popup>
-            
+            <AddPopup popupOpen={addPopupOpen} onClose={handleAddPopupClose} user={user} loadAppointmentsTypes={loadAppointmentsTypes}/>
             <EditPopup popupOpen={editPopupOpen} onClose={handleEditPopupClose} type={selectedType} loadAppointmentsTypes={loadAppointmentsTypes}/>
         </div>
     )
