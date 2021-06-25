@@ -1,29 +1,25 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react';
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "" };
-  }
+export default function Input(props) {
+  const [value, setValue] = useState('');
 
-  setPatient = (event) => {
-    this.setState({ value: event.target.value }, () =>
-      this.props.setPatient(this.state.value)
-    );
+  useEffect(() => {
+    props.setPatient(value);
+  }, [props, value]);
+
+  const setPatient = (event) => {
+    setValue(event.target.value);
   };
 
-  render() {
-    return (
-      <div className="form-group">
-        <label>{this.props.label}</label>
-        <input
-          type="text"
-          className="form-control"
-          value={this.state.value}
-          onChange={this.setPatient}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="form-group">
+      <label>{props.label}</label>
+      <input
+        type="text"
+        className="form-control"
+        value={value}
+        onChange={setPatient}
+      />
+    </div>
+  );
 }
-export default Input;

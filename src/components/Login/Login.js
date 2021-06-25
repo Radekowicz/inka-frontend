@@ -1,84 +1,63 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
-import { Navbar, Nav, NavItem, Form, Button } from 'react-bootstrap';
-import { UserContext } from "../../contexts/UserContext"
-import './Login.css'
+import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { UserContext } from '../../contexts/UserContext';
+import './Login.css';
 
+export default function Login() {
+  const [typedNickname, setTypedNickname] = useState();
+  const [typedPassword, setTypedPassword] = useState();
+  const history = useHistory();
+  const { user, setUser, setLogged } = useContext(UserContext);
 
-function Login() {
+  const checkLogin = async () => {
+    return true;
+  };
 
-    const [typedNickname, setTypedNickname] = useState()
-    const [typedPassword, setTypedPassword] = useState()
-    const history = useHistory()
-    const { user, setUser, setLogged } = useContext(UserContext)
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    checkLogin().then((isCorrect) => {
+      if (isCorrect === true) {
+        setLogged(true);
+        setUser(user);
+        history.push('/appointments');
+      }
+    });
+  };
 
-    const checkLogin = async () => {
-        // console.log("check login")
-        // const response = await fetch(`/api/users`, {
-        //     method: "POST",
-        //     headers: {
-        //       "Accept": "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         nickname: typedNickname,
-        //         password: typedPassword
-        //     })
-        // })
-        // if(!(response.status >= 200 && response.status < 300)) {
-        //     return false;
-        // };
-        // const isCorrect = await response.json()
-        
-        // console.log(isCorrect)
-        // return isCorrect
-        return true
-    }
+  return (
+    <div>
+      <div className="form">
+        <h1 className="login-title">Zaloguj się</h1>
+        <form onSubmit={onFormSubmit}>
+          <div className="login-element">
+            <label className="login-label">Nazwa użytkownika</label>
+            <input
+              className="login-input"
+              type="text"
+              placeholder="Login"
+              onChange={({ target: { value } }) => {
+                setTypedNickname(value);
+              }}
+            />
+          </div>
 
-    const onFormSubmit = (e) => {
-        e.preventDefault()
-        checkLogin().then((isCorrect) => {
-            if (isCorrect === true) {
-                setLogged(true)
-                setUser(user)
-                history.push("/appointments");
-            }
-        })
-    }
-
-    return (
-        <div>
-            <div className="form">
-                <h1 className="login-title">Zaloguj się</h1>
-                <form onSubmit={onFormSubmit}>
-                <div className="login-element">
-                    <label className="login-label">Nazwa użytkownika</label>
-                    <input 
-                    className="login-input"
-                    type="text" 
-                    placeholder="Login"
-                    onChange={({target:{value}}) => {
-                        setTypedNickname(value)
-                    }}/>
-                </div>
-
-                <div className="login-element">
-                    <label className="login-label">Hasło</label>
-                    <input
-                    className="login-input" 
-                    type="password" 
-                    placeholder="Hasło"
-                    onChange={({target:{value}}) => {
-                        setTypedPassword(value)
-                    }}/>
-                </div>
-                <Button onClick={onFormSubmit}>
-                    Zaloguj
-                </Button>
-                </form>
-            </div>
-        </div>
-    )
+          <div className="login-element">
+            <label className="login-label">Hasło</label>
+            <input
+              className="login-input"
+              type="password"
+              placeholder="Hasło"
+              onChange={({ target: { value } }) => {
+                setTypedPassword(value);
+              }}
+            />
+          </div>
+          <Button variant="contained" color="primary" onClick={onFormSubmit}>
+            Zaloguj
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
 }
-
-export default Login
