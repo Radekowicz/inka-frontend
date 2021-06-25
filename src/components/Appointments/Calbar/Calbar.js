@@ -212,9 +212,9 @@ class Calbar extends Component {
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
-          scrollToTime={
-            new Date(new Date().setHours(new Date().getHours() - 3))
-          }
+          // scrollToTime={
+          //   new Date(new Date().setHours(new Date().getHours() - 3))
+          // }
           defaultView="day"
           events={this.props.events}
           style={{ height: "calc(100vh - 50px)" }}

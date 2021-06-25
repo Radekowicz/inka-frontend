@@ -5,9 +5,9 @@ import "./PatientPage.css";
 
 const Detail = (props) => {
     return (
-      <div className="detail">
-        <span className="detail-title">{props.title}:</span>
-        <span className="detail-info">{props.info}</span>
+      <div className="patient-page-detail">
+        <span className="patient-page-detail-title">{props.title}:</span>
+        <span className="patient-page-detail-info">{props.info}</span>
       </div>
     );
   };
@@ -84,41 +84,37 @@ function PatientPage({match}) {
       }
 
     return (
-        <div>
-
-        <div className="patient-info">
-        <div className="patient">
-          <div className="avatar">
-            <i className="fas fa-user-circle patient-image" />
-          </div>
-          <div className="basic-info">
-            <div>
-              {patient?.firstName} {patient?.lastName} (
-              {calcAge(patient?.birthdate)})
+        <div className="patient-page-container">
+          <div className="patient-page-patient-info">
+            <div className="patient-page-patient">
+              <div className="patient-page-avatar">
+                <i className="fas fa-user-circle patient-page-image" />
+              </div>
+              <div className="patient-page-basic-info">
+                <div>
+                  {patient?.firstName} {patient?.lastName} (
+                  {calcAge(patient?.birthdate)})
+                </div>
+                <div>
+                  Rozpoczęcie lecznia:{" "}
+                  {patient?.firstAppointment}
+                </div>
+              </div>
             </div>
-            <div>
-              Rozpoczęcie lecznia:{" "}
-              {patient?.firstAppointment}
+
+            <div className="patient-page-more-info">
+              <Detail title="Email" info={patient?.email} />
+              <Detail title="Telefon" info={patient?.phoneNumber} />
+              <Detail title="Adres" info={patient?.address} />
             </div>
           </div>
-        </div>
-
-        <div className="more-info">
-          <Detail title="Email" info={patient?.email} />
-          <Detail title="Telefon" info={patient?.phoneNumber} />
-          <Detail title="Adres" info={patient?.address} />
-        </div>
-      </div>
-            
-      
-        <tr><td colspan="8" className="visit-row">
-        {
-            appointments?.map((appointment, index) => <Visit appointment={appointment}/>)
-        }
-        </td>
-        </tr>
-              
-
+          <table className="patient-page-table">
+            <tr>
+              <td colspan="8" className="visit-row">
+              {appointments?.map((appointment, index) => <Visit appointment={appointment}/>)}
+              </td>
+            </tr>
+          </table>
         </div>
     )
 }

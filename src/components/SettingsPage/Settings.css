@@ -25,6 +25,12 @@
   margin-bottom: 20px;
 }
 
+.types-table {
+  border-collapse: collapse;
+  table-layout: auto;
+  width: 100%;
+}
+
 .type-edit-buttons {
   margin-top: 20px;
   display: flex;

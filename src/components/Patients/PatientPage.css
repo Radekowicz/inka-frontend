@@ -1,5 +1,18 @@
+
+.patient-page-container {
+  width: 600px;
+  margin: 20px
+}
+
+.patient-page-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
 .visit-row {
-  border: 1px solid lightgray;
+  box-shadow: 2px 2px 2px 1px lightgray;
+  border-radius: 5px;
+
 }
 
 .visit-component {
@@ -8,4 +21,52 @@
   padding: 10px;
   display: block;
   margin: 10px;
+  border-radius: 5px;
+
+}
+
+
+.patient-page-patient-info {
+  width: 100%;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 0.8rem;
+}
+
+.patient-page-patient {
+  display: flex;
+  align-items: center;
+}
+
+.patient-page-basic-info {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.patient-page-more-info {
+  display: flex;
+}
+
+.patient-page-image {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.patient-page-detail {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 5px 30px 5px 0px;
+}
+
+.patient-page-detail-title {
+  margin-right: 10px;
+}
+
+.patient-page-detail-info {
+  color: lightgray;
+}
+
+.patient-page-avatar {
+  font-size: 40px;
 }

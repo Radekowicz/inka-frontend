@@ -12,7 +12,7 @@ function Settings() {
     const { user, setUser } = useContext(UserContext)
     const [appointmentsTypes, setAppointmentsTypes] = useState()
     const [addPopupOpen, setAddPopupOpen] = useState(false)
-    const [editOpen, setEditOpen] = useState(true)
+    const [editOpen, setEditOpen] = useState(false)
     const [selectedType, setSelectedType] = useState()
     const [editPopupOpen, setEditPopupOpen] = useState(false)
 
@@ -48,6 +48,7 @@ function Settings() {
         //       }),
         // });        
         // loadAppointmentsTypes()
+        window.alert("Usuwanie jest niedostępne, skontaktuj się z administratorem");
     }
 
 
@@ -68,6 +69,7 @@ function Settings() {
         <div>
             <div className="edit-container">
                 <div className="edit-header">Typy wizyt</div>
+                <table className="types-table">
                 {
                     appointmentsTypes?.map((type, index) =>
                         <tr>
@@ -96,9 +98,12 @@ function Settings() {
                         }
                         </tr>
                     )
-                }
+                    }
+                    </table>
                 <span className="type-edit-buttons">
-                    <Button onClick={() => editOpen ? setEditOpen(false) : setEditOpen(true)}>Edytuj</Button>
+                    <Button onClick={() => editOpen ? setEditOpen(false) : setEditOpen(true)}>
+                        { editOpen ? "Przestań edytować" : "Edytuj"}
+                    </Button>
                     <Button onClick={() => setAddPopupOpen(true)}>+</Button>
                 </span>
                 
