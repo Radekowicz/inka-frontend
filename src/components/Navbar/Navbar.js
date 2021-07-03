@@ -65,9 +65,14 @@ export default function Navbar() {
         onClick={() => setActiveItemIndex(10)}
       >
         {logged === false ? (
-          <Link to="/login" className="navbar-login-container">
-            Zaloguj się
-          </Link>
+          <div style={{ display: 'flex' }}>
+            <Link to="/login" className="navbar-login-container">
+              Zaloguj się
+            </Link>
+            <Link to="/register" className="navbar-login-container">
+              Zarejestruj się
+            </Link>
+          </div>
         ) : (
           <Link to="/user" className="navbar-username-container">
             <div className="nav-user">{userName}</div>

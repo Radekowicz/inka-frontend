@@ -5,9 +5,10 @@ import Patients from './components/Patients/Patients';
 import PatientPage from './components/Patients/PatientPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Settings from './components/SettingsPage/Settings';
+import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import ContextProvider from './contexts/UserContext';
-import Opening from './components/OpeningPage/Opening';
+import HomePage from './components/HomePage/HomePage';
 import Navbar from './components/Navbar/Navbar';
 
 export default function App() {
@@ -19,8 +20,9 @@ export default function App() {
             <Navbar />
           </div>
           <Switch>
-            <Route exact path="/" component={Opening}></Route>
+            <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/appointments" component={Appointments} />
             <Route exact path="/patients/:patientId" component={PatientPage} />
             <Route exact path="/patients" component={Patients} />
