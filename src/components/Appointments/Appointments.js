@@ -3,7 +3,8 @@ import './Appointments.css';
 import Calbar from './Calbar/Calbar';
 import EventInfo from './EventInfo/EventInfo';
 import PatientInfo from './/PatientInfo/PatientInfo';
-import { Button } from '../Button/Button';
+// import { Button } from '../Button/Button';
+import { Button, Paper } from '@material-ui/core';
 import { UserContext } from '../../contexts/UserContext';
 import moment from 'moment';
 
@@ -108,13 +109,15 @@ export default function Appointments(props) {
     <div className="App">
       <div className="Menu">
         <div className="Calendar">
-          <Calbar
-            handleEventClick={handleEventClick}
-            handleDeleteClick={deleteAppointment}
-            options={appointmentsTypes}
-            loadAppointments={loadAppointments}
-            events={events}
-          />
+          <Paper elevation={2} style={{ padding: 20, margin: 20 }}>
+            <Calbar
+              handleEventClick={handleEventClick}
+              handleDeleteClick={deleteAppointment}
+              options={appointmentsTypes}
+              loadAppointments={loadAppointments}
+              events={events}
+            />
+          </Paper>
         </div>
         <div className="Info">
           <div className="PatientInfo">
@@ -124,7 +127,14 @@ export default function Appointments(props) {
             <EventInfo event={selectedEvent} />
           </div>
           <div className="DeleteEventButton">
-            <Button onClick={deleteAppointment}>Usuń wizytę</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={deleteAppointment}
+              // disableTouchRipple={true}
+            >
+              Usuń wizytę
+            </Button>
           </div>
         </div>
       </div>

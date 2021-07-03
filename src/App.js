@@ -9,25 +9,34 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import ContextProvider from './contexts/UserContext';
 import HomePage from './components/HomePage/HomePage';
-import Navbar from './components/Navbar/Navbar';
+import Appbar from './components/Appbar/Appbar';
+import Toolbar from '@material-ui/core/Toolbar';
+import useStyles from './App.styles';
 
 export default function App() {
+  const classes = useStyles();
+
   return (
     <ContextProvider>
       <Router>
-        <div className="App">
-          <div className="Navbar">
-            <Navbar />
-          </div>
-          <Switch>
-            <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/appointments" component={Appointments} />
-            <Route exact path="/patients/:patientId" component={PatientPage} />
-            <Route exact path="/patients" component={Patients} />
-            <Route exact path="/settings" component={Settings} />
-          </Switch>
+        <div className={classes.root}>
+          <Appbar />
+          <main className={classes.content}>
+            <Toolbar />
+            <Switch>
+              <Route exact path="/" component={HomePage}></Route>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/appointments" component={Appointments} />
+              <Route
+                exact
+                path="/patients/:patientId"
+                component={PatientPage}
+              />
+              <Route exact path="/patients" component={Patients} />
+              <Route exact path="/settings" component={Settings} />
+            </Switch>
+          </main>
         </div>
       </Router>
     </ContextProvider>
