@@ -11,6 +11,7 @@ import ContextProvider from './contexts/UserContext';
 import HomePage from './components/HomePage/HomePage';
 import Appbar from './components/Appbar/Appbar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Patients2 from './components/Patients2/Patients';
 import useStyles from './App.styles';
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
                 path="/patients/:patientId"
                 component={PatientPage}
               />
-              <Route exact path="/patients" component={Patients} />
+              <Route exact path="/patients" component={Patients2} />
               <Route exact path="/settings" component={Settings} />
             </Switch>
           </main>
