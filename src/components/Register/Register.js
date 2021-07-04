@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -29,6 +29,7 @@ const validationSchema = yup.object({
 
 export default function Register() {
   const classes = useStyles();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +42,10 @@ export default function Register() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const handleSubmit = () => {
+    history.push('/login');
+  };
 
   return (
     <div>
@@ -93,6 +98,7 @@ export default function Register() {
               fullWidth
               type="submit"
               className={classes.registerButton}
+              onClick={handleSubmit}
             >
               Submit
             </Button>

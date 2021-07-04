@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import Appointments from './components/Appointments/Appointments';
-import Patients from './components/Patients/Patients';
-import PatientPage from './components/Patients/PatientPage';
+import PatientDetails from './components/PatientDetails/PatientDetails';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Settings from './components/SettingsPage/Settings';
 import Register from './components/Register/Register';
@@ -11,7 +10,7 @@ import ContextProvider from './contexts/UserContext';
 import HomePage from './components/HomePage/HomePage';
 import Appbar from './components/Appbar/Appbar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Patients2 from './components/Patients2/Patients';
+import Patients from './components/Patients2/Patients';
 import useStyles from './App.styles';
 
 export default function App() {
@@ -25,16 +24,16 @@ export default function App() {
           <main className={classes.content}>
             <Toolbar />
             <Switch>
-              <Route exact path="/" component={HomePage}></Route>
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/appointments" component={Appointments} />
               <Route
                 exact
                 path="/patients/:patientId"
-                component={PatientPage}
+                component={PatientDetails}
               />
-              <Route exact path="/patients" component={Patients2} />
+              <Route exact path="/patients" component={Patients} />
               <Route exact path="/settings" component={Settings} />
             </Switch>
           </main>

@@ -9,7 +9,6 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Button } from '../../Button/Button';
 import { UserContext } from '../../../contexts/UserContext';
-import { FaRegHandScissors } from 'react-icons/fa';
 
 const localizer = momentLocalizer(moment);
 

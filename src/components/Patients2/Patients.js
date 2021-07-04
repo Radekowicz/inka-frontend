@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { DataGrid } from '@material-ui/data-grid';
 import { Paper, IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import DetailsIcon from '@material-ui/icons/Details';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { getPatients } from '../../requestsService/Patients';
@@ -85,6 +84,15 @@ export default function Patients() {
     }
   };
 
+  const onCellClick = (params) => {
+    if (params.field === '__check__') return;
+    if (params.field === 'settingsField') {
+    }
+    if (params.field === 'detailsField') {
+      history.push(`/patients/${params.row.id}`);
+    }
+  };
+
   useEffect(() => {
     setPatients();
   }, []);
@@ -103,14 +111,7 @@ export default function Patients() {
           pageSize={10}
           checkboxSelection
           disableSelectionOnClick={true}
-          onCellClick={(params) => {
-            if (params.field === '__check__') return;
-            if (params.field === 'settingsField') {
-            }
-            if (params.field === 'detailsField') {
-              history.push(`/patients/${params.row.id}`);
-            }
-          }}
+          onCellClick={onCellClick}
         />
       </Paper>
     </div>

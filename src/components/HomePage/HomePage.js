@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Button, Typography } from '@material-ui/core';
+import React from 'react';
+import { Typography } from '@material-ui/core';
 import './Opening.css';
 import UndrawCalendar from '../../images/undraw_calendar.svg';
 import UndrawDoctors from '../../images/undraw_doctors.svg';

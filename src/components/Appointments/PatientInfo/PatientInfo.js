@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './PatientInfo.css';
 import moment from 'moment';
 import 'moment/locale/pl';

@@ -7,7 +7,6 @@ import {
   DialogTitle,
   Checkbox,
   Grid,
-  IconButton,
   Link,
   Paper,
   TextField,
@@ -50,6 +49,10 @@ export default function Login() {
     setTypedEmail('');
   };
 
+  const handleSubmit = () => {
+    history.push('/appointments');
+  };
+
   return (
     <div>
       <Paper elevation={4} className={classes.loginPaper}>
@@ -86,6 +89,7 @@ export default function Login() {
             variant="contained"
             fullWidth
             className={classes.loginButton}
+            onClick={handleSubmit}
           >
             Sign in
           </Button>
