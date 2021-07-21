@@ -1,10 +1,10 @@
 $current-time-color: orange;
 
-@import "react-big-calendar/lib/sass/styles";
-@import "react-big-calendar/lib/addons/dragAndDrop/styles"; // if using DnD
-@import "react-big-calendar/lib/sass/toolbar";
-@import "react-big-calendar/lib/sass/variables";
-@import "react-big-calendar/lib/sass/event";
+@import 'react-big-calendar/lib/sass/styles';
+@import 'react-big-calendar/lib/addons/dragAndDrop/styles'; // if using DnD
+@import 'react-big-calendar/lib/sass/toolbar';
+@import 'react-big-calendar/lib/sass/variables';
+@import 'react-big-calendar/lib/sass/event';
 
 .rbc-today {
   background-color: white;
@@ -108,15 +108,17 @@ $current-time-color: orange;
 .toolbar-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .label-date-container {
-  margin-left: 20px;
+  // margin-left: 20px;
 }
 
 .navigate-btn-container {
-  position: fixed;
-  left: 20%;
+  // position: fixed;
+  // left: 20%;
 }
 
 .navigate-btn {
@@ -131,7 +133,7 @@ $current-time-color: orange;
 }
 
 .day-week-month-container {
-  margin-left: auto;
+  // margin-left: auto;
 }
 
 .day-week-month {

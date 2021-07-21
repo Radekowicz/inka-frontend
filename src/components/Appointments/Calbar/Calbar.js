@@ -1,15 +1,14 @@
-import React, { Component } from "react";
-import "./Calbar.scss";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "moment/locale/pl";
-import MyEvent from "./MyEvent/MyEvent";
-import Select from "react-select";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import { Button } from "../../Button/Button";
-import { UserContext } from "../../../contexts/UserContext"
-import { FaRegHandScissors } from "react-icons/fa";
+import React, { Component } from 'react';
+import './Calbar.scss';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'moment/locale/pl';
+import MyEvent from './MyEvent/MyEvent';
+import Select from 'react-select';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { Button } from '../../Button/Button';
+import { UserContext } from '../../../contexts/UserContext';
 
 const localizer = momentLocalizer(moment);
 
@@ -33,9 +32,7 @@ const CustomToolbar = (toolbar) => {
 
   const label = () => {
     const date = moment(toolbar.date);
-    return (
-      <span>{date.format('dddd, DD MMMM YYYY')}</span>
-    );
+    return <span>{date.format('dddd, DD MMMM YYYY')}</span>;
   };
 
   const goToMonthView = () => {
@@ -56,49 +53,59 @@ const CustomToolbar = (toolbar) => {
         <label className="label-date">{label()}</label>
       </div>
       <div className="navigate-btn-container">
-        <button className="navigate-btn" onClick={goToBack}>&#8249;</button>
-        <button className="navigate-btn" onClick={goToCurrent}>Dziś</button>
-        <button className="navigate-btn" onClick={goToNext}>&#8250;</button>
+        <button className="navigate-btn" onClick={goToBack}>
+          &#8249;
+        </button>
+        <button className="navigate-btn" onClick={goToCurrent}>
+          Dziś
+        </button>
+        <button className="navigate-btn" onClick={goToNext}>
+          &#8250;
+        </button>
       </div>
-      <div className="day-week-month-container"> 
-      <button className="navigate-btn day-week-month" onClick={goToMonthView}>Miesiąc</button>
-      <button className="navigate-btn day-week-month" onClick={goToWeekView}>Tydzień</button>
-      <button className="navigate-btn day-week-month" onClick={goToDayView}>Dzień</button>
+      <div className="day-week-month-container">
+        <button className="navigate-btn day-week-month" onClick={goToMonthView}>
+          Miesiąc
+        </button>
+        <button className="navigate-btn day-week-month" onClick={goToWeekView}>
+          Tydzień
+        </button>
+        <button className="navigate-btn day-week-month" onClick={goToDayView}>
+          Dzień
+        </button>
       </div>
-    </div >
+    </div>
   );
 };
 
 const messages = {
-  allDay: "Cały dzień",
-  previous: "<",
-  next: ">",
-  today: "Dzisiaj",
-  month: "Miesiąc",
-  week: "Tydzień",
-  day: "Dzień",
-  agenda: "Agenda",
-  date: "Data",
-  time: "Czas",
-  event: "Wydarzenie",
+  allDay: 'Cały dzień',
+  previous: '<',
+  next: '>',
+  today: 'Dzisiaj',
+  month: 'Miesiąc',
+  week: 'Tydzień',
+  day: 'Dzień',
+  agenda: 'Agenda',
+  date: 'Data',
+  time: 'Czas',
+  event: 'Wydarzenie',
 };
 
 let formats = {
-  dayHeaderFormat: "dddd, DD MMMM YYYY",
-  dayRangeHeaderFormat: "MMMM YYYY",
+  dayHeaderFormat: 'dddd, DD MMMM YYYY',
+  dayRangeHeaderFormat: 'MMMM YYYY',
 };
 
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    height: "43px",
-    "min-height": "43px",
+    height: '43px',
+    'min-height': '43px',
   }),
 };
 
 class Calbar extends Component {
-
-
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -115,28 +122,27 @@ class Calbar extends Component {
     this.loadAppointments();
     this.loadAppointmentsTypes();
     this.eventStyleGetter = this.eventStyleGetter.bind(this);
-
   }
 
-  static contextType = UserContext
+  static contextType = UserContext;
 
   loadAppointmentsTypes = async () => {
-    const { user } = this.context
+    const { user } = this.context;
     const response = await fetch(`/api/appointmentsTypes/${user}`);
     const data = await response.json();
-    const types = data.map(type => ({
+    const types = data.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
       color: type.color,
-    }))
-    console.log(data)
-    this.setState({appointmentsTypes: types})
-  }
+    }));
+    console.log(data);
+    this.setState({ appointmentsTypes: types });
+  };
 
   // load options using API call
   loadPatientOptions = async () => {
-    const response = await fetch("/api/patients");
+    const response = await fetch('/api/patients');
     const data = await response.json();
     const patients = data.map((patient, index) => ({
       value: `${patient._id}`,
@@ -162,13 +168,13 @@ class Calbar extends Component {
   }
 
   handleSelect = async (title, patient) => {
-    const { user } = this.context
+    const { user } = this.context;
     if (title && patient) {
-      await fetch("/api/appointments", {
-        method: "POST",
+      await fetch('/api/appointments', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           type: title.id,
@@ -180,26 +186,26 @@ class Calbar extends Component {
       });
       this.loadAppointments();
     } else {
-      window.alert("Nie podano wszystkich danych");
+      window.alert('Nie podano wszystkich danych');
     }
     this.setState({ selectedOption: null, value: null });
   };
 
   eventStyleGetter(event, start, end, isSelected) {
     var backgroundColor;
-    this.state.appointmentsTypes.map(type => {
+    this.state.appointmentsTypes.map((type) => {
       if (event.type === type.label) {
-        backgroundColor = type.color
+        backgroundColor = type.color;
       }
-    })
+    });
 
     var style = {
       backgroundColor: backgroundColor,
-      borderRadius: "0px",
+      borderRadius: '0px',
       opacity: 0.5,
-      color: "black",
-      border: "0px",
-      display: "block",
+      color: 'black',
+      border: '0px',
+      display: 'block',
     };
     return {
       style: style,
@@ -217,10 +223,10 @@ class Calbar extends Component {
           // }
           defaultView="day"
           events={this.props.events}
-          style={{ height: "calc(100vh - 50px)" }}
+          style={{ height: 'calc(100vh - 50px)' }}
           messages={messages}
           selectable={true}
-          views={["month", "week", "day"]}
+          views={['month', 'week', 'day']}
           formats={formats}
           onSelectSlot={({ start, end }) => {
             this.setState({ popupOpen: true, start: start, end: end });
@@ -229,9 +235,8 @@ class Calbar extends Component {
           eventPropGetter={this.eventStyleGetter}
           components={{
             event: MyEvent,
-            toolbar: CustomToolbar
+            toolbar: CustomToolbar,
           }}
-          
         />
 
         <div>
@@ -239,7 +244,7 @@ class Calbar extends Component {
             modal
             open={this.state.popupOpen}
             onClose={() => this.setState({ popupOpen: false })}
-            contentStyle={{ width: "488px" }}
+            contentStyle={{ width: '488px' }}
           >
             <div className="popup">
               <div className="input">

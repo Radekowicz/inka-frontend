@@ -1,24 +1,17 @@
-import React, { Component } from "react";
-import "./EventInfo.css";
-import moment from "moment";
-import "moment/locale/pl";
+import React from 'react';
+import './EventInfo.css';
+import moment from 'moment';
+import 'moment/locale/pl';
+import Paper from '@material-ui/core/Paper';
 
-class EventInfo extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="event-info">
-        <div>{this.props.event.type}</div>
-        <span>
-          Godzina wizyty:
-          {moment(this.props.event.start).format(" hh:mm").toLocaleString()}
-        </span>
-      </div>
-    );
-  }
+export default function EventInfo(props) {
+  return (
+    <Paper className="event-info">
+      <div>{props.event.type ? props.event.type : ' '}</div>
+      <span>
+        Godzina wizyty:
+        {moment(props.event.start).format(' hh:mm').toLocaleString()}
+      </span>
+    </Paper>
+  );
 }
-
-export default EventInfo;

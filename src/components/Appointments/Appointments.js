@@ -1,92 +1,85 @@
-import React, { useEffect, useState, Component } from "react";
-import "./Appointments.css";
-import Calbar from "./Calbar/Calbar";
-import EventInfo from "./EventInfo/EventInfo";
-import PatientInfo from ".//PatientInfo/PatientInfo";
-import { Button } from "../Button/Button";
-import { UserContext } from "../../contexts/UserContext"
-import moment from "moment";
+import React, { useEffect, useState, useContext } from 'react';
+import './Appointments.css';
+import Calbar from './Calbar/Calbar';
+import EventInfo from './EventInfo/EventInfo';
+import PatientInfo from './/PatientInfo/PatientInfo';
+// import { Button } from '../Button/Button';
+import { Button, Paper } from '@material-ui/core';
+import { UserContext } from '../../contexts/UserContext';
+import moment from 'moment';
 
+const emptyPatient = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  birthdate: Date.now(),
+  firstAppointment: Date.now(),
+  email: '',
+  phoneNumber: '',
+  address: '',
+};
 
+const emptyEvent = {
+  id: '',
+  start: moment().toDate(),
+  end: moment().toDate(),
+  title: '',
+  name: '',
+  patient: '',
+};
 
-class Appointments extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      selectedEvent: {
-        id: "123",
-        start: moment().toDate(),
-        end: moment().toDate(),
-        title: "Wizyta kontrolna",
-        name: "Ethan Jones",
-        patient: null,
-      },
-      selectedPatient: {
-        id: "123",
-        firstName: "Jon",
-        lastName: "Snow",
-        birthdate: Date.now(),
-        firstAppointment: Date.now(),
-        email: "bla@.com",
-        phoneNumber: "123456789",
-        address: "Asa",
-      },
-      events: [],
-      appointmentsTypes: [],
-    };
-    this.handleEventClick = this.handleEventClick.bind(this);
-    this.loadAppointmentsTypes();
-  }
+export default function Appointments(props) {
+  const [selectedEvent, setSelectedEvent] = useState(emptyEvent);
+  const [selectedPatient, setSelectedPatient] = useState(emptyPatient);
+  const [events, setEvents] = useState([]);
+  const [appointmentsTypes, setAppointmentsTypes] = useState([]);
 
-  static contextType = UserContext
+  const { user } = useContext(UserContext);
 
-  loadAppointmentsTypes = async () => {
-    const { user } = this.context
+  useEffect(() => {
+    loadAppointmentsTypes();
+    loadPatient();
+  }, []);
+
+  useEffect(() => {
+    loadPatient();
+  }, [selectedEvent]);
+
+  const loadAppointmentsTypes = async () => {
     const response = await fetch(`/api/appointmentsTypes/${user}`);
     const data = await response.json();
-    const types = data.map(type => ({
+    const types = data.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
       color: type.color,
-    }))
-    console.log(types)
-    this.setState({appointmentsTypes: types})
-  }
-
-  handleEventClick = (event) => {
-    console.log(event)
-    this.setState(
-      {
-        selectedEvent: event,
-      },
-      () => {
-        this.loadPatient();
-      }
-    );
+    }));
+    console.log(types);
+    setAppointmentsTypes(types);
   };
 
-  loadPatient = async () => {
-    const selectedEvent = this.state.selectedEvent;
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const loadPatient = async () => {
     if (selectedEvent) {
       const patient = selectedEvent.patient;
-      this.setState({
-        selectedPatient: {
-          id: patient._id,
-          firstName: patient.firstName,
-          lastName: patient.lastName,
-          birthdate: patient.birthdate,
-          firstAppointment: patient.firstAppointment,
-          email: patient.email,
-          phoneNumber: patient.phoneNumber,
-          address: patient.address,
-        },
+      setSelectedPatient({
+        id: patient._id,
+        firstName: patient.firstName,
+        lastName: patient.lastName,
+        birthdate: patient.birthdate,
+        firstAppointment: patient.firstAppointment,
+        email: patient.email,
+        phoneNumber: patient.phoneNumber,
+        address: patient.address,
       });
     }
   };
 
-  loadAppointments = async () => {
-    const response = await fetch("/api/appointments");
+  const loadAppointments = async () => {
+    const response = await fetch('/api/appointments');
     const data = await response.json();
     const appointments = data.map((appointment, index) => ({
       id: appointment._id,
@@ -97,51 +90,56 @@ class Appointments extends Component {
       end: new Date(appointment.endDate),
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
     }));
-    this.setState({ events: appointments });
+    setEvents(appointments);
   };
 
-  deleteAppointment = async () => {
-    const selectedEvent = this.state.selectedEvent;
-
+  const deleteAppointment = async () => {
     await fetch(`/api/appointments/${selectedEvent.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({}),
     });
-    this.loadAppointments();
+    loadAppointments();
   };
 
-  render() {
-    return (
-      <div className="App">
-        <div className="Menu">
-          <div className="Calendar">
+  return (
+    <div className="App">
+      <div className="Menu">
+        <div className="Calendar">
+          <Paper elevation={2} style={{ padding: 20, margin: 20 }}>
             <Calbar
-              handleEventClick={this.handleEventClick}
-              handleDeleteClick={this.deleteAppointment}
-              options={this.state.appointmentsTypes}
-              loadAppointments={this.loadAppointments}
-              events={this.state.events}
+              handleEventClick={handleEventClick}
+              handleDeleteClick={deleteAppointment}
+              options={appointmentsTypes}
+              loadAppointments={loadAppointments}
+              events={events}
             />
-          </div>
-          <div className="Info">
+          </Paper>
+        </div>
+        {selectedPatient.id ? (
+          <div className="Info" style={{ margin: 10 }}>
             <div className="PatientInfo">
-              <PatientInfo patient={this.state.selectedPatient} />
+              <PatientInfo patient={selectedPatient} />
             </div>
             <div className="EventInfo">
-              <EventInfo event={this.state.selectedEvent} />
+              <EventInfo event={selectedEvent} />
             </div>
             <div className="DeleteEventButton">
-              <Button onClick={this.deleteAppointment}>Usuń wizytę</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={deleteAppointment}
+                // disableTouchRipple={true}
+              >
+                Usuń wizytę
+              </Button>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default Appointments;

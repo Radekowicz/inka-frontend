@@ -1,84 +1,155 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
-import { Navbar, Nav, NavItem, Form, Button } from 'react-bootstrap';
-import { UserContext } from "../../contexts/UserContext"
-import './Login.css'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Checkbox,
+  Grid,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import useStyles from './Login.styles';
 
+export default function Login() {
+  const classes = useStyles();
+  const history = useHistory();
+  const [typedUsername, setTypedUsername] = useState('');
+  const [typedPassword, setTypedPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [typedEmail, setTypedEmail] = useState('');
+  const [open, setOpen] = React.useState(false);
 
-function Login() {
-
-    const [typedNickname, setTypedNickname] = useState()
-    const [typedPassword, setTypedPassword] = useState()
-    const history = useHistory()
-    const { user, setUser, setLogged } = useContext(UserContext)
-
-    const checkLogin = async () => {
-        // console.log("check login")
-        // const response = await fetch(`/api/users`, {
-        //     method: "POST",
-        //     headers: {
-        //       "Accept": "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         nickname: typedNickname,
-        //         password: typedPassword
-        //     })
-        // })
-        // if(!(response.status >= 200 && response.status < 300)) {
-        //     return false;
-        // };
-        // const isCorrect = await response.json()
-        
-        // console.log(isCorrect)
-        // return isCorrect
-        return true
+  const sendMail = () => {
+    if (typedEmail) {
+      textFieldClear();
+      handleClose();
+      window.alert('Mail sent! Check your mail box');
+    } else {
+      window.alert('Email field cannot be blank!');
     }
+  };
 
-    const onFormSubmit = (e) => {
-        e.preventDefault()
-        checkLogin().then((isCorrect) => {
-            if (isCorrect === true) {
-                setLogged(true)
-                setUser(user)
-                history.push("/appointments");
-            }
-        })
-    }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    return (
-        <div>
-            <div className="form">
-                <h1 className="login-title">Zaloguj się</h1>
-                <form onSubmit={onFormSubmit}>
-                <div className="login-element">
-                    <label className="login-label">Nazwa użytkownika</label>
-                    <input 
-                    className="login-input"
-                    type="text" 
-                    placeholder="Login"
-                    onChange={({target:{value}}) => {
-                        setTypedNickname(value)
-                    }}/>
-                </div>
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-                <div className="login-element">
-                    <label className="login-label">Hasło</label>
-                    <input
-                    className="login-input" 
-                    type="password" 
-                    placeholder="Hasło"
-                    onChange={({target:{value}}) => {
-                        setTypedPassword(value)
-                    }}/>
-                </div>
-                <Button onClick={onFormSubmit}>
-                    Zaloguj
-                </Button>
-                </form>
-            </div>
-        </div>
-    )
+  const textFieldClear = () => {
+    setTypedEmail('');
+  };
+
+  const handleSubmit = () => {
+    history.push('/appointments');
+  };
+
+  return (
+    <div>
+      <Paper elevation={4} className={classes.loginPaper}>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <h2>Sign In</h2>
+          <TextField
+            label="Username"
+            placeholder="Enter username"
+            type="username"
+            fullWidth
+            className={classes.loginTextField}
+            onChange={({ target: { value } }) => {
+              setTypedUsername(value);
+            }}
+          />
+          <TextField
+            label="Password"
+            placeholder="Enter password"
+            type="password"
+            fullWidth
+            className={classes.loginTextField}
+            onChange={({ target: { value } }) => {
+              setTypedPassword(value);
+            }}
+          />
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            className={classes.loginButton}
+            onClick={handleSubmit}
+          >
+            Sign in
+          </Button>
+
+          <FormControlLabel
+            control={<Checkbox color="primary" />}
+            label="Remember me"
+          />
+          <Typography>
+            <Link onClick={handleClickOpen}>Forgot password?</Link>
+          </Typography>
+          <Typography>
+            {' '}
+            Do you have an account?<Link href="/register"> Sign Up</Link>
+          </Typography>
+          {isError ? (
+            <Alert
+              severity="error"
+              className={classes.errorMessage}
+              onClose={() => {
+                setIsError(false);
+              }}
+            >
+              Wrong username or password Please try again
+            </Alert>
+          ) : null}
+        </Grid>
+      </Paper>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please type an e-mail address associated with your account
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email"
+            value={typedEmail}
+            fullWidth
+            onChange={({ target: { value } }) => {
+              setTypedEmail(value);
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => sendMail()} color="primary">
+            Send
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }
-
-export default Login
