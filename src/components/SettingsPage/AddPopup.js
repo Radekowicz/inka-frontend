@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import { CirclePicker } from 'react-color';
 import { Button } from '../Button/Button';
+import { postAppointmentType } from '../../requestsService/appointmentsTypes';
 
 function AddPopup(props) {
   const [pickedColor, setPickedColor] = useState('');
@@ -17,19 +18,13 @@ function AddPopup(props) {
 
   const handleAddTypeButton = async () => {
     if (pickedColor && typedTypeName && typedTypePrice) {
-      await fetch('/api/appointmentsTypes', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          label: typedTypeName,
-          doctor: props.user,
-          color: pickedColor,
-          price: typedTypePrice,
-        }),
-      });
+      const newType = {
+        label: typedTypeName,
+        doctor: props.user,
+        color: pickedColor,
+        price: typedTypePrice,
+      };
+      await postAppointmentType(newType);
       //handlePopupClose()
       props.loadAppointmentsTypes();
     } else {

@@ -9,6 +9,9 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Button } from '../../Button/Button';
 import { UserContext } from '../../../contexts/UserContext';
+import { getPatients } from '../../../requestsService/patients';
+import { postAppointment } from '../../../requestsService/appointments';
+import { getAppointmentsTypes } from '../../../requestsService/appointmentsTypes';
 
 const localizer = momentLocalizer(moment);
 
@@ -115,22 +118,20 @@ class Calbar extends Component {
 
   loadAppointmentsTypes = async () => {
     const { user } = this.context;
-    const response = await fetch(`/api/appointmentsTypes/${user}`);
-    const data = await response.json();
+    const data = await getAppointmentsTypes(user);
+    console.log(data);
     const types = data.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
       color: type.color,
     }));
-    console.log(data);
     this.setState({ appointmentsTypes: types });
   };
 
   // load options using API call
   loadPatientOptions = async () => {
-    const response = await fetch('/api/patients');
-    const data = await response.json();
+    const data = await getPatients();
     const patients = data.map((patient, index) => ({
       value: `${patient._id}`,
       label: `${patient.firstName} ${patient.lastName}`,
@@ -157,19 +158,12 @@ class Calbar extends Component {
   handleSelect = async (title, patient) => {
     const { user } = this.context;
     if (title && patient) {
-      await fetch('/api/appointments', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: title.id,
-          patient: patient.value,
-          doctor: user,
-          startDate: this.state.start,
-          endDate: this.state.end,
-        }),
+      await postAppointment({
+        type: title.id,
+        patient: patient.value,
+        doctor: user,
+        startDate: this.state.start,
+        endDate: this.state.end,
       });
       this.loadAppointments();
     } else {

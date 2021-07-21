@@ -7,6 +7,10 @@ import './Settings.css';
 import EditPopup from './EditPopup';
 import AddPopup from './AddPopup';
 import { Button, Paper } from '@material-ui/core';
+import {
+  getAppointmentsTypes,
+  deleteAppointmentType,
+} from '../../requestsService/appointmentsTypes';
 
 function Settings() {
   const { user } = useContext(UserContext);
@@ -21,8 +25,7 @@ function Settings() {
   }, []);
 
   const loadAppointmentsTypes = async () => {
-    const response = await fetch(`/api/appointmentsTypes/${user}`);
-    const data = await response.json();
+    const data = await getAppointmentsTypes(user);
     const types = data.map((type) => ({
       id: type._id,
       label: type.label,
@@ -30,22 +33,13 @@ function Settings() {
       color: type.color,
       price: type.price,
     }));
-    console.log(types);
     setAppointmentsTypes(types);
   };
 
   //DANGEROUS
   //usunięcie typu psuje wizyty które mają ten typ
   const handleDeleteTypeButton = async (type) => {
-    // await fetch(`/api/appointmentsTypes/${type.id}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       }),
-    // });
+    // deleteAppointmentType(type.id);
     // loadAppointmentsTypes()
     window.alert('Usuwanie jest niedostępne, skontaktuj się z administratorem');
   };

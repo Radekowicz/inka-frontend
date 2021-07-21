@@ -4,7 +4,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import { Paper, IconButton } from '@material-ui/core';
 import DetailsIcon from '@material-ui/icons/Details';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { getPatients } from '../../requestsService/Patients';
+import { getPatients } from '../../requestsService/patients';
 import moment from 'moment';
 import SearchBar from '../SearchBar/SearchBar';
 import useStyles from './Patients.styles';
