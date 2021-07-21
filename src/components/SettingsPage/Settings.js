@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Button } from '../Button/Button';
+// import { Button } from '../Button/Button';
 import { UserContext } from '../../contexts/UserContext';
 import { FaSquare } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
 import './Settings.css';
 import EditPopup from './EditPopup';
 import AddPopup from './AddPopup';
+import { Button, Paper } from '@material-ui/core';
 
 function Settings() {
   const { user } = useContext(UserContext);
@@ -64,7 +65,7 @@ function Settings() {
 
   return (
     <div>
-      <div className="edit-container">
+      <Paper className="edit-container">
         <div className="edit-header">Typy wizyt</div>
         <table className="types-table">
           {appointmentsTypes?.map((type, index) => (
@@ -89,13 +90,21 @@ function Settings() {
         </table>
         <span className="type-edit-buttons">
           <Button
+            variant="contained"
+            color="primary"
             onClick={() => (editOpen ? setEditOpen(false) : setEditOpen(true))}
           >
             {editOpen ? 'Przestań edytować' : 'Edytuj'}
           </Button>
-          <Button onClick={() => setAddPopupOpen(true)}>+</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setAddPopupOpen(true)}
+          >
+            +
+          </Button>
         </span>
-      </div>
+      </Paper>
       <AddPopup
         popupOpen={addPopupOpen}
         onClose={handleAddPopupClose}

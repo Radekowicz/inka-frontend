@@ -119,24 +119,26 @@ export default function Appointments(props) {
             />
           </Paper>
         </div>
-        <div className="Info">
-          <div className="PatientInfo">
-            <PatientInfo patient={selectedPatient} />
+        {selectedPatient.id ? (
+          <div className="Info" style={{ margin: 10 }}>
+            <div className="PatientInfo">
+              <PatientInfo patient={selectedPatient} />
+            </div>
+            <div className="EventInfo">
+              <EventInfo event={selectedEvent} />
+            </div>
+            <div className="DeleteEventButton">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={deleteAppointment}
+                // disableTouchRipple={true}
+              >
+                Usuń wizytę
+              </Button>
+            </div>
           </div>
-          <div className="EventInfo">
-            <EventInfo event={selectedEvent} />
-          </div>
-          <div className="DeleteEventButton">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={deleteAppointment}
-              // disableTouchRipple={true}
-            >
-              Usuń wizytę
-            </Button>
-          </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );

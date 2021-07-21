@@ -2,6 +2,7 @@ import React from 'react';
 import './PatientInfo.css';
 import moment from 'moment';
 import 'moment/locale/pl';
+import Paper from '@material-ui/core/Paper';
 
 const Detail = (props) => {
   return (
@@ -19,7 +20,7 @@ export default function PatientInfo(props) {
   };
 
   return (
-    <div className="patient-info">
+    <Paper className="patient-info">
       <div className="patient">
         <div className="avatar">
           <i className="fas fa-user-circle patient-image" />
@@ -41,6 +42,6 @@ export default function PatientInfo(props) {
         <Detail title="Telefon" info={props.patient.phoneNumber} />
         <Detail title="Adres" info={props.patient.address} />
       </div>
-    </div>
+    </Paper>
   );
 }
