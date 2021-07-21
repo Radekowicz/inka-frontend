@@ -13,22 +13,9 @@ import { UserContext } from '../../../contexts/UserContext';
 const localizer = momentLocalizer(moment);
 
 const CustomToolbar = (toolbar) => {
-  const goToBack = () => {
-    toolbar.date.setMonth(toolbar.date.getMonth() - 1);
-    toolbar.onNavigate('prev');
-  };
-
-  const goToNext = () => {
-    toolbar.date.setMonth(toolbar.date.getMonth() + 1);
-    toolbar.onNavigate('next');
-  };
-
-  const goToCurrent = () => {
-    const now = new Date();
-    toolbar.date.setMonth(now.getMonth());
-    toolbar.date.setYear(now.getFullYear());
-    toolbar.onNavigate('current');
-  };
+  const goToBack = () => toolbar.onNavigate('PREV');
+  const goToNext = () => toolbar.onNavigate('NEXT');
+  const goToCurrent = () => toolbar.onNavigate('TODAY');
 
   const label = () => {
     const date = moment(toolbar.date);
