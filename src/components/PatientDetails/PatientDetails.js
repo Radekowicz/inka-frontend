@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Paper } from '@material-ui/core';
+import { getPatient } from '../../requestsService/patients';
+import { getAppointmentsByPatientId } from '../../requestsService/appointments';
 import moment from 'moment';
 import './PatientDetails.css';
 
@@ -42,8 +44,7 @@ export default function PatientDetails({ match }) {
   }, []);
 
   const loadPatient = async () => {
-    const response = await fetch(`/api/patients/${patientId}`);
-    const patient = await response.json();
+    const patient = await getPatient(patientId);
     const myPatient = {
       id: patient._id,
       firstName: patient.firstName,
@@ -58,9 +59,7 @@ export default function PatientDetails({ match }) {
   };
 
   const loadAppointments = async (patientId) => {
-    console.log(patientId);
-    const response = await fetch(`/api/appointments/${patientId}`);
-    const data = await response.json();
+    const data = await getAppointmentsByPatientId(patientId);
     const appointments = data.map((appointment) => ({
       id: appointment._id,
       type: appointment.type.label,
@@ -70,7 +69,6 @@ export default function PatientDetails({ match }) {
       end: new Date(appointment.endDate),
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
     }));
-
     setAppointments(appointments);
   };
 

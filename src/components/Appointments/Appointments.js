@@ -7,6 +7,11 @@ import PatientInfo from './/PatientInfo/PatientInfo';
 import { Button, Paper } from '@material-ui/core';
 import { UserContext } from '../../contexts/UserContext';
 import moment from 'moment';
+import {
+  getAppointments,
+  deleteAppointment,
+} from '../../requestsService/appointments';
+import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
 
 const emptyPatient = {
   id: '',
@@ -46,15 +51,13 @@ export default function Appointments(props) {
   }, [selectedEvent]);
 
   const loadAppointmentsTypes = async () => {
-    const response = await fetch(`/api/appointmentsTypes/${user}`);
-    const data = await response.json();
+    const data = await getAppointmentsTypes(user);
     const types = data.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
       color: type.color,
     }));
-    console.log(types);
     setAppointmentsTypes(types);
   };
 
@@ -79,9 +82,8 @@ export default function Appointments(props) {
   };
 
   const loadAppointments = async () => {
-    const response = await fetch('/api/appointments');
-    const data = await response.json();
-    const appointments = data.map((appointment, index) => ({
+    const data = await getAppointments();
+    const appointments = data.map((appointment) => ({
       id: appointment._id,
       type: appointment.type.label,
       patient: appointment.patient,
@@ -93,15 +95,8 @@ export default function Appointments(props) {
     setEvents(appointments);
   };
 
-  const deleteAppointment = async () => {
-    await fetch(`/api/appointments/${selectedEvent.id}`, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({}),
-    });
+  const handleDeleteAppointment = async () => {
+    await deleteAppointment(selectedEvent.id);
     loadAppointments();
   };
 
@@ -112,7 +107,7 @@ export default function Appointments(props) {
           <Paper elevation={2} style={{ padding: 20, margin: 20 }}>
             <Calbar
               handleEventClick={handleEventClick}
-              handleDeleteClick={deleteAppointment}
+              handleDeleteClick={handleDeleteAppointment}
               options={appointmentsTypes}
               loadAppointments={loadAppointments}
               events={events}
@@ -131,7 +126,7 @@ export default function Appointments(props) {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={deleteAppointment}
+                onClick={handleDeleteAppointment}
                 // disableTouchRipple={true}
               >
                 Usuń wizytę
