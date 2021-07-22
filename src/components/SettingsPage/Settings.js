@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-// import { Button } from '../Button/Button';
 import { UserContext } from '../../contexts/UserContext';
 import { FaSquare } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
@@ -7,10 +6,7 @@ import './Settings.css';
 import EditPopup from './EditPopup';
 import AddPopup from './AddPopup';
 import { Button, Paper } from '@material-ui/core';
-import {
-  getAppointmentsTypes,
-  deleteAppointmentType,
-} from '../../requestsService/appointmentsTypes';
+import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
 
 function Settings() {
   const { user } = useContext(UserContext);
