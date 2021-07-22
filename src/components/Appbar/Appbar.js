@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Navbar from '../Navbar2/Navbar';
+import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import useStyles from './Appbar.styles';
 

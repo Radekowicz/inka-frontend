@@ -98,6 +98,11 @@ export default function Calbar(props) {
       style: style,
     };
   };
+  const onSelectSlot = ({ start, end }) => {
+    setPopupOpen(true);
+    setStart(start);
+    setEnd(end);
+  };
 
   return (
     <div className="App">
@@ -114,11 +119,7 @@ export default function Calbar(props) {
         selectable={true}
         views={['month', 'week', 'day']}
         formats={formats}
-        onSelectSlot={({ start, end }) => {
-          setPopupOpen(true);
-          setStart(start);
-          setEnd(end);
-        }}
+        onSelectSlot={onSelectSlot}
         onSelectEvent={props.handleEventClick}
         eventPropGetter={eventStyleGetter}
         components={{
@@ -137,7 +138,6 @@ export default function Calbar(props) {
           <div className="popup">
             <div className="input">
               <label className="name-input-title">Imię pacjenta</label>
-
               <Select
                 isClearable
                 onChange={handleValueChange}

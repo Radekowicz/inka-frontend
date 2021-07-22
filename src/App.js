@@ -10,7 +10,7 @@ import ContextProvider from './contexts/UserContext';
 import HomePage from './components/HomePage/HomePage';
 import Appbar from './components/Appbar/Appbar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Patients from './components/Patients2/Patients';
+import Patients from './components/Patients/Patients';
 import useStyles from './App.styles';
 
 export default function App() {
