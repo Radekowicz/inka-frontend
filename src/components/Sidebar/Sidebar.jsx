@@ -9,7 +9,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom';
-import useStyles from '../Sidebar/Sidebar.styles';
+import useStyles from './Sidebar.styles';
 
 const sidebarItems = [
   {
