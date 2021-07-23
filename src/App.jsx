@@ -11,6 +11,7 @@ import HomePage from './components/HomePage/HomePage';
 import Appbar from './components/Appbar/Appbar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Patients from './components/Patients/Patients';
+import PatientPage from './pages/PatientPage/PatientPage';
 import useStyles from './App.styles';
 
 export default function App() {
@@ -31,7 +32,7 @@ export default function App() {
               <Route
                 exact
                 path="/patients/:patientId"
-                component={PatientDetails}
+                component={PatientPage}
               />
               <Route exact path="/patients" component={Patients} />
               <Route exact path="/settings" component={Settings} />
