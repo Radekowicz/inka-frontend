@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import './Appointments.css';
 import Calbar from './Calbar/Calbar';
 import EventInfo from './EventInfo/EventInfo';
-import PatientInfo from './/PatientInfo/PatientInfo';
+import PatientInfo from './PatientInfo/PatientInfo';
 // import { Button } from '../Button/Button';
 import { Button, Paper } from '@material-ui/core';
 import { UserContext } from '../../contexts/UserContext';

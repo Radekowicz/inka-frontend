@@ -10,6 +10,18 @@ import SearchBar from '../SearchBar/SearchBar';
 import useStyles from './Patients.styles';
 
 const columns = [
+  {
+    field: 'detailsField',
+    headerName: 'Details',
+    sortable: false,
+    width: 110,
+    disableClickEventBubbling: true,
+    renderCell: (params) => (
+      <IconButton onClick={() => {}}>
+        <DetailsIcon />
+      </IconButton>
+    ),
+  },
   { field: 'firstName', headerName: 'First name', width: 150 },
   { field: 'lastName', headerName: 'Last name', width: 150 },
   {
@@ -29,23 +41,11 @@ const columns = [
     field: 'settingsField',
     headerName: 'Settings',
     sortable: false,
-    width: 70,
+    width: 110,
     disableClickEventBubbling: true,
     renderCell: (params) => (
       <IconButton onClick={() => console.log(params)}>
         <SettingsIcon />
-      </IconButton>
-    ),
-  },
-  {
-    field: 'detailsField',
-    headerName: 'Details',
-    sortable: false,
-    width: 70,
-    disableClickEventBubbling: true,
-    renderCell: (params) => (
-      <IconButton onClick={() => {}}>
-        <DetailsIcon />
       </IconButton>
     ),
   },

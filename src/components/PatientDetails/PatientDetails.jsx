@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Paper } from '@material-ui/core';
 import { getPatient } from '../../requestsService/patients';
-import { getAppointmentsByPatientId } from '../../requestsService/appointments';
 import moment from 'moment';
 import './PatientDetails.css';
 
@@ -14,33 +13,11 @@ const Detail = (props) => {
   );
 };
 
-const Visit = (props) => {
-  return (
-    <Paper className="visit-component">
-      <div>
-        <b>{props.appointment.type}</b>
-      </div>
-      <div>
-        Data wizyty:
-        {moment(props.appointment.start).format(' DD-MM-YYYY').toLocaleString()}
-      </div>
-      <div>
-        Godzina wizyty:
-        {moment(props.appointment.start).format(' hh:mm').toLocaleString()}
-      </div>
-    </Paper>
-  );
-};
-
-export default function PatientDetails({ match }) {
-  const patientId = match.params.patientId;
-
+export default function PatientDetails({ patientId }) {
   const [patient, setPatient] = useState();
-  const [appointments, setAppointments] = useState();
 
   useEffect(() => {
     loadPatient();
-    loadAppointments(patientId);
   }, []);
 
   const loadPatient = async () => {
@@ -58,20 +35,6 @@ export default function PatientDetails({ match }) {
     setPatient(myPatient);
   };
 
-  const loadAppointments = async (patientId) => {
-    const data = await getAppointmentsByPatientId(patientId);
-    const appointments = data.map((appointment) => ({
-      id: appointment._id,
-      type: appointment.type.label,
-      patient: appointment.patient,
-      doctor: appointment.doctor,
-      start: new Date(appointment.startDate),
-      end: new Date(appointment.endDate),
-      name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
-    }));
-    setAppointments(appointments);
-  };
-
   const calcAge = (dateString) => {
     var birthday = +new Date(dateString);
     return ~~((Date.now() - birthday) / 31557600000);
@@ -85,11 +48,15 @@ export default function PatientDetails({ match }) {
             <i className="fas fa-user-circle patient-page-image" />
           </div>
           <div className="patient-page-basic-info">
-            <div>
-              {patient?.firstName} {patient?.lastName} (
-              {calcAge(patient?.birthdate)})
+            <div className="patient-page-name">
+              <b>
+                {patient?.firstName} {patient?.lastName}
+              </b>{' '}
+              ({calcAge(patient?.birthdate)})
             </div>
-            <div>Rozpoczęcie lecznia: {patient?.firstAppointment}</div>
+            <div className="patient-page-basic-info">
+              Rozpoczęcie lecznia: {patient?.firstAppointment}
+            </div>
           </div>
         </div>
         <div className="patient-page-more-info">
@@ -98,15 +65,6 @@ export default function PatientDetails({ match }) {
           <Detail title="Adres" info={patient?.address} />
         </div>
       </Paper>
-      <table className="patient-page-table">
-        <tr>
-          <td colspan="8" className="visit-row">
-            {appointments?.map((appointment, index) => (
-              <Visit appointment={appointment} />
-            ))}
-          </td>
-        </tr>
-      </table>
     </div>
   );
 }

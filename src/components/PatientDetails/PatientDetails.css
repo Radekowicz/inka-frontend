@@ -3,36 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 800px;
-  margin: 20px;
-}
-
-.patient-page-table {
-  border-collapse: collapse;
-  width: 800px;
-  margin: auto;
-}
-
-.visit-row {
-  /* box-shadow: 2px 2px 2px 1px lightgray;
-  border-radius: 5px; */
-}
-
-.visit-component {
-  /* box-shadow: 2px 2px 2px 1px lightgray; */
-  font-size: 1rem;
-  padding: 10px;
-  display: block;
-  margin: 10px;
-  /* border-radius: 5px; */
 }
 
 .patient-page-patient-info {
-  width: 100%;
-  box-shadow: 2px 2px 2px 2px lightgray;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 0.8rem;
+  padding: 20px;
 }
 
 .patient-page-patient {
@@ -40,9 +14,12 @@
   align-items: center;
 }
 
+.patient-page-name {
+  font-size: 1.3rem;
+}
+
 .patient-page-basic-info {
-  display: block;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .patient-page-more-info {
@@ -50,7 +27,7 @@
 }
 
 .patient-page-image {
-  font-size: 2rem;
+  font-size: 3rem;
   margin-right: 10px;
 }
 
