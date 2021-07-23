@@ -18,4 +18,16 @@ const getPatient = async (patientId) => {
   }
 };
 
-export { getPatients, getPatient };
+const patchPatient = async (patientId, updatedPatient) => {
+  try {
+    const response = await axios.patch(
+      `/api/patients/${patientId}`,
+      updatedPatient
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getPatients, getPatient, patchPatient };

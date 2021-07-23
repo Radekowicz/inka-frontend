@@ -4,6 +4,7 @@ import { getPatient } from '../../requestsService/patients';
 import { getAppointmentsByPatientId } from '../../requestsService/appointments';
 import moment from 'moment';
 import './PatientDetails.css';
+import NextAppointment from '../NextAppointment/NextAppointment';
 
 const Detail = (props) => {
   return (
@@ -79,6 +80,7 @@ export default function PatientDetails({ match }) {
 
   return (
     <div className="patient-page-container">
+      <NextAppointment patientId={patientId} />
       <Paper className="patient-page-patient-info">
         <div className="patient-page-patient">
           <div className="patient-page-avatar">
@@ -102,7 +104,10 @@ export default function PatientDetails({ match }) {
         <tr>
           <td colspan="8" className="visit-row">
             {appointments?.map((appointment, index) => (
-              <Visit appointment={appointment} />
+              <Visit
+                key={`${index}-${appointment.type}`}
+                appointment={appointment}
+              />
             ))}
           </td>
         </tr>
