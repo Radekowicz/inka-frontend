@@ -5,7 +5,6 @@ import moment from 'moment';
 import 'moment/locale/pl';
 
 export default function CustomEvent(props) {
-  console.log(props);
   return (
     <div className="custom-event">
       <div className="custom-event_text">{props.event.type}</div>

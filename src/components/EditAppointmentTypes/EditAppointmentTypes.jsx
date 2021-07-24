@@ -2,13 +2,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { FaSquare } from 'react-icons/fa';
 import { BiEditAlt, BiTrash } from 'react-icons/bi';
-import './Settings.css';
+import './EditAppointmentTypes.css';
 import EditPopup from './EditPopup';
 import AddPopup from './AddPopup';
 import { Button, Paper } from '@material-ui/core';
 import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
 
-function Settings() {
+export default function EditAppointmentTypes() {
   const { user } = useContext(UserContext);
   const [appointmentsTypes, setAppointmentsTypes] = useState();
   const [addPopupOpen, setAddPopupOpen] = useState(false);
@@ -110,5 +110,3 @@ function Settings() {
     </div>
   );
 }
-
-export default Settings;

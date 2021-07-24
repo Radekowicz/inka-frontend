@@ -105,14 +105,15 @@ export default function Calbar(props) {
     setEnd(end);
   };
 
+  const scrollToTime = new Date(new Date().setHours(new Date().getHours() - 3));
+
   return (
     <div className="App">
       <Calendar
         localizer={localizer}
         defaultDate={new Date()}
-        // scrollToTime={
-        //   new Date(new Date().setHours(new Date().getHours() - 3))
-        // }
+        // scrollToTime={scrollToTime}
+        step={15}
         defaultView="day"
         events={props.events}
         style={{ height: 'calc(100vh - 50px)' }}

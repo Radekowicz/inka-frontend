@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Appointments from './pages/Appointments/Appointments';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Settings from './pages/SettingsPage/Settings';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import ContextProvider from './contexts/UserContext';
@@ -34,7 +34,7 @@ export default function App() {
                 component={PatientPage}
               />
               <Route exact path="/patients" component={Patients} />
-              <Route exact path="/settings" component={Settings} />
+              <Route exact path="/settings" component={SettingsPage} />
             </Switch>
           </main>
         </div>
