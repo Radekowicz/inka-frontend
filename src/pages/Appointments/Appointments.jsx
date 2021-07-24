@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './Appointments.css';
-import Calbar from './Calbar/Calbar';
-import EventInfo from './EventInfo/EventInfo';
-import PatientInfo from './PatientInfo/PatientInfo';
-// import { Button } from '../Button/Button';
+import Calbar from '../../components/Calbar/Calbar';
+import EventInfo from '../../components/EventInfo/EventInfo';
+import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import { Button, Paper } from '@material-ui/core';
 import { UserContext } from '../../contexts/UserContext';
 import moment from 'moment';
@@ -12,6 +11,7 @@ import {
   deleteAppointment,
 } from '../../requestsService/appointments';
 import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
+import { useHistory } from 'react-router-dom';
 
 const emptyPatient = {
   id: '',
@@ -38,7 +38,7 @@ export default function Appointments(props) {
   const [selectedPatient, setSelectedPatient] = useState(emptyPatient);
   const [events, setEvents] = useState([]);
   const [appointmentsTypes, setAppointmentsTypes] = useState([]);
-
+  const history = useHistory();
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -100,6 +100,10 @@ export default function Appointments(props) {
     loadAppointments();
   };
 
+  const handleGoToAppointments = () => {
+    history.push(`patients/${selectedPatient.id}`);
+  };
+
   return (
     <div className="App">
       <div className="Menu">
@@ -122,7 +126,7 @@ export default function Appointments(props) {
             <div className="EventInfo">
               <EventInfo event={selectedEvent} />
             </div>
-            <div className="DeleteEventButton">
+            <div className="EventButtons">
               <Button
                 variant="contained"
                 color="primary"
@@ -130,6 +134,13 @@ export default function Appointments(props) {
                 // disableTouchRipple={true}
               >
                 Usuń wizytę
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleGoToAppointments}
+              >
+                Wszystkie wizyty
               </Button>
             </div>
           </div>

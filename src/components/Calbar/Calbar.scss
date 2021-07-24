@@ -6,6 +6,11 @@ $current-time-color: orange;
 @import 'react-big-calendar/lib/sass/variables';
 @import 'react-big-calendar/lib/sass/event';
 
+.rbc-event-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 .rbc-today {
   background-color: white;
 }

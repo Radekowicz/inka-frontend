@@ -20,7 +20,7 @@ const formats = {
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    height: '43px',
+    height: '100px',
     'min-height': '43px',
   }),
 };

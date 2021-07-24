@@ -3,17 +3,17 @@ import './Calbar.scss';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/pl';
-import MyEvent from './MyEvent/MyEvent';
+import CustomEvent from './CustomEvent/CustomEvent';
 import Select from 'react-select';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { Button } from '../../Button/Button';
+import { Button } from '../Button/Button';
 import { UserContext } from '../../contexts/UserContext';
 import { getPatients } from '../../requestsService/patients';
 import { postAppointment } from '../../requestsService/appointments';
 import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
 import CustomToolbar from './CustomToolbar/CustomToolbar';
-import { messages, formats, customStyles } from './calenarSettings';
+import { messages, formats, customStyles } from './calendarSettings';
 
 const localizer = momentLocalizer(moment);
 
@@ -89,10 +89,11 @@ export default function Calbar(props) {
     const style = {
       backgroundColor: backgroundColor,
       borderRadius: '0px',
-      opacity: 0.5,
-      color: 'black',
+      opacity: 0.6,
+      color: 'white',
       border: '0px',
       display: 'block',
+      padding: '7px',
     };
     return {
       style: style,
@@ -123,7 +124,7 @@ export default function Calbar(props) {
         onSelectEvent={props.handleEventClick}
         eventPropGetter={eventStyleGetter}
         components={{
-          event: MyEvent,
+          event: CustomEvent,
           toolbar: CustomToolbar,
         }}
       />

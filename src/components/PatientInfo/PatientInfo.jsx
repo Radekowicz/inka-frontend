@@ -26,9 +26,11 @@ export default function PatientInfo(props) {
           <i className="fas fa-user-circle patient-image" />
         </div>
         <div className="basic-info">
-          <div>
-            {props.patient.firstName} {props.patient.lastName} (
-            {calcAge(props.patient.birthdate)})
+          <div className="patient-info_name">
+            <b>
+              {props.patient.firstName} {props.patient.lastName}
+            </b>{' '}
+            ({calcAge(props.patient.birthdate)})
           </div>
           <div>
             Rozpoczęcie lecznia:{' '}

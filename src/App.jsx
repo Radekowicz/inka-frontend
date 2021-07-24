@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-import Appointments from './components/Appointments/Appointments';
-import PatientDetails from './components/PatientDetails/PatientDetails';
+import Appointments from './pages/Appointments/Appointments';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Settings from './components/SettingsPage/Settings';
-import Register from './components/Register/Register';
-import Login from './components/Login/Login';
+import Settings from './pages/SettingsPage/Settings';
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
 import ContextProvider from './contexts/UserContext';
-import HomePage from './components/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import Appbar from './components/Appbar/Appbar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Patients from './components/Patients/Patients';
+import Patients from './pages/Patients/Patients';
 import PatientPage from './pages/PatientPage/PatientPage';
 import useStyles from './App.styles';
 

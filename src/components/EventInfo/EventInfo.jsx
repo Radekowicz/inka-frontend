@@ -7,10 +7,12 @@ import Paper from '@material-ui/core/Paper';
 export default function EventInfo(props) {
   return (
     <Paper className="event-info">
-      <div>{props.event.type ? props.event.type : ' '}</div>
+      <div>
+        Typ wizyty: <b>{props.event.type ? props.event.type : ' '}</b>
+      </div>
       <span>
         Godzina wizyty:
-        {moment(props.event.start).format(' hh:mm').toLocaleString()}
+        <b>{moment(props.event.start).format(' hh:mm').toLocaleString()}</b>
       </span>
     </Paper>
   );

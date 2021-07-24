@@ -6,7 +6,7 @@ import DetailsIcon from '@material-ui/icons/Details';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { getPatients } from '../../requestsService/patients';
 import moment from 'moment';
-import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import useStyles from './Patients.styles';
 
 const columns = [
