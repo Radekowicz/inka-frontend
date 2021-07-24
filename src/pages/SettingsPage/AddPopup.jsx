@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import { CirclePicker } from 'react-color';
-import { Button } from '../Button/Button';
+import { Button } from '../../components/Button/Button';
 import { postAppointmentType } from '../../requestsService/appointmentsTypes';
 
 function AddPopup(props) {

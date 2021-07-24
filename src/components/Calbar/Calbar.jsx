@@ -8,10 +8,10 @@ import Select from 'react-select';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Button } from '../../Button/Button';
-import { UserContext } from '../../../contexts/UserContext';
-import { getPatients } from '../../../requestsService/patients';
-import { postAppointment } from '../../../requestsService/appointments';
-import { getAppointmentsTypes } from '../../../requestsService/appointmentsTypes';
+import { UserContext } from '../../contexts/UserContext';
+import { getPatients } from '../../requestsService/patients';
+import { postAppointment } from '../../requestsService/appointments';
+import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
 import CustomToolbar from './CustomToolbar/CustomToolbar';
 import { messages, formats, customStyles } from './calenarSettings';
 
