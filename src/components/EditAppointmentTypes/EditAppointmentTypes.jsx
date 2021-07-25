@@ -84,7 +84,7 @@ export default function EditAppointmentTypes() {
             color="primary"
             onClick={() => (editOpen ? setEditOpen(false) : setEditOpen(true))}
           >
-            {editOpen ? 'Przestań edytować' : 'Edytuj'}
+            {editOpen ? 'Zakończ' : 'Edytuj'}
           </Button>
           <Button
             variant="contained"

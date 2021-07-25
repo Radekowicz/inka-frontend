@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import Popup from 'reactjs-popup';
 import { CirclePicker } from 'react-color';
-import { Button } from '../Button/Button';
+import {
+  Button,
+  TextField,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from '@material-ui/core';
+
 import { postAppointmentType } from '../../requestsService/appointmentsTypes';
 
-function AddPopup(props) {
+export default function AddPopup(props) {
   const [pickedColor, setPickedColor] = useState('');
   const [typedTypeName, setTypedTypeName] = useState('');
   const [typedTypePrice, setTypedTypePrice] = useState('');
@@ -34,52 +41,54 @@ function AddPopup(props) {
   };
 
   return (
-    <Popup
-      modal
-      open={props.popupOpen}
-      onClose={() => handlePopupClose()}
-      contentStyle={{ width: '488px' }}
-    >
+    <Dialog open={props.popupOpen} onClose={() => handlePopupClose()}>
       <div className="create-type-popup-container">
-        <h1>Dodaj typ wizyty</h1>
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Nazwa</label>
-          <input
-            className="create-type-input"
-            placeholder={'Wizyta kontrolna'}
-            type="text"
-            value={typedTypeName}
-            onChange={({ target: { value } }) => setTypedTypeName(value)}
-          />
-        </div>
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Cena</label>
-          <input
-            className="create-type-input"
-            placeholder={'200'}
-            type="text"
-            value={typedTypePrice}
-            onChange={({ target: { value } }) => setTypedTypePrice(value)}
-          />
-        </div>
-
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Kolor</label>
-          <CirclePicker
-            className="type-color"
-            circleSpacing={10}
-            circleSize={28}
-            width={350}
-            value={pickedColor}
-            onChange={(e) => {
-              setPickedColor(e.hex);
-            }}
-          />
-        </div>
-        <Button onClick={() => handleAddTypeButton()}>Dodaj</Button>
+        <DialogTitle>Dodaj typ wizyty</DialogTitle>
+        <DialogContent className="create-type-popup-body">
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Nazwa</Typography>
+            <TextField
+              className="create-type-input"
+              placeholder="Wizyta kontrolna"
+              type="text"
+              // label="Nazwa"
+              value={typedTypeName}
+              onChange={({ target: { value } }) => setTypedTypeName(value)}
+            />
+          </div>
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Cena</Typography>
+            <TextField
+              className="create-type-input"
+              placeholder="200"
+              type="text"
+              // label="Cena"
+              value={typedTypePrice}
+              onChange={({ target: { value } }) => setTypedTypePrice(value)}
+            />
+          </div>
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Kolor</Typography>
+            <CirclePicker
+              className="type-color"
+              circleSpacing={10}
+              circleSize={28}
+              width={346}
+              value={pickedColor}
+              onChange={(e) => {
+                setPickedColor(e.hex);
+              }}
+            />
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleAddTypeButton()}
+          >
+            Dodaj
+          </Button>
+        </DialogContent>
       </div>
-    </Popup>
+    </Dialog>
   );
 }
-
-export default AddPopup;

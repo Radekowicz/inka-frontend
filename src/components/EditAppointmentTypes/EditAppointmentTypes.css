@@ -1,11 +1,11 @@
 .edit-container {
   align-items: center;
   margin: auto;
-  width: 400px;
+  width: 430px;
   margin-top: 20px;
   box-shadow: 2px 2px 2px 2px lightgray;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .type-table-cell {
@@ -38,9 +38,16 @@
 }
 
 .create-type-popup-container {
-  display: grid;
-  padding: 40px;
-  row-gap: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.create-type-popup-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  height: 400px;
 }
 
 .create-type-popup-element {
@@ -48,12 +55,11 @@
 }
 
 .create-type-label {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+  padding-bottom: 10px;
 }
 .create-type-input {
-  height: 40px;
-  font-size: 1.1rem;
+  /* height: 40px;
+  font-size: 1.1rem; */
 }
 
 .type-color-container {

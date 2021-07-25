@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Popup from 'reactjs-popup';
 import { CirclePicker } from 'react-color';
-import { Button } from '../../components/Button/Button';
+import {
+  Button,
+  TextField,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from '@material-ui/core';
 import { patchAppointmentType } from '../../requestsService/appointmentsTypes';
 
 function EditPopup(props) {
@@ -36,49 +42,52 @@ function EditPopup(props) {
   };
 
   return (
-    <Popup
-      modal
-      open={props.popupOpen}
-      onClose={() => handlePopupClose()}
-      contentStyle={{ width: '488px' }}
-    >
+    <Dialog open={props.popupOpen} onClose={() => handlePopupClose()}>
       <div className="create-type-popup-container">
-        <h1>Edytuj typ wizyty</h1>
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Nazwa</label>
-          <input
-            className="create-type-input"
-            type="text"
-            value={typedTypeName}
-            onChange={({ target: { value } }) => setTypedTypeName(value)}
-          />
-        </div>
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Cena</label>
-          <input
-            className="create-type-input"
-            type="text"
-            value={typedTypePrice}
-            onChange={({ target: { value } }) => setTypedTypePrice(value)}
-          />
-        </div>
+        <DialogTitle>Edytuj typ wizyty</DialogTitle>
+        <DialogContent className="create-type-popup-body">
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Nazwa</Typography>
+            <TextField
+              className="create-type-input"
+              type="text"
+              value={typedTypeName}
+              onChange={({ target: { value } }) => setTypedTypeName(value)}
+            />
+          </div>
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Cena</Typography>
+            <TextField
+              className="create-type-input"
+              type="text"
+              value={typedTypePrice}
+              onChange={({ target: { value } }) => setTypedTypePrice(value)}
+            />
+          </div>
 
-        <div className="create-type-popup-element">
-          <label className="create-type-label">Kolor</label>
-          <CirclePicker
-            className="type-color"
-            circleSpacing={10}
-            circleSize={28}
-            width={350}
-            value={pickedColor}
-            onChange={(e) => {
-              setPickedColor(e.hex);
-            }}
-          />
-        </div>
-        <Button onClick={() => updateAppointmentType()}>Zatwierdź</Button>
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">Kolor</Typography>
+            <CirclePicker
+              className="type-color"
+              circleSpacing={10}
+              circleSize={28}
+              width={350}
+              value={pickedColor}
+              onChange={(e) => {
+                setPickedColor(e.hex);
+              }}
+            />
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => updateAppointmentType()}
+          >
+            Zatwierdź
+          </Button>
+        </DialogContent>
       </div>
-    </Popup>
+    </Dialog>
   );
 }
 
