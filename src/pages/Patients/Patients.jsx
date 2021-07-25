@@ -60,7 +60,7 @@ export default function Patients() {
 
   const setPatients = async () => {
     const patients = await getPatients();
-    const newPatients = patients.map((patient) => ({
+    const newPatients = patients?.map((patient) => ({
       id: patient._id,
       firstName: patient.firstName,
       lastName: patient.lastName,
@@ -70,7 +70,7 @@ export default function Patients() {
       phoneNumber: patient.phoneNumber,
       address: patient.address,
     }));
-    setRows(newPatients);
+    setRows(newPatients ? newPatients : []);
   };
 
   const updateFilteredRows = (input) => {

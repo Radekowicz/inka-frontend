@@ -22,7 +22,7 @@ export default function EditAppointmentTypes() {
 
   const loadAppointmentsTypes = async () => {
     const data = await getAppointmentsTypes(user);
-    const types = data.map((type) => ({
+    const types = data?.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,

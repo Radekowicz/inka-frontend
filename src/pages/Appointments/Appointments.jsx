@@ -52,7 +52,7 @@ export default function Appointments(props) {
 
   const loadAppointmentsTypes = async () => {
     const data = await getAppointmentsTypes(user);
-    const types = data.map((type) => ({
+    const types = data?.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
@@ -83,7 +83,7 @@ export default function Appointments(props) {
 
   const loadAppointments = async () => {
     const data = await getAppointments();
-    const appointments = data.map((appointment) => ({
+    const appointments = data?.map((appointment) => ({
       id: appointment._id,
       type: appointment.type.label,
       patient: appointment.patient,
@@ -92,7 +92,7 @@ export default function Appointments(props) {
       end: new Date(appointment.endDate),
       name: `${appointment.patient.firstName} ${appointment.patient.lastName}`,
     }));
-    setEvents(appointments);
+    setEvents(appointments ? appointments : []);
   };
 
   const handleDeleteAppointment = async () => {

@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useStyles from './Sidebar.styles';
 
 const sidebarItems = [
@@ -31,6 +31,7 @@ const sidebarItems = [
 
 export default function Appbar() {
   const classes = useStyles();
+  const location = useLocation();
 
   return (
     <div>
@@ -44,8 +45,14 @@ export default function Appbar() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {sidebarItems.map((item, index) => (
-              <ListItem button key={item.title} to={item.url} component={Link}>
+            {sidebarItems.map((item) => (
+              <ListItem
+                button
+                key={item.title}
+                to={item.url}
+                component={Link}
+                selected={item.url === `/${location.pathname.split('/')[1]}`}
+              >
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.title} />
               </ListItem>

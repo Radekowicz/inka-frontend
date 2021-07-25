@@ -35,7 +35,7 @@ export default function Calbar(props) {
 
   const loadAppointmentsTypes = async () => {
     const data = await getAppointmentsTypes(user);
-    const types = data.map((type) => ({
+    const types = data?.map((type) => ({
       id: type._id,
       label: type.label,
       doctor: type.doctor,
@@ -46,7 +46,7 @@ export default function Calbar(props) {
 
   const loadPatientOptions = async () => {
     const data = await getPatients();
-    const patients = data.map((patient, index) => ({
+    const patients = data?.map((patient) => ({
       value: `${patient._id}`,
       label: `${patient.firstName} ${patient.lastName}`,
     }));
