@@ -26,7 +26,6 @@ export default function Login() {
 
   const handleSubmit = async () => {
     const response = await loginUser(typedEmail, typedPassword);
-    console.log(response.data);
     if (response?.status === 200) {
       history.push("/appointments");
       const data = response?.data;

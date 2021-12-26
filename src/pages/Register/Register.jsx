@@ -6,7 +6,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import Alert from "@material-ui/lab/Alert";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -33,13 +34,14 @@ const validationSchema = yup.object({
 export default function Register() {
   const classes = useStyles();
   const history = useHistory();
+  const [error, setError] = useState("");
 
   const formik = useFormik({
     initialValues: {
-      firstName: "sdfsdfs",
-      lastName: "dfgdfg",
-      email: "dfgdf@sds.com",
-      password: "sdfsdfsdfsdfsdf",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -51,9 +53,12 @@ export default function Register() {
         password: values.password,
       };
 
-      await registerUser(user);
-
-      history.push("/login");
+      const response = await registerUser(user);
+      if (response?.status === 200) {
+        history.push("/login");
+      } else {
+        setError("This email address is already being used");
+      }
     },
   });
 
@@ -131,6 +136,17 @@ export default function Register() {
             Already have an account?<Link href="/login"> Sign In</Link>
           </Typography>
         </Grid>
+        {error ? (
+          <Alert
+            severity="error"
+            className={classes.errorMessage}
+            onClose={() => {
+              setError("");
+            }}
+          >
+            {error}
+          </Alert>
+        ) : null}
       </Paper>
     </div>
   );

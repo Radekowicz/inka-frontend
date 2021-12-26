@@ -2,7 +2,8 @@ const axios = require("axios");
 
 const registerUser = async (user) => {
   try {
-    await axios.post("/api/users/register", user);
+    const response = await axios.post("/api/users/register", user);
+    return response;
   } catch (error) {
     console.error(error);
   }
