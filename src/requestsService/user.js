@@ -29,4 +29,13 @@ const logoutUser = async () => {
   }
 };
 
-export { registerUser, loginUser, logoutUser };
+const isAuthorized = async () => {
+  try {
+    const response = await axios.get("/api/users/isAuthorized");
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { registerUser, loginUser, logoutUser, isAuthorized };
