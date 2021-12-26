@@ -1,8 +1,8 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const getAppointmentsTypes = async (userId) => {
+const getAppointmentsTypes = async () => {
   try {
-    const response = await axios.get(`/api/appointmentsTypes/${userId}`);
+    const response = await axios.get(`/api/appointmentsTypes`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -12,7 +12,7 @@ const getAppointmentsTypes = async (userId) => {
 const postAppointmentType = async (appointmentType) => {
   try {
     const response = await axios.post(
-      '/api/appointmentsTypes',
+      "/api/appointmentsTypes",
       appointmentType
     );
     return response;

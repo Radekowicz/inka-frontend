@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../../../contexts/UserContext';
-
-import useStyles from './Navbar.styles';
+import React, { useContext } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../../contexts/UserContext";
+import { logoutUser } from "../../../requestsService/user";
+import useStyles from "./Navbar.styles";
+import { removeUserFromLocalStorage } from "../../../localStorage/user";
 
 export default function Navbar() {
   const classes = useStyles();
-  const { logged, setLogged } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  console.log(user);
 
   return (
     <AppBar>
@@ -25,7 +28,7 @@ export default function Navbar() {
           >
             Denti
           </Typography>
-          {!logged ? (
+          {!user ? (
             <div className={classes.buttons}>
               <Button color="inherit" to="/login" component={Link}>
                 Login
@@ -44,7 +47,9 @@ export default function Navbar() {
                 to="/"
                 component={Link}
                 onClick={() => {
-                  setLogged(false);
+                  logoutUser();
+                  removeUserFromLocalStorage();
+                  setUser(null);
                 }}
               >
                 Logout

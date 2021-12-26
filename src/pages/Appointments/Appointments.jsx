@@ -1,36 +1,35 @@
-import React, { useEffect, useState, useContext } from 'react';
-import './Appointments.css';
-import Calbar from '../../components/Calbar/Calbar';
-import EventInfo from '../../components/EventInfo/EventInfo';
-import PatientInfo from '../../components/PatientInfo/PatientInfo';
-import { Button, Paper } from '@material-ui/core';
-import { UserContext } from '../../contexts/UserContext';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import "./Appointments.css";
+import Calbar from "../../components/Calbar/Calbar";
+import EventInfo from "../../components/EventInfo/EventInfo";
+import PatientInfo from "../../components/PatientInfo/PatientInfo";
+import { Button, Paper } from "@material-ui/core";
+import moment from "moment";
 import {
   getAppointments,
   deleteAppointment,
-} from '../../requestsService/appointments';
-import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
-import { useHistory } from 'react-router-dom';
+} from "../../requestsService/appointments";
+import { getAppointmentsTypes } from "../../requestsService/appointmentsTypes";
+import { useHistory } from "react-router-dom";
 
 const emptyPatient = {
-  id: '',
-  firstName: '',
-  lastName: '',
+  id: "",
+  firstName: "",
+  lastName: "",
   birthdate: Date.now(),
   firstAppointment: Date.now(),
-  email: '',
-  phoneNumber: '',
-  address: '',
+  email: "",
+  phoneNumber: "",
+  address: "",
 };
 
 const emptyEvent = {
-  id: '',
+  id: "",
   start: moment().toDate(),
   end: moment().toDate(),
-  title: '',
-  name: '',
-  patient: '',
+  title: "",
+  name: "",
+  patient: "",
 };
 
 export default function Appointments(props) {
@@ -39,7 +38,6 @@ export default function Appointments(props) {
   const [events, setEvents] = useState([]);
   const [appointmentsTypes, setAppointmentsTypes] = useState([]);
   const history = useHistory();
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     loadAppointmentsTypes();
@@ -51,7 +49,7 @@ export default function Appointments(props) {
   }, [selectedEvent]);
 
   const loadAppointmentsTypes = async () => {
-    const data = await getAppointmentsTypes(user);
+    const data = await getAppointmentsTypes();
     const types = data?.map((type) => ({
       id: type._id,
       label: type.label,

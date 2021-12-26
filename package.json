@@ -17,7 +17,6 @@
     "axios": "^0.21.1",
     "formik": "^2.2.9",
     "moment": "^2.27.0",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-big-calendar": "^0.27.0",
     "react-bootstrap-table-next": "^4.0.3",
@@ -31,6 +30,7 @@
     "react-select": "^3.1.0",
     "react-table": "^7.6.2",
     "reactjs-popup": "^2.0.3",
+    "sass": "^1.45.1",
     "yup": "^0.32.9"
   },
   "scripts": {

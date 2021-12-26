@@ -1,8 +1,8 @@
-const axios = require('axios');
+const axios = require("axios");
 
 const getPatients = async () => {
   try {
-    const response = await axios.get('/api/patients');
+    const response = await axios.get("/api/patients/");
     return response.data;
   } catch (error) {
     console.error(error);

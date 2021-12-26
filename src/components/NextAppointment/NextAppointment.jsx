@@ -1,25 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Paper } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
-import { getPatient, patchPatient } from '../../requestsService/patients';
-import { UserContext } from '../../contexts/UserContext';
-import useStyles from './NextAppointment.styles';
+import React, { useState, useEffect } from "react";
+import { Paper } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { getAppointmentsTypes } from "../../requestsService/appointmentsTypes";
+import { getPatient, patchPatient } from "../../requestsService/patients";
+import useStyles from "./NextAppointment.styles";
 
 export default function NextAppointment({ patientId }) {
   const classes = useStyles();
   const [appointmentsTypes, setAppointmentsTypes] = useState([]);
   const [selectedType, setSelectedType] = useState();
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     loadAppointmentsTypes();
   }, []);
 
   const loadAppointmentsTypes = async () => {
-    const data = await getAppointmentsTypes(user);
+    const data = await getAppointmentsTypes();
     setAppointmentsTypes(data);
   };
 

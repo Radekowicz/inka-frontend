@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../../contexts/UserContext';
-import { FaSquare } from 'react-icons/fa';
-import { BiEditAlt, BiTrash } from 'react-icons/bi';
-import './EditAppointmentTypes.css';
-import EditPopup from './EditPopup';
-import AddPopup from './AddPopup';
-import { Button, Paper } from '@material-ui/core';
-import { getAppointmentsTypes } from '../../requestsService/appointmentsTypes';
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import { FaSquare } from "react-icons/fa";
+import { BiEditAlt, BiTrash } from "react-icons/bi";
+import "./EditAppointmentTypes.css";
+import EditPopup from "./EditPopup";
+import AddPopup from "./AddPopup";
+import { Button, Paper } from "@material-ui/core";
+import { getAppointmentsTypes } from "../../requestsService/appointmentsTypes";
 
 export default function EditAppointmentTypes() {
   const { user } = useContext(UserContext);
@@ -21,7 +21,7 @@ export default function EditAppointmentTypes() {
   }, []);
 
   const loadAppointmentsTypes = async () => {
-    const data = await getAppointmentsTypes(user);
+    const data = await getAppointmentsTypes();
     const types = data?.map((type) => ({
       id: type._id,
       label: type.label,
@@ -37,7 +37,7 @@ export default function EditAppointmentTypes() {
   const handleDeleteTypeButton = async (type) => {
     // deleteAppointmentType(type.id);
     // loadAppointmentsTypes()
-    window.alert('Usuwanie jest niedostępne, skontaktuj się z administratorem');
+    window.alert("Usuwanie jest niedostępne, skontaktuj się z administratorem");
   };
 
   const handleEditTypeButton = (type) => {
@@ -84,7 +84,7 @@ export default function EditAppointmentTypes() {
             color="primary"
             onClick={() => (editOpen ? setEditOpen(false) : setEditOpen(true))}
           >
-            {editOpen ? 'Zakończ' : 'Edytuj'}
+            {editOpen ? "Zakończ" : "Edytuj"}
           </Button>
           <Button
             variant="contained"

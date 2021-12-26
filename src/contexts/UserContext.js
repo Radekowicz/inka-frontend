@@ -1,18 +1,15 @@
-import React, { useState, createContext } from 'react';
-
+import React, { useState, createContext } from "react";
+import { loadUserFromLocalStorage } from "../localStorage/user";
 export const UserContext = createContext();
 
 export default function ContextProvider(props) {
-  const [user, setUser] = useState('6037c39a6e651bf9ddcc1e16');
-  const [logged, setLogged] = useState(false);
+  const [user, setUser] = useState(loadUserFromLocalStorage());
 
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
-        logged,
-        setLogged,
       }}
     >
       {props.children}

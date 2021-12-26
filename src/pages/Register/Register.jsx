@@ -5,26 +5,29 @@ import {
   Paper,
   TextField,
   Typography,
-} from '@material-ui/core';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import useStyles from './Register.styles';
+} from "@material-ui/core";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import useStyles from "./Register.styles";
+import { registerUser } from "../../requestsService/user";
 
 const validationSchema = yup.object({
-  username: yup
-    .string('Enter your username')
-    .min(3, 'Username should be of minimum 3 characters length')
-    .required('Username is required'),
+  firstName: yup
+    .string("Enter your first name")
+    .required("First name is required"),
+  lastName: yup
+    .string("Enter your last name")
+    .required("Last name is required"),
   email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
   password: yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
+    .string("Enter your password")
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
 });
 
 export default function Register() {
@@ -33,19 +36,26 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      email: '',
-      password: '',
+      firstName: "sdfsdfs",
+      lastName: "dfgdfg",
+      email: "dfgdf@sds.com",
+      password: "sdfsdfsdfsdfsdf",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      const user = {
+        role: "doctor",
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+      };
+
+      await registerUser(user);
+
+      history.push("/login");
     },
   });
-
-  const handleSubmit = () => {
-    history.push('/login');
-  };
 
   return (
     <div>
@@ -60,13 +70,27 @@ export default function Register() {
           <form onSubmit={formik.handleSubmit}>
             <TextField
               fullWidth
-              id="username"
-              name="username"
-              label="Username"
-              value={formik.values.username}
+              id="firstName"
+              name="firstName"
+              label="First name"
+              value={formik.values.firstName}
               onChange={formik.handleChange}
-              error={formik.touched.username && Boolean(formik.errors.username)}
-              helperText={formik.touched.username && formik.errors.username}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={formik.touched.firstName && formik.errors.firstName}
+              className={classes.registerTextField}
+            />
+
+            <TextField
+              fullWidth
+              id="lastName"
+              name="lastName"
+              label="Last name"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
               className={classes.registerTextField}
             />
             <TextField
@@ -98,13 +122,12 @@ export default function Register() {
               fullWidth
               type="submit"
               className={classes.registerButton}
-              onClick={handleSubmit}
             >
               Submit
             </Button>
           </form>
           <Typography>
-            {' '}
+            {" "}
             Already have an account?<Link href="/login"> Sign In</Link>
           </Typography>
         </Grid>
