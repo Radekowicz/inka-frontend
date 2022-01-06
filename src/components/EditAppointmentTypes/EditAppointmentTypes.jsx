@@ -98,7 +98,7 @@ export default function EditAppointmentTypes() {
       <AddPopup
         popupOpen={addPopupOpen}
         onClose={handleAddPopupClose}
-        user={user}
+        user={user.id}
         loadAppointmentsTypes={loadAppointmentsTypes}
       />
       <EditPopup
