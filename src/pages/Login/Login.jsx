@@ -1,6 +1,5 @@
 import {
   Button,
-  Checkbox,
   Grid,
   Link,
   Paper,
@@ -8,7 +7,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import useStyles from "./Login.styles";
@@ -51,10 +49,9 @@ export default function Login() {
         justify="space-around"
         alignItems="center"
       >
-        <h2>Sign In</h2>
+        <h2>Zaloguj się</h2>
         <TextField
           label="Email"
-          placeholder="Enter email"
           type="email"
           fullWidth
           className={classes.loginTextField}
@@ -63,8 +60,7 @@ export default function Login() {
           }}
         />
         <TextField
-          label="Password"
-          placeholder="Enter password"
+          label="Hasło"
           type="password"
           fullWidth
           className={classes.loginTextField}
@@ -80,19 +76,11 @@ export default function Login() {
           className={classes.loginButton}
           onClick={handleSubmit}
         >
-          Sign in
+          Zaloguj się
         </Button>
-
-        <FormControlLabel
-          control={<Checkbox color="primary" />}
-          label="Remember me"
-        />
-        <Typography>
-          <Link>Forgot password?</Link>
-        </Typography>
         <Typography>
           {" "}
-          Do you have an account?<Link href="/register"> Sign Up</Link>
+          Nie masz konta?<Link href="/register"> Zarejestruj się</Link>
         </Typography>
         {isError ? (
           <Alert

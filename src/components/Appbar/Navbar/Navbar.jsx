@@ -31,16 +31,16 @@ export default function Navbar() {
           {!user ? (
             <div className={classes.buttons}>
               <Button color="inherit" to="/login" component={Link}>
-                Login
+                Logowanie
               </Button>
               <Button color="inherit" to="/register" component={Link}>
-                Register
+                Rejestracja
               </Button>
             </div>
           ) : (
             <div className={classes.buttons}>
               <Button color="inherit" to="/userData" component={Link}>
-                Profile
+                Profil
               </Button>
               <Button
                 color="inherit"
@@ -52,7 +52,7 @@ export default function Navbar() {
                   setUser(null);
                 }}
               >
-                Logout
+                Wyloguj się
               </Button>
             </div>
           )}

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
-import './Opening.css';
-import UndrawCalendar from '../../images/undraw_calendar.svg';
-import UndrawDoctors from '../../images/undraw_doctors.svg';
-import UndrawMedical from '../../images/undraw_medical_research.svg';
-import useStyles from './HomePage.styles';
+import React from "react";
+import { Typography } from "@material-ui/core";
+import "./Opening.css";
+import UndrawCalendar from "../../images/undraw_calendar.svg";
+import UndrawDoctors from "../../images/undraw_doctors.svg";
+import UndrawMedical from "../../images/undraw_medical_research.svg";
+import useStyles from "./HomePage.styles";
 
 export default function Opening() {
   const classes = useStyles();
@@ -21,10 +21,10 @@ export default function Opening() {
             alt="UndrawDoctors"
             className={classes.homepage__undraw}
           />
-          <Typography variant="h3">EASY TO USE</Typography>
+          <Typography variant="h3">Prosta w użyciu</Typography>
         </div>
         <div className={classes.homepage__card}>
-          <Typography variant="h3">CONFIGURABLE</Typography>
+          <Typography variant="h3">Funkcjonalna</Typography>
           <img
             src={UndrawCalendar}
             alt="UndrawCalendar"
@@ -37,7 +37,7 @@ export default function Opening() {
             alt="UndrawMedical"
             className={classes.homepage__undraw}
           />
-          <Typography variant="h3">SEARCHABLE</Typography>
+          <Typography variant="h3">Łatwo dostępna</Typography>
         </div>
       </div>
     </div>

@@ -71,13 +71,13 @@ export default function Register() {
           justify="space-around"
           alignItems="center"
         >
-          <h2>Sign Up</h2>
+          <h2>Zarejestruj się</h2>
           <form onSubmit={formik.handleSubmit}>
             <TextField
               fullWidth
               id="firstName"
               name="firstName"
-              label="First name"
+              label="Imię"
               value={formik.values.firstName}
               onChange={formik.handleChange}
               error={
@@ -91,7 +91,7 @@ export default function Register() {
               fullWidth
               id="lastName"
               name="lastName"
-              label="Last name"
+              label="Nazwisko"
               value={formik.values.lastName}
               onChange={formik.handleChange}
               error={formik.touched.lastName && Boolean(formik.errors.lastName)}
@@ -113,7 +113,7 @@ export default function Register() {
               fullWidth
               id="password"
               name="password"
-              label="Password"
+              label="Hasło"
               type="password"
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -128,12 +128,12 @@ export default function Register() {
               type="submit"
               className={classes.registerButton}
             >
-              Submit
+              Zarejestruj się
             </Button>
           </form>
           <Typography>
             {" "}
-            Already have an account?<Link href="/login"> Sign In</Link>
+            Już masz konto?<Link href="/login"> Zaloguj się</Link>
           </Typography>
         </Grid>
         {error ? (

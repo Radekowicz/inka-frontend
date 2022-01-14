@@ -13,6 +13,7 @@ import Patients from "./pages/Patients/Patients";
 import PatientPage from "./pages/PatientPage/PatientPage";
 import useStyles from "./App.styles";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
   const classes = useStyles();
@@ -48,6 +49,7 @@ export default function App() {
                   <SettingsPage />
                 </ProtectedRoute>
               </Route>
+              <Route component={NotFound} />
             </Switch>
           </main>
         </div>

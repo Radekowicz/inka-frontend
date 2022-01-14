@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { DataGrid } from '@material-ui/data-grid';
-import { Paper, IconButton } from '@material-ui/core';
-import DetailsIcon from '@material-ui/icons/Details';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { getPatients } from '../../requestsService/patients';
-import moment from 'moment';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import useStyles from './Patients.styles';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { DataGrid } from "@material-ui/data-grid";
+import { Paper, IconButton } from "@material-ui/core";
+import DetailsIcon from "@material-ui/icons/Details";
+import { getPatients } from "../../requestsService/patients";
+import moment from "moment";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import useStyles from "./Patients.styles";
 
 const columns = [
   {
-    field: 'detailsField',
-    headerName: 'Details',
+    field: "detailsField",
+    headerName: "Szczegóły",
     sortable: false,
-    width: 110,
+    width: 120,
     disableClickEventBubbling: true,
     renderCell: (params) => (
       <IconButton onClick={() => {}}>
@@ -22,33 +21,21 @@ const columns = [
       </IconButton>
     ),
   },
-  { field: 'firstName', headerName: 'First name', width: 150 },
-  { field: 'lastName', headerName: 'Last name', width: 150 },
+  { field: "firstName", headerName: "Imię", width: 150 },
+  { field: "lastName", headerName: "Nazwisko", width: 150 },
   {
-    field: 'birthdate',
-    headerName: 'Birthdate',
+    field: "birthdate",
+    headerName: "Data urodzenia",
+    width: 180,
+  },
+  { field: "firstAppointment", headerName: "Pierwsza wizyta", width: 200 },
+  { field: "email", headerName: "Email", width: 150 },
+  {
+    field: "phoneNumber",
+    headerName: "Telefon",
     width: 150,
   },
-  { field: 'firstAppointment', headerName: 'First Appointment', width: 200 },
-  { field: 'email', headerName: 'Email', width: 150 },
-  {
-    field: 'phoneNumber',
-    headerName: 'Phone Number',
-    width: 150,
-  },
-  { field: 'address', headerName: 'Address', width: 150 },
-  {
-    field: 'settingsField',
-    headerName: 'Settings',
-    sortable: false,
-    width: 110,
-    disableClickEventBubbling: true,
-    renderCell: (params) => (
-      <IconButton onClick={() => console.log(params)}>
-        <SettingsIcon />
-      </IconButton>
-    ),
-  },
+  { field: "address", headerName: "Adres", width: 150 },
 ];
 
 export default function Patients() {
@@ -64,8 +51,8 @@ export default function Patients() {
       id: patient._id,
       firstName: patient.firstName,
       lastName: patient.lastName,
-      birthdate: moment(patient.birthdate).format('DD.MM.YYYY'),
-      firstAppointment: moment(patient.firstAppointment).format('DD.MM.YYYY'),
+      birthdate: moment(patient.birthdate).format("DD.MM.YYYY"),
+      firstAppointment: moment(patient.firstAppointment).format("DD.MM.YYYY"),
       email: patient.email,
       phoneNumber: patient.phoneNumber,
       address: patient.address,
@@ -85,10 +72,10 @@ export default function Patients() {
   };
 
   const onCellClick = (params) => {
-    if (params.field === '__check__') return;
-    if (params.field === 'settingsField') {
+    if (params.field === "__check__") return;
+    if (params.field === "settingsField") {
     }
-    if (params.field === 'detailsField') {
+    if (params.field === "detailsField") {
       history.push(`/patients/${params.row.id}`);
     }
   };
