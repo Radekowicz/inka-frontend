@@ -1,8 +1,7 @@
 .edit-container {
   align-items: center;
-  margin: auto;
+  margin: 10px;
   width: 430px;
-  margin-top: 20px;
   box-shadow: 2px 2px 2px 2px lightgray;
   border-radius: 5px;
   padding: 20px;

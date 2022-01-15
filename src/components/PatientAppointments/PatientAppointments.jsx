@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Table,
@@ -6,14 +6,14 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from '@material-ui/core';
-import { getAppointmentsByPatientId } from '../../requestsService/appointments';
-import moment from 'moment';
+} from "@material-ui/core";
+import { getAppointmentsByPatientId } from "../../requestsService/appointments";
+import moment from "moment";
 
 const columns = [
-  { field: 'appointmentType', title: 'Rodzaj wizyty	' },
-  { field: 'date&time', title: 'Data i godzina wizyty' },
-  { field: 'appointmentStatus', title: 'Status wizyty' },
+  { field: "appointmentType", title: "Rodzaj wizyty	" },
+  { field: "date&time", title: "Data i godzina wizyty" },
+  { field: "appointmentStatus", title: "Status wizyty" },
 ];
 
 export default function PatientAppointments({ patientId }) {
@@ -25,6 +25,7 @@ export default function PatientAppointments({ patientId }) {
 
   const loadAppointments = async (patientId) => {
     const data = await getAppointmentsByPatientId(patientId);
+    console.log(data);
     const appointments = data.map((appointment) => ({
       id: appointment._id,
       type: appointment.type.label,
@@ -38,10 +39,10 @@ export default function PatientAppointments({ patientId }) {
   };
 
   const formatDate = (date) => {
-    return `${moment(date).format(' DD-MM-YYYY').toLocaleString()} ${moment(
+    return `${moment(date).format(" DD-MM-YYYY").toLocaleString()} ${moment(
       date
     )
-      .format(' hh:mm')
+      .format(" hh:mm")
       .toLocaleString()}`;
   };
 
@@ -65,8 +66,8 @@ export default function PatientAppointments({ patientId }) {
               <TableCell>
                 <span
                   style={{
-                    backgroundColor: 'lightgreen',
-                    color: 'white',
+                    backgroundColor: "lightgreen",
+                    color: "white",
                     padding: 7,
                     borderRadius: 10,
                   }}

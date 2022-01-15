@@ -32,6 +32,7 @@ export default function Login() {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
+        officeId: data.officeId,
       };
 
       saveUserToLocalStorage(user);

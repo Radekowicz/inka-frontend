@@ -4,6 +4,7 @@ const saveUserToLocalStorage = (state) => {
     firstName: state.firstName,
     lastName: state.lastName,
     email: state.email,
+    officeId: state.officeId,
   };
   localStorage.setItem("user", JSON.stringify(user));
 };

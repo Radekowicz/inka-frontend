@@ -39,7 +39,7 @@ export default function Navbar() {
             </div>
           ) : (
             <div className={classes.buttons}>
-              <Button color="inherit" to="/userData" component={Link}>
+              <Button color="inherit" to="/user" component={Link}>
                 Profil
               </Button>
               <Button

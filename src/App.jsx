@@ -14,6 +14,7 @@ import PatientPage from "./pages/PatientPage/PatientPage";
 import useStyles from "./App.styles";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import NotFound from "./pages/NotFound/NotFound";
+import UserPage from "./pages/UserPage/UserPage";
 
 export default function App() {
   const classes = useStyles();
@@ -47,6 +48,11 @@ export default function App() {
               <Route exact path="/settings">
                 <ProtectedRoute>
                   <SettingsPage />
+                </ProtectedRoute>
+              </Route>
+              <Route exact path="/user">
+                <ProtectedRoute>
+                  <UserPage />
                 </ProtectedRoute>
               </Route>
               <Route component={NotFound} />
