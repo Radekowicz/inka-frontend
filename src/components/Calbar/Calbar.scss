@@ -1,10 +1,10 @@
 $current-time-color: orange;
 
-@import 'react-big-calendar/lib/sass/styles';
-@import 'react-big-calendar/lib/addons/dragAndDrop/styles'; // if using DnD
-@import 'react-big-calendar/lib/sass/toolbar';
-@import 'react-big-calendar/lib/sass/variables';
-@import 'react-big-calendar/lib/sass/event';
+@import "react-big-calendar/lib/sass/styles";
+@import "react-big-calendar/lib/addons/dragAndDrop/styles"; // if using DnD
+@import "react-big-calendar/lib/sass/toolbar";
+@import "react-big-calendar/lib/sass/variables";
+@import "react-big-calendar/lib/sass/event";
 
 .rbc-event-label {
   font-size: 1rem;
@@ -98,15 +98,17 @@ $current-time-color: orange;
 }
 
 .popup {
-  padding: 40px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input {
-  margin-bottom: 20px;
+  margin: 10px;
 }
 
 .buttonn {
-  margin-left: 336px;
   margin-top: 20px;
 }
 

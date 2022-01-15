@@ -4,16 +4,23 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
 import CustomEvent from "./CustomEvent/CustomEvent";
-import Select from "react-select";
 import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import { Button } from "../Button/Button";
+// import "reactjs-popup/dist/index.css";
+import {
+  Button,
+  TextField,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@material-ui/core";
 import { UserContext } from "../../contexts/UserContext";
 import { getPatients } from "../../requestsService/patients";
 import { postAppointment } from "../../requestsService/appointments";
 import { getAppointmentsTypes } from "../../requestsService/appointmentsTypes";
 import CustomToolbar from "./CustomToolbar/CustomToolbar";
 import { messages, formats, customStyles } from "./calendarSettings";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const localizer = momentLocalizer(moment);
 
@@ -55,14 +62,6 @@ export default function Calbar(props) {
 
   const loadAppointments = async () => {
     props.loadAppointments();
-  };
-
-  const handleChangeSelect = (selectedOption) => {
-    setSelectedOption(selectedOption);
-  };
-
-  const handleValueChange = (newValue) => {
-    setPatientValue(newValue);
   };
 
   const handleSelect = async (title, patient) => {
@@ -131,44 +130,48 @@ export default function Calbar(props) {
       />
 
       <div>
-        <Popup
-          modal
-          open={popupOpen}
-          onClose={() => setPopupOpen(false)}
-          contentStyle={{ width: "488px" }}
-        >
+        <Dialog open={popupOpen} onClose={() => setPopupOpen(false)}>
           <div className="popup">
             <div className="input">
-              <label className="name-input-title">Imię pacjenta</label>
-              <Select
-                isClearable
-                onChange={handleValueChange}
+              <Autocomplete
                 options={patientOptions}
-                styles={customStyles}
+                getOptionLabel={(option) => option.label}
+                style={{ width: 300 }}
+                onChange={(event, newValue) => setPatientValue(newValue)}
+                renderInput={(params) => (
+                  <TextField {...params} label="Pacjent" variant="outlined" />
+                )}
               />
             </div>
-            <div>
-              <label>Rodzaj wizyty</label>
-              <Select
-                value={selectedOption}
-                onChange={handleChangeSelect}
-                options={props.options}
-                styles={customStyles}
+            <div className="input">
+              <Autocomplete
+                options={appointmentsTypes}
+                getOptionLabel={(option) => option.label}
+                style={{ width: 300 }}
+                onChange={(event, newValue) => setSelectedOption(newValue)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Rodzaj wizyty"
+                    variant="outlined"
+                  />
+                )}
               />
             </div>
             <div className="buttonn">
               <Button
-                className="button"
+                variant="contained"
+                color="primary"
                 onClick={() => {
                   setPopupOpen(false);
                   handleSelect(selectedOption, patientValue);
                 }}
               >
-                Ok
+                Dodaj wizytę
               </Button>
             </div>
           </div>
-        </Popup>
+        </Dialog>
       </div>
     </div>
   );
