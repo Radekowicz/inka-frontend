@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CirclePicker } from 'react-color';
+import React, { useState } from "react";
+import { CirclePicker } from "react-color";
 import {
   Button,
   TextField,
@@ -7,19 +7,21 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import { postAppointmentType } from '../../requestsService/appointmentsTypes';
+import { postAppointmentType } from "../../requestsService/appointmentsTypes";
 
 export default function AddPopup(props) {
-  const [pickedColor, setPickedColor] = useState('');
-  const [typedTypeName, setTypedTypeName] = useState('');
-  const [typedTypePrice, setTypedTypePrice] = useState('');
+  const [pickedColor, setPickedColor] = useState("");
+  const [typedTypeName, setTypedTypeName] = useState("");
+  const [typedTypePrice, setTypedTypePrice] = useState("");
+  const [typedTypeDuration, setTypedTypeDuration] = useState(60);
 
   const handlePopupClose = () => {
-    setTypedTypeName('');
-    setTypedTypePrice('');
-    setPickedColor('');
+    setTypedTypeName("");
+    setTypedTypePrice("");
+    setPickedColor("");
+    setTypedTypeDuration(60);
     props.onClose();
   };
 
@@ -30,12 +32,13 @@ export default function AddPopup(props) {
         doctor: props.user,
         color: pickedColor,
         price: typedTypePrice,
+        duration: typedTypeDuration,
       };
       await postAppointmentType(newType);
       //handlePopupClose()
       props.loadAppointmentsTypes();
     } else {
-      window.alert('Nie podano wszystkich danych');
+      window.alert("Nie podano wszystkich danych");
     }
     handlePopupClose();
   };
@@ -65,6 +68,19 @@ export default function AddPopup(props) {
               // label="Cena"
               value={typedTypePrice}
               onChange={({ target: { value } }) => setTypedTypePrice(value)}
+            />
+          </div>
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">
+              Czas trwania (minuty)
+            </Typography>
+            <TextField
+              type="number"
+              InputProps={{ inputProps: { min: 1 } }}
+              value={typedTypeDuration}
+              onChange={({ target: { value } }) => {
+                setTypedTypeDuration(value);
+              }}
             />
           </div>
           <div className="create-type-popup-element">

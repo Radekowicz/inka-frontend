@@ -28,6 +28,7 @@ export default function EditAppointmentTypes() {
       doctor: type.doctor,
       color: type.color,
       price: type.price,
+      duration: type.duration,
     }));
     setAppointmentsTypes(types);
   };
@@ -64,6 +65,7 @@ export default function EditAppointmentTypes() {
               <td className="type-table-cell">
                 <FaSquare style={{ color: type.color }} />
               </td>
+              <td className="type-table-cell">{type.duration} min</td>
               <td className="type-table-cell">{type.price} zł</td>
               {editOpen ? (
                 <td className="type-table-cell delete-edit-type">

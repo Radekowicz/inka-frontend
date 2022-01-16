@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CirclePicker } from 'react-color';
+import React, { useState, useEffect } from "react";
+import { CirclePicker } from "react-color";
 import {
   Button,
   TextField,
@@ -7,24 +7,32 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-} from '@material-ui/core';
-import { patchAppointmentType } from '../../requestsService/appointmentsTypes';
+} from "@material-ui/core";
+import { patchAppointmentType } from "../../requestsService/appointmentsTypes";
 
 function EditPopup(props) {
-  const [pickedColor, setPickedColor] = useState('');
-  const [typedTypeName, setTypedTypeName] = useState('');
-  const [typedTypePrice, setTypedTypePrice] = useState('');
+  const [pickedColor, setPickedColor] = useState("");
+  const [typedTypeName, setTypedTypeName] = useState("");
+  const [typedTypePrice, setTypedTypePrice] = useState("");
+  const [typedTypeDuration, setTypedTypeDuration] = useState(60);
 
   useEffect(() => {
     setTypedTypeName(props.type?.label);
     setTypedTypePrice(props.type?.price);
     setPickedColor(props.type?.color);
-  }, [props.type?.label, props.type?.price, props.type?.color]);
+    setPickedColor(props.type?.duration);
+  }, [
+    props.type?.label,
+    props.type?.price,
+    props.type?.color,
+    props.type?.duration,
+  ]);
 
   const handlePopupClose = () => {
     setTypedTypeName(props.type?.label);
     setTypedTypePrice(props.type?.price);
     setPickedColor(props.type?.color);
+    setTypedTypeDuration(props.type?.duration);
     props.onClose();
   };
 
@@ -34,6 +42,7 @@ function EditPopup(props) {
       doctor: props.type.doctor,
       color: pickedColor,
       price: typedTypePrice,
+      duration: typedTypeDuration,
     };
     await patchAppointmentType(props.type.id, updatedType);
 
@@ -64,7 +73,19 @@ function EditPopup(props) {
               onChange={({ target: { value } }) => setTypedTypePrice(value)}
             />
           </div>
-
+          <div className="create-type-popup-element">
+            <Typography className="create-type-label">
+              Czas trwania (minuty)
+            </Typography>
+            <TextField
+              type="number"
+              InputProps={{ inputProps: { min: 1 } }}
+              value={typedTypeDuration}
+              onChange={({ target: { value } }) => {
+                setTypedTypeDuration(value);
+              }}
+            />
+          </div>
           <div className="create-type-popup-element">
             <Typography className="create-type-label">Kolor</Typography>
             <CirclePicker

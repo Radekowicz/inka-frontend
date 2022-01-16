@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Appointments from "./pages/Appointments/Appointments";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";

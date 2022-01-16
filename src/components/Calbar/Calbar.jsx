@@ -4,8 +4,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/pl";
 import CustomEvent from "./CustomEvent/CustomEvent";
-import Popup from "reactjs-popup";
-// import "reactjs-popup/dist/index.css";
+
 import {
   Button,
   TextField,
@@ -131,6 +130,7 @@ export default function Calbar(props) {
 
       <div>
         <Dialog open={popupOpen} onClose={() => setPopupOpen(false)}>
+          {/* <DialogTitle>Dodaj wizytę</DialogTitle> */}
           <div className="popup">
             <div className="input">
               <Autocomplete
