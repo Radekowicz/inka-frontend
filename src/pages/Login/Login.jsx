@@ -91,7 +91,7 @@ export default function Login() {
               setIsError(false);
             }}
           >
-            Wrong email or password Please try again
+            Nieprawidłowy email lub hasło Spróbuj ponownie
           </Alert>
         ) : null}
       </Grid>

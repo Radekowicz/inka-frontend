@@ -1,16 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   registerPaper: {
     padding: 40,
     minHeight: 500,
     width: 380,
-    margin: '30px auto',
+    margin: "30px auto",
   },
   registerTextField: {
-    margin: '15px auto',
+    margin: "15px auto",
   },
-  registerButton: { margin: '30px auto' },
+  registerButton: { margin: "30px auto" },
+  errorMessage: { marginTop: 20, width: "100%" },
 }));
 
 export default useStyles;

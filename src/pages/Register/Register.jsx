@@ -15,20 +15,18 @@ import useStyles from "./Register.styles";
 import { registerUser } from "../../requestsService/user";
 
 const validationSchema = yup.object({
-  firstName: yup
-    .string("Enter your first name")
-    .required("First name is required"),
+  firstName: yup.string("Wprowadź swoje imię").required("Imię jest wymagane"),
   lastName: yup
-    .string("Enter your last name")
-    .required("Last name is required"),
+    .string("Wprowadź swoje nazwisko")
+    .required("Nazwisko jest wymagane"),
   email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
+    .string("Wprowadź swój email")
+    .email("Wprowadź poprawny email")
+    .required("Email jest wymagany"),
   password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("Wprowadź swoje hasło")
+    .min(8, "Hasło powinno mieć minimum 8 znaków")
+    .required("Hasło jest wymagane"),
 });
 
 export default function Register() {
@@ -57,7 +55,7 @@ export default function Register() {
       if (response?.status === 200) {
         history.push("/login");
       } else {
-        setError("This email address is already being used");
+        setError("Ten email jest zajęty");
       }
     },
   });
