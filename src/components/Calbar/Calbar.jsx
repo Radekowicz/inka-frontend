@@ -5,20 +5,13 @@ import moment from "moment";
 import "moment/locale/pl";
 import CustomEvent from "./CustomEvent/CustomEvent";
 
-import {
-  Button,
-  TextField,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-} from "@material-ui/core";
+import { Button, TextField, Dialog } from "@material-ui/core";
 import { UserContext } from "../../contexts/UserContext";
 import { getPatients } from "../../requestsService/patients";
 import { postAppointment } from "../../requestsService/appointments";
 import { getAppointmentsTypes } from "../../requestsService/appointmentsTypes";
 import CustomToolbar from "./CustomToolbar/CustomToolbar";
-import { messages, formats, customStyles } from "./calendarSettings";
+import { messages, formats } from "./calendarSettings";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const localizer = momentLocalizer(moment);
@@ -110,7 +103,7 @@ export default function Calbar(props) {
       <Calendar
         localizer={localizer}
         defaultDate={new Date()}
-        // scrollToTime={scrollToTime}
+        scrollToTime={scrollToTime}
         step={15}
         defaultView="day"
         events={props.events}

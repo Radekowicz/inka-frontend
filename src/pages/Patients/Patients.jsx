@@ -29,13 +29,12 @@ const columns = [
     width: 180,
   },
   { field: "firstAppointment", headerName: "Pierwsza wizyta", width: 200 },
-  { field: "email", headerName: "Email", width: 150 },
+  { field: "email", headerName: "Email", width: 200 },
   {
     field: "phoneNumber",
     headerName: "Telefon",
     width: 150,
   },
-  { field: "address", headerName: "Adres", width: 150 },
 ];
 
 export default function Patients() {
@@ -55,7 +54,6 @@ export default function Patients() {
       firstAppointment: moment(patient.firstAppointment).format("DD.MM.YYYY"),
       email: patient.email,
       phoneNumber: patient.phoneNumber,
-      address: patient.address,
     }));
     setRows(newPatients ? newPatients : []);
   };

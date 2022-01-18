@@ -1,8 +1,8 @@
-import React from 'react';
-import './PatientInfo.css';
-import moment from 'moment';
-import 'moment/locale/pl';
-import Paper from '@material-ui/core/Paper';
+import React from "react";
+import "./PatientInfo.css";
+import moment from "moment";
+import "moment/locale/pl";
+import Paper from "@material-ui/core/Paper";
 
 const Detail = (props) => {
   return (
@@ -29,12 +29,12 @@ export default function PatientInfo(props) {
           <div className="patient-info_name">
             <b>
               {props.patient.firstName} {props.patient.lastName}
-            </b>{' '}
+            </b>{" "}
             ({calcAge(props.patient.birthdate)})
           </div>
           <div>
-            Rozpoczęcie lecznia:{' '}
-            {moment(props.patient.firstAppointment).format('MM/YYYY')}
+            Rozpoczęcie lecznia:{" "}
+            {moment(props.patient.firstAppointment).format("MM/YYYY")}
           </div>
         </div>
       </div>
@@ -42,7 +42,6 @@ export default function PatientInfo(props) {
       <div className="more-info">
         <Detail title="Email" info={props.patient.email} />
         <Detail title="Telefon" info={props.patient.phoneNumber} />
-        <Detail title="Adres" info={props.patient.address} />
       </div>
     </Paper>
   );

@@ -62,7 +62,6 @@ export default function PatientDetails({ patientId }) {
         <div className="patient-page-more-info">
           <Detail title="Email" info={patient?.email} />
           <Detail title="Telefon" info={patient?.phoneNumber} />
-          <Detail title="Adres" info={patient?.address} />
         </div>
       </Paper>
     </div>
